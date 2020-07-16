@@ -40,9 +40,10 @@
             this.radioNoLinksJustText = new System.Windows.Forms.RadioButton();
             this.btnCheckIPs = new System.Windows.Forms.Button();
             this.btnIpCheckStat = new System.Windows.Forms.Button();
-            this.btnClearIpForm = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.boxIPAnswer = new RichTextBoxLinks.RichTextBoxEx();
+            this.button4 = new System.Windows.Forms.Button();
+            this.btnClearIpForm = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -73,7 +74,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnClearIpForm);
+            this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.btnIpCheckStat);
             this.groupBox2.Controls.Add(this.btnCheckIPs);
             this.groupBox2.Controls.Add(this.groupBox4);
@@ -81,7 +82,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 161);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(744, 132);
+            this.groupBox2.Size = new System.Drawing.Size(744, 149);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры проверки";
@@ -119,6 +120,7 @@
             this.radioNicRu.TabIndex = 7;
             this.radioNicRu.Text = "ipgeobase.ru";
             this.radioNicRu.UseVisualStyleBackColor = true;
+            this.radioNicRu.CheckedChanged += new System.EventHandler(this.radioNicRu_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -143,6 +145,7 @@
             this.radioLinksNicRu.TabStop = true;
             this.radioLinksNicRu.Text = "Ссылками на 2whois.ru";
             this.radioLinksNicRu.UseVisualStyleBackColor = true;
+            this.radioLinksNicRu.CheckedChanged += new System.EventHandler(this.radioLinksNicRu_CheckedChanged);
             // 
             // radioLinksApehaLogs
             // 
@@ -153,6 +156,7 @@
             this.radioLinksApehaLogs.TabIndex = 12;
             this.radioLinksApehaLogs.Text = "Ссылками на логи Арены";
             this.radioLinksApehaLogs.UseVisualStyleBackColor = true;
+            this.radioLinksApehaLogs.CheckedChanged += new System.EventHandler(this.radioLinksApehaLogs_CheckedChanged);
             // 
             // radioNoLinksJustText
             // 
@@ -163,24 +167,27 @@
             this.radioNoLinksJustText.TabIndex = 13;
             this.radioNoLinksJustText.Text = "Текстом без ссылок";
             this.radioNoLinksJustText.UseVisualStyleBackColor = true;
+            this.radioNoLinksJustText.CheckedChanged += new System.EventHandler(this.radioNoLinksJustText_CheckedChanged);
             // 
             // btnCheckIPs
             // 
             this.btnCheckIPs.BackColor = System.Drawing.Color.Teal;
             this.btnCheckIPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnCheckIPs.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnCheckIPs.ForeColor = System.Drawing.Color.Cyan;
             this.btnCheckIPs.Location = new System.Drawing.Point(3, 84);
             this.btnCheckIPs.Name = "btnCheckIPs";
-            this.btnCheckIPs.Size = new System.Drawing.Size(451, 42);
+            this.btnCheckIPs.Size = new System.Drawing.Size(451, 59);
             this.btnCheckIPs.TabIndex = 17;
             this.btnCheckIPs.Text = "ПРОВЕРИТЬ IP";
             this.btnCheckIPs.UseVisualStyleBackColor = false;
+            this.btnCheckIPs.Click += new System.EventHandler(this.btnCheckIPs_Click);
             // 
             // btnIpCheckStat
             // 
             this.btnIpCheckStat.BackColor = System.Drawing.Color.SkyBlue;
             this.btnIpCheckStat.Enabled = false;
             this.btnIpCheckStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnIpCheckStat.ForeColor = System.Drawing.Color.GhostWhite;
             this.btnIpCheckStat.Location = new System.Drawing.Point(460, 18);
             this.btnIpCheckStat.Name = "btnIpCheckStat";
             this.btnIpCheckStat.Size = new System.Drawing.Size(278, 60);
@@ -188,25 +195,13 @@
             this.btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
             this.btnIpCheckStat.UseVisualStyleBackColor = false;
             // 
-            // btnClearIpForm
-            // 
-            this.btnClearIpForm.BackColor = System.Drawing.Color.Thistle;
-            this.btnClearIpForm.Enabled = false;
-            this.btnClearIpForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnClearIpForm.Location = new System.Drawing.Point(460, 84);
-            this.btnClearIpForm.Name = "btnClearIpForm";
-            this.btnClearIpForm.Size = new System.Drawing.Size(278, 42);
-            this.btnClearIpForm.TabIndex = 20;
-            this.btnClearIpForm.Text = "ОЧИСТИТЬ";
-            this.btnClearIpForm.UseVisualStyleBackColor = false;
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.boxIPAnswer);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox5.Location = new System.Drawing.Point(0, 293);
+            this.groupBox5.Location = new System.Drawing.Point(0, 310);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(744, 145);
+            this.groupBox5.Size = new System.Drawing.Size(744, 128);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Результат проверки";
@@ -217,15 +212,43 @@
             this.boxIPAnswer.Enabled = false;
             this.boxIPAnswer.Location = new System.Drawing.Point(3, 16);
             this.boxIPAnswer.Name = "boxIPAnswer";
-            this.boxIPAnswer.Size = new System.Drawing.Size(738, 126);
+            this.boxIPAnswer.Size = new System.Drawing.Size(738, 109);
             this.boxIPAnswer.TabIndex = 4;
             this.boxIPAnswer.Text = "";
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Beige;
+            this.button4.Enabled = false;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.ForeColor = System.Drawing.Color.Coral;
+            this.button4.Location = new System.Drawing.Point(460, 84);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(278, 59);
+            this.button4.TabIndex = 21;
+            this.button4.Text = "Скопировать в буфер обмена";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // btnClearIpForm
+            // 
+            this.btnClearIpForm.BackColor = System.Drawing.Color.Thistle;
+            this.btnClearIpForm.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnClearIpForm.Enabled = false;
+            this.btnClearIpForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnClearIpForm.Location = new System.Drawing.Point(0, 438);
+            this.btnClearIpForm.Name = "btnClearIpForm";
+            this.btnClearIpForm.Size = new System.Drawing.Size(744, 42);
+            this.btnClearIpForm.TabIndex = 21;
+            this.btnClearIpForm.Text = "ОЧИСТИТЬ";
+            this.btnClearIpForm.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 450);
+            this.ClientSize = new System.Drawing.Size(744, 480);
+            this.Controls.Add(this.btnClearIpForm);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -247,7 +270,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox boxIPInput;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnClearIpForm;
         private System.Windows.Forms.Button btnIpCheckStat;
         private System.Windows.Forms.Button btnCheckIPs;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -259,6 +281,8 @@
         private System.Windows.Forms.RadioButton radioNicRu;
         private System.Windows.Forms.GroupBox groupBox5;
         private RichTextBoxLinks.RichTextBoxEx boxIPAnswer;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnClearIpForm;
     }
 }
 
