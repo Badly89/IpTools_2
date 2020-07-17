@@ -23,26 +23,44 @@ namespace IpTools_2
 
         private void radioWhoisRu_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioWhoisRu.Checked == true)
-            {
-                radioNicRu.Checked = false;
-            }
-            else
-            {
-                radioNicRu.Checked = true;
-            }
+            //if (radioWhoisRu.Checked == true)
+            //{
+            //    radioNicRu.Checked = false;
+            //    rbipcom.Checked = false;
+            //}
+            //else
+            //{
+            //    radioNicRu.Checked = true;
+            //    rbipcom.Checked = true;
+            //}
         }
 
         private void radioNicRu_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioNicRu.Checked == true)
-            {
-                radioWhoisRu.Checked = false;
-            }
-            else
-            {
-                radioWhoisRu.Checked = true;
-            }
+            //if (radioNicRu.Checked == true)
+            //{
+            //    radioWhoisRu.Checked = false;
+            //    rbipcom.Checked = false;
+            //}
+            //else
+            //{
+            //    radioWhoisRu.Checked = true;
+            //    rbipcom.Checked = true;
+            //}
+        }
+
+        private void rbipcom_CheckedChanged(object sender, EventArgs e)
+        {
+            //if (rbipcom.Checked == true)
+            //{
+            //    radioWhoisRu.Checked = false;
+            //    radioNicRu.Checked = false;
+            //}
+            //else
+            //{
+            //    radioWhoisRu.Checked = true;
+            //    radioWhoisRu.Checked = true;
+            //}
         }
 
         private void IpLinkRadioChangedToggle()
@@ -333,8 +351,51 @@ namespace IpTools_2
 
                 //return null;
             }
-       
-    
+
+            //Checking using 1whois.ru
+            if (rbipcom.Checked == true)
+            {
+                string region = "";
+                string okrug = "";
+                string country = "";
+                string city = "";
+                string asn_organization = "";
+                string desc = "";
+                string org = "";
+
+
+                WebClient client = new WebClient();
+                string jsonadress = client.DownloadString("http://ip-api.com/json/" + ip);
+                var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
+                if (jPerson.region != null) { region = jPerson.region; }
+                if (jPerson.regionName != null) { okrug = jPerson.regionName; }
+                if (jPerson.country != null) { country = jPerson.country; }
+                if (jPerson.city != null) { city = jPerson.city; }
+                if (jPerson.isp != null) { asn_organization = jPerson.isp; }
+              //  if (jPerson.as != null) { desc = jPerson.isp.name; }
+                if (jPerson.org != null) { org = jPerson.org; }
+
+                var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim();
+
+                IpClass ipToSave = new IpClass();
+                ipToSave.Ip = ip;
+                ipToSave.City = temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                savedIPList.Add(ipToSave);
+                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                {
+                    boxIPAnswer.SelectionColor = Color.Red;
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() +  ", " + org.Trim() + "\n");
+                }
+                else
+                {
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() +  ", " + org.Trim() + "\n");
+                }
+                previousIpCountry = country.Trim();
+                return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
+
+                //return null;
+            }
+
             //checking using nic.ru/whois
             if (radioNicRu.Checked == true)
             {
@@ -424,5 +485,7 @@ namespace IpTools_2
                 dialog.Dispose();
             }
         }
+
+
     }
 }
