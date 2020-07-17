@@ -99,7 +99,7 @@ namespace IpTools_2
         {
             if (boxIPInput.Text != String.Empty)
             {
-                btnIpCheckStat.Text = "Статистика проверки";
+                btnIpCheckStat.Text = "СТАТИСКТИКА ПРОВЕРКИ";
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
@@ -114,7 +114,7 @@ namespace IpTools_2
                 button4.Enabled = false;
                 boxIPAnswer.Text = "";
                 boxIPAnswer.Enabled = false;
-                string ipAnswer = "";
+                //string ipAnswer = "";
                 string ipList = boxIPInput.Text.TrimStart(' ');
                 string[] ipLines = ipList.Split('\n');
                 int numberIpsToCheck = getIpsNumber(ipLines);
@@ -175,11 +175,11 @@ namespace IpTools_2
                 radioNoLinksJustText.Enabled = true;
                 radioWhoisRu.Enabled = true;
                 radioNicRu.Enabled = true;
-                btnIpCheckStat.Text = "Статистика проверки: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
+                btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
                 btnIpCheckStat.Enabled = true;
                 btnClearIpForm.Enabled = true;
             }
-             else
+            else
             {
                 MessageBox.Show("Не чего проверять!");
 
@@ -260,9 +260,8 @@ namespace IpTools_2
                 {
                     if (radioWhoisRu.Checked)
                     {
-                        string[] savedDescr = ipFromSavedList.City.Split('-');
-                        string[] savedDescrMore = savedDescr[1].Split(',');
-                        if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescrMore[0].Trim()))
+                        string[] savedDescr = ipFromSavedList.City.Split(',');
+                        if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
                         {
                             boxIPAnswer.SelectionColor = Color.Red;
                             boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
@@ -271,7 +270,7 @@ namespace IpTools_2
                         {
                             boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
                         }
-                        previousIpCountry = savedDescrMore[0].Trim();
+                        previousIpCountry = savedDescr[0].Trim();
                     }
                     else
                     {
@@ -294,58 +293,48 @@ namespace IpTools_2
             //Checking using 1whois.ru
             if (radioWhoisRu.Checked == true)
             {
-                string jsonadress = "https://ipcalc.co/ipdata/" + ip;
-                
-                using (WebClient webClient = new WebClient())
-                {
-                    string jsonanswer = webClient.DownloadString(jsonadress);
-
-                    var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonanswer);
-                    //var ip = jPerson.ip;
-                    //var continent = jPerson.continent.name;
-                    //var region_name_1 = continent.region_name_1;
-                    //var region_name_2 = continent.region_name_2;
-                    //var country = jPerson.country.name;
-                    //var city = jPerson.city.name;
-                    //var asn_organization = jPerson.isp.asn_organization;
-                    //var organization = jPerson.isp.organization;
-                }
-                
-                //foreach (string str in jsonanswer)
-                //{
-                //    deserialiseJSON(str);
-                //}
-                
-
-                //foreach(string str in results)
-                //{
+                string region = "";
+                string okrug = "";
+                string country = "";
+                string city = "";
+                string asn_organization = "";
+                string desc = "";
+                string org = "";
 
 
-                //}
-                //foreach (string str in htmlLines)
-                //{
-                //if (str.Contains("<br />Location:"))
-                //{
+                WebClient client = new WebClient();
+                string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip);
+                var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
+                if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
+                if (jPerson.continent.region_name_1 != null) { okrug = jPerson.continent.region_name_1; }
+                if (jPerson.country.name != null) { country = jPerson.country.name; }
+                if (jPerson.city.name != null) { city = jPerson.city.name; }
+                if (jPerson.isp.asn_organization != null) { asn_organization = jPerson.isp.asn_organization; }
+                if (jPerson.isp.name != null) { desc = jPerson.isp.name; }
+                if (jPerson.isp.organization != null) { org = jPerson.isp.organization; }
 
+                var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
+              
+                    IpClass ipToSave = new IpClass();
+                    ipToSave.Ip = ip;
+                ipToSave.City = temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                    savedIPList.Add(ipToSave);
+                    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                    {
+                        boxIPAnswer.SelectionColor = Color.Red;
+                        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+                    }
+                    else
+                    {
+                        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+                    }
+                    previousIpCountry = country.Trim();
+                return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
 
-                //IpClass ipToSave = new IpClass();
-                //ipToSave.Ip = ip;
-                //ipToSave.City = temp1;
-                //savedIPList.Add(ipToSave);
-                //if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(splitDescrMore[0].Trim()))
-                //{
-                //    boxIPAnswer.SelectionColor = Color.Red;
-                //    boxIPAnswer.AppendText(" - " + temp1 + "\n");
-                //}
-                //else
-                //{
-                //    boxIPAnswer.AppendText(" - " + temp1 + "\n");
-                //}
-                //previousIpCountry = splitDescrMore[0].Trim();
-                //return temp1;
-                //}
-                //}
+                //return null;
             }
+       
+    
             //checking using nic.ru/whois
             if (radioNicRu.Checked == true)
             {
@@ -406,38 +395,12 @@ namespace IpTools_2
             }
             return null;
 
-        }
-
-        #region перебор кода JSON
-        private void deserialiseJSON(string strJSON)
-        {
-            try
-            {
-                var jPerson = JsonConvert.DeserializeObject<dynamic>(strJSON);
-                //debugOutput(jPerson.ToString());
-
-                var ip = jPerson.ip;
-                var continent = jPerson.continent.name;
-                var region_name_1 = continent.region_name_1;
-                var region_name_2 = continent.region_name_2;
-                var country = jPerson.country.name;
-                var city = jPerson.city.name;
-                var asn_organization = jPerson.isp.asn_organization;
-                var organization = jPerson.isp.organization;
-            }
-            catch (Exception ex)
-            {
-                ex.Message.ToString();
-
-            }
-
-        }
-        #endregion
-
+        
+    }
 
         private void btnClearIpForm_Click_1(object sender, EventArgs e)
         {
-            btnIpCheckStat.Text = "Статистика проверки";
+            btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
             btnIpCheckStat.Enabled = false;
             btnClearIpForm.Enabled = false;
             boxIPAnswer.Text = "";
