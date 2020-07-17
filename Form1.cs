@@ -352,7 +352,7 @@ namespace IpTools_2
                 //return null;
             }
 
-            //Checking using 1whois.ru
+            //Checking using IP.API.COM
             if (rbipcom.Checked == true)
             {
                 string region = "";
