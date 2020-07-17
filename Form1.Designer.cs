@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.boxIPInput = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -194,6 +195,7 @@
             this.btnIpCheckStat.TabIndex = 19;
             this.btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
             this.btnIpCheckStat.UseVisualStyleBackColor = false;
+            this.btnIpCheckStat.Click += new System.EventHandler(this.btnIpCheckStat_Click);
             // 
             // groupBox5
             // 
@@ -215,6 +217,7 @@
             this.boxIPAnswer.Size = new System.Drawing.Size(738, 109);
             this.boxIPAnswer.TabIndex = 4;
             this.boxIPAnswer.Text = "";
+            this.boxIPAnswer.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.boxIPAnswer_LinkClicked);
             // 
             // button4
             // 
@@ -242,6 +245,7 @@
             this.btnClearIpForm.TabIndex = 21;
             this.btnClearIpForm.Text = "ОЧИСТИТЬ";
             this.btnClearIpForm.UseVisualStyleBackColor = false;
+            this.btnClearIpForm.Click += new System.EventHandler(this.btnClearIpForm_Click_1);
             // 
             // Form1
             // 
@@ -252,6 +256,7 @@
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "ОП IP Tools ";
             this.groupBox1.ResumeLayout(false);

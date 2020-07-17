@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IpTools
+namespace IpTools_2
 {
 	public class IpClass
 	{
