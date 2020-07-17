@@ -40,12 +40,12 @@
             this.radioLinksApehaLogs = new System.Windows.Forms.RadioButton();
             this.radioNoLinksJustText = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rbipcom = new System.Windows.Forms.RadioButton();
             this.radioWhoisRu = new System.Windows.Forms.RadioButton();
             this.radioNicRu = new System.Windows.Forms.RadioButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.boxIPAnswer = new RichTextBoxLinks.RichTextBoxEx();
             this.btnClearIpForm = new System.Windows.Forms.Button();
-            this.rbipcom = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -125,7 +125,7 @@
             this.btnCheckIPs.ForeColor = System.Drawing.Color.Cyan;
             this.btnCheckIPs.Location = new System.Drawing.Point(3, 84);
             this.btnCheckIPs.Name = "btnCheckIPs";
-            this.btnCheckIPs.Size = new System.Drawing.Size(451, 59);
+            this.btnCheckIPs.Size = new System.Drawing.Size(519, 59);
             this.btnCheckIPs.TabIndex = 17;
             this.btnCheckIPs.Text = "ПРОВЕРИТЬ IP";
             this.btnCheckIPs.UseVisualStyleBackColor = false;
@@ -190,6 +190,17 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Использовать сервис:";
             // 
+            // rbipcom
+            // 
+            this.rbipcom.AutoSize = true;
+            this.rbipcom.Location = new System.Drawing.Point(110, 19);
+            this.rbipcom.Name = "rbipcom";
+            this.rbipcom.Size = new System.Drawing.Size(82, 17);
+            this.rbipcom.TabIndex = 8;
+            this.rbipcom.Text = "IP.API.COM";
+            this.rbipcom.UseVisualStyleBackColor = true;
+            this.rbipcom.CheckedChanged += new System.EventHandler(this.rbipcom_CheckedChanged);
+            // 
             // radioWhoisRu
             // 
             this.radioWhoisRu.AutoSize = true;
@@ -198,6 +209,7 @@
             this.radioWhoisRu.Name = "radioWhoisRu";
             this.radioWhoisRu.Size = new System.Drawing.Size(80, 17);
             this.radioWhoisRu.TabIndex = 6;
+            this.radioWhoisRu.TabStop = true;
             this.radioWhoisRu.Text = "IPCALC.CO";
             this.radioWhoisRu.UseVisualStyleBackColor = true;
             this.radioWhoisRu.CheckedChanged += new System.EventHandler(this.radioWhoisRu_CheckedChanged);
@@ -252,17 +264,6 @@
             this.btnClearIpForm.Text = "ОЧИСТИТЬ";
             this.btnClearIpForm.UseVisualStyleBackColor = false;
             this.btnClearIpForm.Click += new System.EventHandler(this.btnClearIpForm_Click_1);
-            // 
-            // rbipcom
-            // 
-            this.rbipcom.AutoSize = true;
-            this.rbipcom.Location = new System.Drawing.Point(110, 19);
-            this.rbipcom.Name = "rbipcom";
-            this.rbipcom.Size = new System.Drawing.Size(82, 17);
-            this.rbipcom.TabIndex = 8;
-            this.rbipcom.Text = "IP.API.COM";
-            this.rbipcom.UseVisualStyleBackColor = true;
-            this.rbipcom.CheckedChanged += new System.EventHandler(this.rbipcom_CheckedChanged);
             // 
             // Form1
             // 

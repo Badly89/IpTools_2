@@ -121,6 +121,7 @@ namespace IpTools_2
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
+                rbipcom.Enabled = false;
                 radioNoLinksJustText.Enabled = false;
                 radioWhoisRu.Enabled = false;
                 radioNicRu.Enabled = false;
@@ -192,6 +193,7 @@ namespace IpTools_2
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
                 radioWhoisRu.Enabled = true;
+                rbipcom.Enabled = true;
                 radioNicRu.Enabled = true;
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
                 btnIpCheckStat.Enabled = true;
@@ -360,7 +362,7 @@ namespace IpTools_2
                 string country = "";
                 string city = "";
                 string asn_organization = "";
-                string desc = "";
+               // string desc = "";
                 string org = "";
 
 

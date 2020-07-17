@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.richTxtBoxRes = new RichTextBoxLinks.RichTextBoxEx();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.srvUtes = new System.Windows.Forms.RadioButton();
@@ -41,6 +40,7 @@
             this.btnOpenIpPartly = new System.Windows.Forms.Button();
             this.chkBoxEveryHalfSecond = new System.Windows.Forms.CheckBox();
             this.btnOpenLogs = new System.Windows.Forms.Button();
+            this.richTxtBoxRes = new RichTextBoxLinks.RichTextBoxEx();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -57,17 +57,6 @@
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
-            // 
-            // richTxtBoxRes
-            // 
-            this.richTxtBoxRes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTxtBoxRes.Location = new System.Drawing.Point(6, 19);
-            this.richTxtBoxRes.Name = "richTxtBoxRes";
-            this.richTxtBoxRes.Size = new System.Drawing.Size(782, 257);
-            this.richTxtBoxRes.TabIndex = 15;
-            this.richTxtBoxRes.Text = "";
             // 
             // groupBox1
             // 
@@ -156,6 +145,7 @@
             this.btnOpenIpPartly100.TabIndex = 25;
             this.btnOpenIpPartly100.Text = "Открывать логи по 100 штук";
             this.btnOpenIpPartly100.UseVisualStyleBackColor = true;
+            this.btnOpenIpPartly100.Click += new System.EventHandler(this.btnOpenIpPartly100_Click);
             // 
             // btnOpenIpPartly150
             // 
@@ -166,6 +156,7 @@
             this.btnOpenIpPartly150.TabIndex = 26;
             this.btnOpenIpPartly150.Text = "Открывать логи по 150 штук";
             this.btnOpenIpPartly150.UseVisualStyleBackColor = true;
+            this.btnOpenIpPartly150.Click += new System.EventHandler(this.btnOpenIpPartly150_Click);
             // 
             // btnOpenIpPartly
             // 
@@ -176,6 +167,7 @@
             this.btnOpenIpPartly.TabIndex = 27;
             this.btnOpenIpPartly.Text = "Открывать логи по 50 штук";
             this.btnOpenIpPartly.UseVisualStyleBackColor = true;
+            this.btnOpenIpPartly.Click += new System.EventHandler(this.btnOpenIpPartly_Click);
             // 
             // chkBoxEveryHalfSecond
             // 
@@ -198,6 +190,17 @@
             this.btnOpenLogs.Text = "Открыть логи Арены для всех айпи (Внимание. Пауза между открытиями логов - 1 секу" +
     "нда.)";
             this.btnOpenLogs.UseVisualStyleBackColor = true;
+            // 
+            // richTxtBoxRes
+            // 
+            this.richTxtBoxRes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTxtBoxRes.Location = new System.Drawing.Point(6, 19);
+            this.richTxtBoxRes.Name = "richTxtBoxRes";
+            this.richTxtBoxRes.Size = new System.Drawing.Size(782, 257);
+            this.richTxtBoxRes.TabIndex = 15;
+            this.richTxtBoxRes.Text = "";
             // 
             // IpBox
             // 
