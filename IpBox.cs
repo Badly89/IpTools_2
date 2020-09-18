@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace IpTools_2
@@ -21,16 +16,17 @@ namespace IpTools_2
             InitializeComponent();
             //savedIp.Clear();
             savedIp = savedIpList;
-          
-            if (savedIp.Count <= 50) { 
+
+            if (savedIp.Count <= 50)
+            {
                 btnOpenIpPartly.Enabled = true;
-              //  btnOpenIpPartly.BackColor = System.Drawing.Color.Black;
+                //  btnOpenIpPartly.BackColor = System.Drawing.Color.Black;
                 btnOpenIpPartly100.Enabled = false;
                 btnOpenIpPartly100.BackColor = System.Drawing.Color.Black;
                 btnOpenIpPartly150.Enabled = false;
                 btnOpenIpPartly150.BackColor = System.Drawing.Color.Black;
             }
-            if (savedIp.Count <= 100 )
+            if (savedIp.Count <= 100)
             {
                 btnOpenIpPartly.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
@@ -44,7 +40,7 @@ namespace IpTools_2
                 btnOpenIpPartly150.Enabled = true;
             }
             groupBox2.Text = "Уникальных айпи: " + savedIpList.Count.ToString();
-           // lblUnique.Text = "Уникальных айпи: " + savedIpList.Count.ToString();
+            // lblUnique.Text = "Уникальных айпи: " + savedIpList.Count.ToString();
             foreach (IpClass obj in savedIpList)
             {
                 richTxtBoxRes.AppendText(obj.Ip + " - " + obj.City + " ");
@@ -64,7 +60,7 @@ namespace IpTools_2
             return result + "";
         }
 
-    
+
         private void richTxtBoxRes_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             string[] separate = e.LinkText.Split('#');
@@ -120,7 +116,7 @@ namespace IpTools_2
             if (partialOpenedCount < savedIp.Count)
             {
                 btnOpenIpPartly.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
-               
+
                 Application.DoEvents();
                 btnOpenLogs.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
@@ -164,7 +160,7 @@ namespace IpTools_2
             }
         }
 
- 
+
 
         private void btnOpenIpPartly100_Click(object sender, EventArgs e)
         {
@@ -210,7 +206,7 @@ namespace IpTools_2
             if (partialOpenedCount < savedIp.Count)
             {
                 btnOpenIpPartly100.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
-                
+
                 Application.DoEvents();
                 btnOpenLogs.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
@@ -221,7 +217,7 @@ namespace IpTools_2
             btnOpenIpPartly100.Enabled = true;
             btnOpenIpPartly150.Enabled = true;
             btnOpenIpPartly.Enabled = true;
-            btnCancel.Enabled = false; 
+            btnCancel.Enabled = false;
         }
 
         private void btnOpenIpPartly150_Click(object sender, EventArgs e)
@@ -250,7 +246,7 @@ namespace IpTools_2
                 if (partialOpenedCount == savedIp.Count)
                 {
                     btnOpenIpPartly150.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
-                  
+
                     Application.DoEvents();
                     partialOpenedCount = 0;
                     btnOpenLogs.Enabled = true;

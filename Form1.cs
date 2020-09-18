@@ -134,7 +134,7 @@ namespace IpTools_2
                 boxIPAnswer.Text = "";
                 boxIPAnswer.Enabled = false;
                 //string ipAnswer = "";
-                string ipList = boxIPInput.Text.TrimStart(' ');
+                string ipList = boxIPInput.Text;
                 string[] ipLines = ipList.Split('\n');
                 int numberIpsToCheck = getIpsNumber(ipLines);
                 int ipsAlreadyChecked = 0;
@@ -163,7 +163,7 @@ namespace IpTools_2
                             if (lineIP.Contains("Логин") || lineIP.Contains("Регистрация"))
                             {
 
-                                string answerForCurrentIP = getIpInfo(lineIP);
+                                string answerForCurrentIP = getIpInfo(lineIP).Trim();
                                 ipsAlreadyChecked++;
                                 btnCheckIPs.Text = "Результат обрабатывается. Пожалуйста, подождите... Готово: " + ipsAlreadyChecked + "/" + numberIpsToCheck;
                                 Application.DoEvents();
@@ -253,7 +253,7 @@ namespace IpTools_2
         private string getIpInfo(string line)
         {
             int startIndex = detectCity(line);
-            string[] separateWords = line.Split(' ');
+            string[] separateWords = line.TrimStart(' ').Split(' ');
             string ip = separateWords[startIndex];
             string answerIpLine = "";
             for (int i = 0; i < startIndex; i++)
@@ -325,7 +325,7 @@ namespace IpTools_2
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 WebClient client = new WebClient();
-                string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip);
+                string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip.TrimStart());
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
                 if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
                 if (jPerson.continent.region_name_1 != null) { okrug = jPerson.continent.region_name_1; }
@@ -336,21 +336,21 @@ namespace IpTools_2
                 if (jPerson.isp.organization != null) { org = jPerson.isp.organization; }
 
                 var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
-              
-                    IpClass ipToSave = new IpClass();
-                    ipToSave.Ip = ip;
+
+                IpClass ipToSave = new IpClass();
+                ipToSave.Ip = ip;
                 ipToSave.City = temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
-                    savedIPList.Add(ipToSave);
-                    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-                    {
-                        boxIPAnswer.SelectionColor = Color.Red;
-                        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
-                    }
-                    else
-                    {
-                        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
-                    }
-                    previousIpCountry = country.Trim();
+                savedIPList.Add(ipToSave);
+                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                {
+                    boxIPAnswer.SelectionColor = Color.Red;
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+                }
+                else
+                {
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+                }
+                previousIpCountry = country.Trim();
                 return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
 
                 //return null;
@@ -364,7 +364,7 @@ namespace IpTools_2
                 string country = "";
                 string city = "";
                 string asn_organization = "";
-               // string desc = "";
+                // string desc = "";
                 string org = "";
 
 
@@ -376,7 +376,7 @@ namespace IpTools_2
                 if (jPerson.country != null) { country = jPerson.country; }
                 if (jPerson.city != null) { city = jPerson.city; }
                 if (jPerson.isp != null) { asn_organization = jPerson.isp; }
-              //  if (jPerson.as != null) { desc = jPerson.isp.name; }
+                //  if (jPerson.as != null) { desc = jPerson.isp.name; }
                 if (jPerson.org != null) { org = jPerson.org; }
 
                 var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim();
@@ -388,11 +388,11 @@ namespace IpTools_2
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
                     boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() +  ", " + org.Trim() + "\n");
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
                 }
                 else
                 {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() +  ", " + org.Trim() + "\n");
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
                 }
                 previousIpCountry = country.Trim();
                 return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
@@ -460,8 +460,8 @@ namespace IpTools_2
             }
             return null;
 
-        
-    }
+
+        }
 
         private void btnClearIpForm_Click_1(object sender, EventArgs e)
         {

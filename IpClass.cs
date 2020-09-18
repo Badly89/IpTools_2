@@ -1,35 +1,33 @@
-﻿using System;
-
-namespace IpTools_2
+﻿namespace IpTools_2
 {
-	public class IpClass
-	{
-		private string ip;
+    public class IpClass
+    {
+        private string ip;
 
-		private string city;
+        private string city;
 
-		public string Ip
-		{
-			get
-			{
-				return this.ip;
-			}
-			set
-			{
-				this.ip = value;
-			}
-		}
+        public string Ip
+        {
+            get
+            {
+                return this.ip;
+            }
+            set
+            {
+                this.ip = value;
+            }
+        }
 
-		public string City
-		{
-			get
-			{
-				return this.city;
-			}
-			set
-			{
-				this.city = value;
-			}
-		}
-	}
+        public string City
+        {
+            get
+            {
+                return this.city;
+            }
+            set
+            {
+                this.city = value;
+            }
+        }
+    }
 }
