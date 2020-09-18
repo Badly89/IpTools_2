@@ -322,6 +322,8 @@ namespace IpTools_2
                 string org = "";
 
 
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 WebClient client = new WebClient();
                 string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip);
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);

@@ -53,7 +53,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(800, 451);
+            this.groupBox2.Size = new System.Drawing.Size(800, 475);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
@@ -68,10 +68,9 @@
             this.groupBox1.Controls.Add(this.chkBoxEveryHalfSecond);
             this.groupBox1.Controls.Add(this.btnOpenLogs);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(3, 282);
+            this.groupBox1.Location = new System.Drawing.Point(3, 290);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(794, 166);
+            this.groupBox1.Size = new System.Drawing.Size(794, 182);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры открытия логов";
@@ -83,7 +82,7 @@
             this.groupBox3.Controls.Add(this.srvKovcheg);
             this.groupBox3.Location = new System.Drawing.Point(5, 19);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox3.Size = new System.Drawing.Size(783, 52);
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
@@ -100,6 +99,7 @@
             this.srvUtes.TabStop = true;
             this.srvUtes.Text = "Utes";
             this.srvUtes.UseVisualStyleBackColor = true;
+            this.srvUtes.CheckedChanged += new System.EventHandler(this.srvUtes_CheckedChanged);
             // 
             // srvSmorye
             // 
@@ -112,6 +112,7 @@
             this.srvSmorye.TabStop = true;
             this.srvSmorye.Text = "Smorye";
             this.srvSmorye.UseVisualStyleBackColor = true;
+            this.srvSmorye.CheckedChanged += new System.EventHandler(this.srvSmorye_CheckedChanged);
             // 
             // srvKovcheg
             // 
@@ -124,6 +125,7 @@
             this.srvKovcheg.TabStop = true;
             this.srvKovcheg.Text = "Kovcheg";
             this.srvKovcheg.UseVisualStyleBackColor = true;
+            this.srvKovcheg.CheckedChanged += new System.EventHandler(this.srvKovcheg_CheckedChanged);
             // 
             // btnCancel
             // 
@@ -135,13 +137,14 @@
             this.btnCancel.TabIndex = 28;
             this.btnCancel.Text = "ПРЕРВАТЬ";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOpenIpPartly100
             // 
             this.btnOpenIpPartly100.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpenIpPartly100.Location = new System.Drawing.Point(224, 129);
             this.btnOpenIpPartly100.Name = "btnOpenIpPartly100";
-            this.btnOpenIpPartly100.Size = new System.Drawing.Size(217, 31);
+            this.btnOpenIpPartly100.Size = new System.Drawing.Size(217, 44);
             this.btnOpenIpPartly100.TabIndex = 25;
             this.btnOpenIpPartly100.Text = "Открывать логи по 100 штук";
             this.btnOpenIpPartly100.UseVisualStyleBackColor = true;
@@ -152,7 +155,7 @@
             this.btnOpenIpPartly150.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpenIpPartly150.Location = new System.Drawing.Point(447, 129);
             this.btnOpenIpPartly150.Name = "btnOpenIpPartly150";
-            this.btnOpenIpPartly150.Size = new System.Drawing.Size(241, 31);
+            this.btnOpenIpPartly150.Size = new System.Drawing.Size(241, 44);
             this.btnOpenIpPartly150.TabIndex = 26;
             this.btnOpenIpPartly150.Text = "Открывать логи по 150 штук";
             this.btnOpenIpPartly150.UseVisualStyleBackColor = true;
@@ -163,7 +166,7 @@
             this.btnOpenIpPartly.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpenIpPartly.Location = new System.Drawing.Point(1, 129);
             this.btnOpenIpPartly.Name = "btnOpenIpPartly";
-            this.btnOpenIpPartly.Size = new System.Drawing.Size(217, 31);
+            this.btnOpenIpPartly.Size = new System.Drawing.Size(217, 44);
             this.btnOpenIpPartly.TabIndex = 27;
             this.btnOpenIpPartly.Text = "Открывать логи по 50 штук";
             this.btnOpenIpPartly.UseVisualStyleBackColor = true;
@@ -175,9 +178,10 @@
             this.chkBoxEveryHalfSecond.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chkBoxEveryHalfSecond.Location = new System.Drawing.Point(5, 77);
             this.chkBoxEveryHalfSecond.Name = "chkBoxEveryHalfSecond";
-            this.chkBoxEveryHalfSecond.Size = new System.Drawing.Size(208, 17);
+            this.chkBoxEveryHalfSecond.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.chkBoxEveryHalfSecond.Size = new System.Drawing.Size(205, 17);
             this.chkBoxEveryHalfSecond.TabIndex = 24;
-            this.chkBoxEveryHalfSecond.Text = "Открывать логи раз в пол-секунды.";
+            this.chkBoxEveryHalfSecond.Text = "Открывать логи раз в пол-секунды";
             this.chkBoxEveryHalfSecond.UseVisualStyleBackColor = true;
             // 
             // btnOpenLogs
@@ -190,6 +194,7 @@
             this.btnOpenLogs.Text = "Открыть логи Арены для всех айпи (Внимание. Пауза между открытиями логов - 1 секу" +
     "нда.)";
             this.btnOpenLogs.UseVisualStyleBackColor = true;
+            this.btnOpenLogs.Click += new System.EventHandler(this.btnOpenLogs_Click);
             // 
             // richTxtBoxRes
             // 
@@ -198,15 +203,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTxtBoxRes.Location = new System.Drawing.Point(6, 19);
             this.richTxtBoxRes.Name = "richTxtBoxRes";
-            this.richTxtBoxRes.Size = new System.Drawing.Size(782, 257);
+            this.richTxtBoxRes.Size = new System.Drawing.Size(782, 281);
             this.richTxtBoxRes.TabIndex = 15;
             this.richTxtBoxRes.Text = "";
+            this.richTxtBoxRes.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTxtBoxRes_LinkClicked);
             // 
             // IpBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 451);
+            this.ClientSize = new System.Drawing.Size(800, 475);
             this.Controls.Add(this.groupBox2);
             this.Name = "IpBox";
             this.Text = "Статистика проверки по айпи";

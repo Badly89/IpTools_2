@@ -101,12 +101,12 @@ namespace IpTools_2
                 Application.DoEvents();
                 if (partialOpenedCount == savedIp.Count)
                 {
-                    btnOpenIpPartly.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+                    btnOpenIpPartly.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
                     Application.DoEvents();
                     partialOpenedCount = 0;
                     btnOpenLogs.Enabled = true;
-                    btnOpenIpPartly100.Enabled = true;
-                    btnOpenIpPartly150.Enabled = true;
+                    //btnOpenIpPartly100.Enabled = true;
+                    //btnOpenIpPartly150.Enabled = true;
                     btnOpenIpPartly.Enabled = true;
                     btnCancel.Enabled = false;
                     break;
@@ -119,7 +119,8 @@ namespace IpTools_2
             }
             if (partialOpenedCount < savedIp.Count)
             {
-                btnOpenIpPartly.Text = "Продолжить открывать по 50 логов. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
+                btnOpenIpPartly.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+               
                 Application.DoEvents();
                 btnOpenLogs.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
@@ -163,15 +164,7 @@ namespace IpTools_2
             }
         }
 
-        private void btnOpenIpPartly_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
+ 
 
         private void btnOpenIpPartly100_Click(object sender, EventArgs e)
         {
@@ -198,13 +191,13 @@ namespace IpTools_2
                 Application.DoEvents();
                 if (partialOpenedCount == savedIp.Count)
                 {
-                    btnOpenIpPartly100.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+                    btnOpenIpPartly100.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
                     Application.DoEvents();
                     partialOpenedCount = 0;
                     btnOpenLogs.Enabled = true;
                     btnOpenIpPartly100.Enabled = true;
-                    btnOpenIpPartly150.Enabled = true;
-                    btnOpenIpPartly.Enabled = true;
+                    //btnOpenIpPartly150.Enabled = true;
+                    //btnOpenIpPartly.Enabled = true;
                     btnCancel.Enabled = false;
                     break;
                 }
@@ -216,7 +209,8 @@ namespace IpTools_2
             }
             if (partialOpenedCount < savedIp.Count)
             {
-                btnOpenIpPartly100.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
+                btnOpenIpPartly100.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+                
                 Application.DoEvents();
                 btnOpenLogs.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
@@ -255,13 +249,14 @@ namespace IpTools_2
                 Application.DoEvents();
                 if (partialOpenedCount == savedIp.Count)
                 {
-                    btnOpenIpPartly150.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+                    btnOpenIpPartly150.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
+                  
                     Application.DoEvents();
                     partialOpenedCount = 0;
                     btnOpenLogs.Enabled = true;
-                    btnOpenIpPartly100.Enabled = true;
+                    //btnOpenIpPartly100.Enabled = true;
                     btnOpenIpPartly150.Enabled = true;
-                    btnOpenIpPartly.Enabled = true;
+                    //btnOpenIpPartly.Enabled = true;
                     btnCancel.Enabled = false;
                     break;
                 }
@@ -273,7 +268,7 @@ namespace IpTools_2
             }
             if (partialOpenedCount < savedIp.Count)
             {
-                btnOpenIpPartly150.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
+                btnOpenIpPartly150.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
                 Application.DoEvents();
                 btnOpenLogs.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
@@ -286,6 +281,38 @@ namespace IpTools_2
             btnOpenIpPartly150.Enabled = true;
             btnOpenIpPartly.Enabled = true;
             btnCancel.Enabled = false; ;
+        }
+
+        private void btnOpenLogs_Click(object sender, EventArgs e)
+        {
+            btnOpenLogs.Enabled = false;
+            btnOpenIpPartly.Enabled = false;
+            btnCancel.Enabled = true;
+            int i = 0;
+            foreach (IpClass obj in savedIp)
+            {
+                System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
+                if (chkBoxEveryHalfSecond.Checked == true)
+                {
+                    System.Threading.Thread.Sleep(500);
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(1000);
+                }
+                i++;
+                btnOpenLogs.Text = "Открыто: " + i + " из " + savedIp.Count;
+                Application.DoEvents();
+                if (cancelPressed)
+                {
+                    cancelPressed = false;
+                    break;
+                }
+            }
+            btnCancel.Enabled = false;
+            btnOpenLogs.Enabled = true;
+            btnOpenIpPartly.Enabled = false;
+            btnOpenLogs.Text = "Открыть логи Арены для всех айпи (Внимание. Пауза между открытиями логов - 1 секунда.)";
         }
     }
 }
