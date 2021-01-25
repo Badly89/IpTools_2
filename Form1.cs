@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -43,15 +45,18 @@ namespace IpTools_2
 
         private void radioWhoisRu_CheckedChanged(object sender, EventArgs e)
         {
-            //if (radioWhoisRu.Checked == true)
+            //if (radioIpcalc.Checked == true)
             //{
             //    radioNicRu.Checked = false;
             //    rbipcom.Checked = false;
+            //    radioWhoer.Checked = false;
+
             //}
             //else
             //{
             //    radioNicRu.Checked = true;
             //    rbipcom.Checked = true;
+            //    radioWhoer.Checked = true;
             //}
         }
 
@@ -59,28 +64,48 @@ namespace IpTools_2
         {
             //if (radioNicRu.Checked == true)
             //{
-            //    radioWhoisRu.Checked = false;
+            //    radioIpcalc.Checked = false;
             //    rbipcom.Checked = false;
+            //    radioWhoer.Checked = false;
             //}
             //else
             //{
-            //    radioWhoisRu.Checked = true;
+            //    radioIpcalc.Checked = true;
             //    rbipcom.Checked = true;
+            //    radioWhoer.Checked = true;
             //}
+        }
+
+        private void radioWhoer_CheckedChanged(object sender, EventArgs e)
+        {
+        //    if (radioWhoer.Checked == true)
+        //    {
+        //        radioIpcalc.Checked = false;
+        //        radioNicRu.Checked = false;
+        //        rbipcom.Checked = false;
+        //    }
+        //    else
+        //    {
+        //        radioIpcalc.Checked = true;
+        //        radioNicRu.Checked = true;
+        //        rbipcom.Checked = true;
+        //    }
         }
 
         private void rbipcom_CheckedChanged(object sender, EventArgs e)
         {
-            //if (rbipcom.Checked == true)
-            //{
-            //    radioWhoisRu.Checked = false;
-            //    radioNicRu.Checked = false;
-            //}
-            //else
-            //{
-            //    radioWhoisRu.Checked = true;
-            //    radioWhoisRu.Checked = true;
-            //}
+        //    if (rbipcom.Checked == true)
+        //    {
+        //        radioIpcalc.Checked = false;
+        //        radioNicRu.Checked = false;
+        //        radioWhoer.Checked = false;
+        //    }
+        //    else
+        //    {
+        //        radioIpcalc.Checked = true;
+        //        radioNicRu.Checked = true;
+        //        radioWhoer.Checked = true;
+        //    }
         }
 
         private void IpLinkRadioChangedToggle()
@@ -143,7 +168,7 @@ namespace IpTools_2
                 radioLinksNicRu.Enabled = false;
                 rbipcom.Enabled = false;
                 radioNoLinksJustText.Enabled = false;
-                radioWhoisRu.Enabled = false;
+                radioIpcalc.Enabled = false;
                 radioNicRu.Enabled = false;
                 btnClearIpForm.Enabled = false;
                 previousIpCountry = "";
@@ -183,7 +208,7 @@ namespace IpTools_2
                             if (lineIP.Contains("Логин") || lineIP.Contains("Регистрация"))
                             {
 
-                                string answerForCurrentIP = getIpInfo(lineIP).Trim();
+                                string answerForCurrentIP = getIpInfo(lineIP);
                                 ipsAlreadyChecked++;
                                 btnCheckIPs.Text = "Результат обрабатывается. Пожалуйста, подождите... Готово: " + ipsAlreadyChecked + "/" + numberIpsToCheck;
                                 Application.DoEvents();
@@ -212,7 +237,7 @@ namespace IpTools_2
                 radioLinksApehaLogs.Enabled = true;
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
-                radioWhoisRu.Enabled = true;
+                radioIpcalc.Enabled = true;
                 rbipcom.Enabled = true;
                 radioNicRu.Enabled = true;
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
@@ -298,7 +323,7 @@ namespace IpTools_2
             {
                 if (ip == ipFromSavedList.Ip)
                 {
-                    if (radioWhoisRu.Checked)
+                    if (radioIpcalc.Checked)
                     {
                         string[] savedDescr = ipFromSavedList.City.Split(',');
                         if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
@@ -330,8 +355,8 @@ namespace IpTools_2
                     return ipFromSavedList.City;
                 }
             }
-            //Checking using 1whois.ru
-            if (radioWhoisRu.Checked == true)
+            //Checking using ipcalc.co
+            if (radioIpcalc.Checked == true)
             {
                 string region = "";
                 string okrug = "";
@@ -387,12 +412,13 @@ namespace IpTools_2
                 // string desc = "";
                 string org = "";
 
-
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 WebClient client = new WebClient();
                 string jsonadress = client.DownloadString("http://ip-api.com/json/" + ip);
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
                 if (jPerson.region != null) { region = jPerson.region; }
-                if (jPerson.regionName != null) { okrug = jPerson.regionName; }
+                if (jPerson.regionName != null) { okrug = jPerson.regionName; } 
                 if (jPerson.country != null) { country = jPerson.country; }
                 if (jPerson.city != null) { city = jPerson.city; }
                 if (jPerson.isp != null) { asn_organization = jPerson.isp; }
@@ -419,6 +445,35 @@ namespace IpTools_2
 
                 //return null;
             }
+
+            if (radioWhoer.Checked == true)
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                WebClient client = new WebClient();
+                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&flags=no-referenced&flags=no-irt&source=RIPE");
+                var jPerson = JsonConvert.DeserializeObject<Welcome>(jsonadress, Converter.Settings);
+                var desc = jPerson.Objects.Object[0].Attributes.Attribute[2].Value+", "+ jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
+                var netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value;
+                var country = jPerson.Objects.Object[0].Attributes.Attribute[4].Value;
+                var temp1 = country.Trim() + ", " + desc.Trim() + ", " + netname.Trim();
+                IpClass ipToSave = new IpClass();
+                ipToSave.Ip = ip;
+                ipToSave.City = temp1;
+                savedIPList.Add(ipToSave);
+                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                {
+                    boxIPAnswer.SelectionColor = Color.Red;
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + desc.Trim() + ", " + netname.Trim() + "\n");
+                }
+                else
+                {
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + desc.Trim() + ", " + netname.Trim() + "\n");
+                }
+                previousIpCountry = country.Trim();
+                return temp1;
+            }
+
 
             //checking using nic.ru/whois
             if (radioNicRu.Checked == true)
@@ -478,11 +533,228 @@ namespace IpTools_2
                 previousIpCountry = country.Trim();
                 return country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
             }
-            return null;
+
+                 return null;
 
 
         }
+        #region classJSonParse
+        public partial class Welcome
+        {
+            [JsonProperty("service")]
+            public Service Service { get; set; }
 
+            [JsonProperty("parameters")]
+            public Parameters Parameters { get; set; }
+
+            [JsonProperty("objects")]
+            public Objects Objects { get; set; }
+
+            [JsonProperty("terms-and-conditions")]
+            public TermsAndConditions TermsAndConditions { get; set; }
+
+            [JsonProperty("version")]
+            public Version Version { get; set; }
+        }
+
+        public partial class Objects
+        {
+            [JsonProperty("object")]
+            public List<Object> Object { get; set; }
+        }
+
+        public partial class Object
+        {
+            [JsonProperty("type")]
+            public string Type { get; set; }
+
+            [JsonProperty("link")]
+            public TermsAndConditions Link { get; set; }
+
+            [JsonProperty("source")]
+            public Source Source { get; set; }
+
+            [JsonProperty("primary-key")]
+            public PrimaryKey PrimaryKey { get; set; }
+
+            [JsonProperty("attributes")]
+            public Attributes Attributes { get; set; }
+
+            [JsonProperty("tags", NullValueHandling = NullValueHandling.Ignore)]
+            public Tags Tags { get; set; }
+        }
+
+        public partial class Attributes
+        {
+            [JsonProperty("attribute")]
+            public List<AttributesAttribute> Attribute { get; set; }
+        }
+
+        public partial class AttributesAttribute
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("value")]
+            public string Value { get; set; }
+
+            [JsonProperty("link", NullValueHandling = NullValueHandling.Ignore)]
+            public TermsAndConditions Link { get; set; }
+
+            [JsonProperty("referenced-type", NullValueHandling = NullValueHandling.Ignore)]
+            public string ReferencedType { get; set; }
+
+            [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
+            public string Comment { get; set; }
+        }
+
+        public partial class TermsAndConditions
+        {
+            [JsonProperty("type")]
+            public string Type { get; set; }
+
+            [JsonProperty("href")]
+            public Uri Href { get; set; }
+        }
+
+        public partial class PrimaryKey
+        {
+            [JsonProperty("attribute")]
+            public List<PrimaryKeyAttribute> Attribute { get; set; }
+        }
+
+        public partial class PrimaryKeyAttribute
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("value")]
+            public string Value { get; set; }
+        }
+
+        public partial class Source
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; }
+        }
+
+        public partial class Tags
+        {
+            [JsonProperty("tag")]
+            public List<Source> Tag { get; set; }
+        }
+
+        public partial class Parameters
+        {
+            [JsonProperty("inverse-lookup")]
+            public InverseLookup InverseLookup { get; set; }
+
+            [JsonProperty("type-filters")]
+            public InverseLookup TypeFilters { get; set; }
+
+            [JsonProperty("flags")]
+            public Flags Flags { get; set; }
+
+            [JsonProperty("query-strings")]
+            public QueryStrings QueryStrings { get; set; }
+
+            [JsonProperty("sources")]
+            public Sources Sources { get; set; }
+        }
+
+        public partial class Flags
+        {
+            [JsonProperty("flag")]
+            public List<Flag> Flag { get; set; }
+        }
+
+        public partial class Flag
+        {
+            [JsonProperty("value")]
+            public string Value { get; set; }
+        }
+
+        public partial class InverseLookup
+        {
+        }
+
+        public partial class QueryStrings
+        {
+            [JsonProperty("query-string")]
+            public List<Flag> QueryString { get; set; }
+        }
+
+        public partial class Sources
+        {
+            [JsonProperty("source")]
+            public List<Source> Source { get; set; }
+        }
+
+        public partial class Service
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+        }
+
+        public partial class Version
+        {
+            [JsonProperty("version")]
+            public string VersionVersion { get; set; }
+
+            [JsonProperty("timestamp")]
+            public DateTimeOffset Timestamp { get; set; }
+
+            [JsonProperty("commit-id")]
+            public string CommitId { get; set; }
+        }
+
+        internal static class Converter
+        {
+            public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+            {
+                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+                DateParseHandling = DateParseHandling.None,
+                Converters =
+            {
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+            },
+            };
+        }
+
+        #endregion
+
+        #region jsonparse
+        //class SingleOrArrayConverter<T> : JsonConverter
+        //{
+        //    public override bool CanConvert(Type objectType)
+        //    {
+        //        return (objectType == typeof(List<T>));
+        //    }
+
+        //    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        //    {
+        //        JToken token = JToken.Load(reader);
+        //        if (token.Type == JTokenType.Array)
+        //        {
+        //            return token.ToObject<List<T>>();
+        //        }
+        //        return new List<T> { token.ToObject<T>() };
+        //    }
+
+
+
+        //    public override bool CanWrite
+        //    {
+        //        get { return false; }
+        //    }
+
+        //    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        #endregion
         private void btnClearIpForm_Click_1(object sender, EventArgs e)
         {
             btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
@@ -1252,5 +1524,7 @@ namespace IpTools_2
             }
             return result;
         }
+
+       
     }
 }
