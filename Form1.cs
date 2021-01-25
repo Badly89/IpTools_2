@@ -38,6 +38,7 @@ namespace IpTools_2
         public Form1()
         {
             InitializeComponent();
+        
         }
 
         private void radioWhoisRu_CheckedChanged(object sender, EventArgs e)
@@ -509,151 +510,7 @@ namespace IpTools_2
             }
         }
 
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox4_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chkIgnoreUsils_CheckStateChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCopy_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnClearTextField_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chkIgnoreMod_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnLavkaCopyToClipboard_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCheckLavka_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnIpPersesClipboard_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCheckPersesIps_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bntStartIpDiffProccess_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnClearIpDifForms_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtBoxIpDiffResult1_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-
-        }
-
-        private void txtBoxIpDiffResult2_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-
-        }
-
-        private void label17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnPitClipboard_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnPitProcess_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnPiClear_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void boxPitInput_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        //супружеские передачи
         private void chkIgnoreMod_CheckStateChanged(object sender, EventArgs e)
         {
             ignoreMods = chkIgnoreMod.Checked;
@@ -973,6 +830,7 @@ namespace IpTools_2
             ev.Id = Convert.ToInt32(firstParse[startId].Trim(charsToTrim));
             return ev;
         }
+
 
         private void button2_Click_1(object sender, EventArgs e)
         {
@@ -1393,16 +1251,6 @@ namespace IpTools_2
                 }
             }
             return result;
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
