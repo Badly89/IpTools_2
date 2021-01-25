@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -12,10 +13,28 @@ namespace IpTools_2
 
     public partial class Form1 : Form
     {
-
+        public List<Metalki> metalki = new List<Metalki>();
+        public double pitZaryad = 0;
         public string previousIpCountry = "";
+        public double pitBuyCost = 0;
+        public List<pitItem> itemsGivenToPit = new List<pitItem>();
+        public List<pitItem> itemsGetFromPit = new List<pitItem>();
+        public double pitFoodCost = 0;
+        public double pitIncome = 0;
+        public double pitSlotCost = 0;
+        public bool pitSinSlot = false;
         public List<IpClass> savedIPList = new List<IpClass>();
-
+        public bool ignoreMods = true;
+        public bool ignoreUsils = true;
+        public string answer = "";
+        public int id_giv = 0;
+        public int id_rec = 0;
+        public double moneyGiven = 0;
+        public double moneyReceived = 0;
+        public double moneyBalance = 0;
+        public List<Transfer> receivedItems = new List<Transfer>();
+        public List<Transfer> givenItems = new List<Transfer>();
+        public string currentDate;
         public Form1()
         {
             InitializeComponent();
@@ -170,7 +189,7 @@ namespace IpTools_2
                             }
                             else
                             {
-                                if (lineIP.Contains("Ковчег") || lineIP.Contains("Утес дракона") || lineIP.Contains("Среднеморье") || lineIP.Contains("Лес") || lineIP.Contains("Остров фантазий") || lineIP.Length > 11)
+                                if (lineIP.Contains("Ковчег") || lineIP.Contains("Утес дракона") || lineIP.Contains("Среднеморье") || lineIP.Contains("Лес") || lineIP.Contains("Остров фантазий") || lineIP.Contains("Магический Лес") || lineIP.Length > 11)
                                 {
                                     if (!lineIP.Contains("Вся выборка содержит") && !(lineIP.Contains("с ") && lineIP.Contains(" по ") && lineIP.Length == 38))
                                     {
@@ -228,7 +247,7 @@ namespace IpTools_2
 
         private int detectCity(string lineToDetect)
         {
-            if (lineToDetect.Contains("Утес дракона") || lineToDetect.Contains("Остров фантазий"))
+            if (lineToDetect.Contains("Утес дракона") || lineToDetect.Contains("Остров фантазий") || lineToDetect.Contains("Магический Лес")) 
             {
                 return 5;
             }
@@ -490,6 +509,900 @@ namespace IpTools_2
             }
         }
 
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
 
+        }
+
+        private void groupBox4_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkIgnoreUsils_CheckStateChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClearTextField_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkIgnoreMod_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckStateChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLavkaCopyToClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCheckLavka_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnIpPersesClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCheckPersesIps_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bntStartIpDiffProccess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClearIpDifForms_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtBoxIpDiffResult1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+
+        }
+
+        private void txtBoxIpDiffResult2_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPitClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPitProcess_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPiClear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void boxPitInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkIgnoreMod_CheckStateChanged(object sender, EventArgs e)
+        {
+            ignoreMods = chkIgnoreMod.Checked;
+        }
+
+        private void chkIgnoreUsils_CheckStateChanged_1(object sender, EventArgs e)
+        {
+            ignoreUsils = chkIgnoreUsils.Checked;
+        }
+
+        private void button5_Click_2(object sender, EventArgs e)
+        {
+            boxInput.Clear();
+            btnCopy.Enabled = false;
+            boxResult.Text = "";
+            boxResult.Enabled = false;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            answer = "";
+            id_giv = 0;
+            id_rec = 0;
+            moneyGiven = 0;
+            moneyReceived = 0;
+            receivedItems.Clear();
+            givenItems.Clear();
+            string fullLog = boxInput.Text;
+            string[] lines = fullLog.Split('\n');
+            proccessLines(lines);
+        }
+        private void proccessLines(string[] lines)
+        {
+            foreach (string singleLine in lines)
+            {
+                //checking if line is date
+                if (singleLine.Length > 3 && singleLine.Length < 12) currentDate = singleLine.Trim();
+                if (singleLine.Length > 15)
+                {
+                    if (singleLine.Contains("Передал"))
+                    {
+                        itemGiven(singleLine);
+                    }
+                    if (singleLine.Contains("Получил"))
+                    {
+                        itemsReceived(singleLine);
+                    }
+                    if (singleLine.Contains("Доход :"))
+                    {
+                        moneyReceivedProccess(singleLine);
+
+                    }
+                    if (singleLine.Contains("Расход :"))
+                    {
+                        moneyGivenProccess(singleLine);
+                    }
+                }
+            }
+            moneyBalance = Math.Round(moneyReceived, 2) + Math.Round(moneyGiven, 2);
+            if (givenItems.Count > 0 || receivedItems.Count > 0 || moneyBalance != 0)
+            {
+                processItemsCalculation();
+            }
+            else
+            {
+                boxResult.Text = "Всё пучком :)";
+            }
+        }
+
+        private void processItemsCalculation()
+        {
+            foreach (Transfer itemG in givenItems)
+            {
+                if (itemG.IsOk == false)
+                {
+                    foreach (Transfer itemR in receivedItems)
+                    {
+                        bool id_passed = false;
+                        bool mods_passed = false;
+                        bool usils_passed = false;
+                        bool count_passed = false;
+
+                        if ((itemG.Trans.Id == itemR.Trans.Id) && (itemR.IsOk == false))
+                        {
+                            id_passed = true;
+                            if ((itemG.Trans.Mod == itemR.Trans.Mod && itemG.Trans.Zakl == itemR.Trans.Zakl) || ignoreMods == true)
+                            {
+                                mods_passed = true;
+                            }
+                            if (itemG.Trans.Usil == itemR.Trans.Usil || ignoreUsils == true)
+                            {
+                                usils_passed = true;
+                            }
+                            if (itemG.Trans.Count == itemR.Trans.Count)
+                            {
+                                count_passed = true;
+                            }
+                            if (id_passed == true && mods_passed == true && usils_passed == true && count_passed == true)
+                            {
+                                itemG.IsOk = true;
+                                itemR.IsOk = true;
+                                id_passed = false;
+                                mods_passed = false;
+                                usils_passed = false;
+                                count_passed = false;
+                                break;
+                            }
+                            else
+                            {
+                                id_passed = false;
+                                mods_passed = false;
+                                usils_passed = false;
+                                count_passed = false;
+                            }
+                        }
+                    }
+                }
+            }
+            answer += "Баланс по соткам: " + Math.Round(moneyBalance, 2) + "\n";
+            int countG = 0;
+            int countR = 0;
+            string tempG = "";
+            string tempR = "";
+            foreach (Transfer iG in givenItems)
+            {
+                if (iG.IsOk == false)
+                {
+                    countG++;
+                    tempG += iG.Trans.Date + " Передал: " + iG.Trans.Name + " [" + iG.Trans.Id + "] " + "(" + iG.Trans.Count + " шт.)\n";
+                }
+            }
+            foreach (Transfer iR in receivedItems)
+            {
+                if (iR.IsOk == false)
+                {
+                    countR++;
+                    tempR += iR.Trans.Date + " Получил: " + iR.Trans.Name + " [" + iR.Trans.Id + "] " + "(" + iR.Trans.Count + " шт.)\n";
+                }
+            }
+            if (countG > 0)
+            {
+                answer += "\nЗабрать у супруга/супруги:\n" + tempG;
+            }
+            if (countR > 0)
+            {
+                answer += "\nВернуть супругу/супруге:\n" + tempR;
+            }
+            boxResult.Text = answer;
+            btnCopy.Enabled = true;
+            boxResult.Enabled = true;
+        }
+
+
+        private void moneyGivenProccess(string line)
+        {
+            int startWord = 0;
+            if (line.Contains("Утес дракона") || line.Contains("Остров фантазий"))
+            {
+                startWord = 5;
+            }
+            else
+            {
+                startWord = 4;
+            }
+            string[] firstParse = line.Split(' ');
+            string str = firstParse[startWord];
+            int n = str.IndexOf("ст.");
+            str = str.Remove(n, 3);
+            moneyGiven += Math.Round(Convert.ToSingle(str, System.Globalization.CultureInfo.InvariantCulture), 2);
+        }
+
+        private void moneyReceivedProccess(string line)
+        {
+            if (!line.Trim().Contains("син."))
+            {
+                int startWord = 0;
+                if (line.Contains("Утес дракона") || line.Contains("Остров фантазий"))
+                {
+                    startWord = 5;
+                }
+                else
+                {
+                    startWord = 4;
+                }
+                string[] firstParse = line.Split(' ');
+                string str = firstParse[startWord];
+                int n = str.IndexOf("ст.");
+                try
+                {
+                    str = str.Remove(n, 3);
+                }
+                catch (Exception)
+                {
+                    char[] charsToRemove = { 'с', 'т', '.' };
+                    str = str.Trim(charsToRemove);
+                }
+                try
+                {
+                    moneyReceived += Math.Round(toDoubleCustom(str), 2);
+                }
+                catch (Exception)
+                {
+                    moneyReceived += Math.Round(toDoubleCustom(str), 2);
+                }
+            }
+        }
+
+        private double toDoubleCustom(String str)
+        {
+            double res = 0;
+            try
+            {
+                res = double.Parse(str, NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture);
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    res = Convert.ToDouble(str.Replace('.', '.'));
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        res = Convert.ToDouble(str.Replace('.', ','));
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            Convert.ToDouble(str, System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show("Ошибочка в конвертации Double. Пишите ~root~ ");
+                            MessageBox.Show(str);
+                        }
+                    }
+
+                }
+            }
+            return res;
+        }
+
+        private void itemGiven(string line)
+        {
+            Transfer item = new Transfer();
+            item.Id = id_giv;
+            item.IsOk = false;
+            item.Trans = proccessItem(line);
+            id_giv++;
+            givenItems.Add(item);
+        }
+
+        private void itemsReceived(string line)
+        {
+            Transfer item = new Transfer();
+            item.Id = id_rec;
+            item.IsOk = false;
+            item.Trans = proccessItem(line);
+            id_rec++;
+            receivedItems.Add(item);
+        }
+
+        private Event proccessItem(string line)
+        {
+            int startWord = 0;
+            int cityWords = 0;
+            if (line.Contains("Утес дракона") || line.Contains("Остров фантазий"))
+            {
+                startWord = 5;
+                cityWords = 2;
+            }
+            else
+            {
+                startWord = 4;
+                cityWords = 1;
+            }
+            string itemName = "";
+            int startId = 0;
+            Event ev = new Event();
+            //parse string
+            string[] firstParse = line.Split(' ');
+            ev.Date = currentDate + " " + firstParse[cityWords];
+            //get item name
+            for (int i = startWord; i < 20; i++)
+            {
+                if (!firstParse[i].Contains("["))
+                {
+                    itemName += firstParse[i] + " ";
+                }
+                else { startId = i; break; }
+            }
+            ev.Name = itemName;
+            if (itemName.Contains("мод."))
+            {
+                ev.Mod = true;
+            }
+            if (itemName.Contains("закл."))
+            {
+                ev.Zakl = true;
+            }
+            //Count
+            char[] charsToTrimCount = { '(', '-' };
+            ev.Count = Convert.ToInt32(firstParse[startId + 1].Trim(charsToTrimCount));
+            //usils
+            if (itemName.Contains(" +"))
+            {
+                ev.Usil = firstParse[startId - 2] + firstParse[startId - 1];
+            }
+            else
+            {
+                ev.Usil = "";
+            }
+            //get item id
+            char[] charsToTrim = { '[', ']' };
+            ev.Id = Convert.ToInt32(firstParse[startId].Trim(charsToTrim));
+            return ev;
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            boxLogsFight.Text = "";
+            boxLogsReply.Text = "";
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            calculateExp();
+        }
+        private void calculateExp()
+        {
+            string logs = boxLogsFight.Text;
+            string[] logsLines = logs.Split('\n');
+            double plusExp = 0;
+            double minusExp = 0;
+            string reply = "";
+            foreach (string str in logsLines)
+            {
+                if (str.Contains("apeha.ru"))
+                {
+                    string[] parseLogString = str.Split(' ');
+                    char[] charsToTrim = { '+', '-' };
+                    int val = Convert.ToInt32(parseLogString[1].Trim(charsToTrim));
+                    if (str.Contains("+"))
+                    {
+                        plusExp += val;
+                    }
+                    else
+                    {
+                        minusExp += val;
+                    }
+                }
+            }
+            reply += "Итого: ";
+            if (plusExp > 0) { reply += "+" + plusExp + " опыта"; }
+            if (plusExp > 0 && minusExp > 0) { reply += "/"; }
+            if (minusExp > 0) { reply += "-" + minusExp + " опыта"; }
+            reply += "\n";
+            if (plusExp > 0)
+            {
+                reply += "Доход: " + Convert.ToDouble(plusExp / 100) + " ст. \n";
+                reply += "Штраф: " + Math.Ceiling(Convert.ToDouble(plusExp * 2 / 100)) + " ст. \n";
+                reply += "Штраф по опыту: " + Math.Ceiling(Convert.ToDouble(plusExp * 2)) + " опыта";
+            }
+            boxLogsReply.Text = reply;
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            Clipboard.SetText(boxLogsReply.Text);
+        }
+
+        private void btnPiClear_Click_1(object sender, EventArgs e)
+        {
+            boxPitInput.Text = "";
+            boxPitOutput.Text = "";
+            boxPitOutput.Enabled = false;
+            checkPitFilter.Checked = false;
+        }
+
+        private void btnPitProcess_Click_1(object sender, EventArgs e)
+        {
+            boxPitOutput.Enabled = true;
+            List<String> inputLines = cleanLogForPit();
+            if (checkPitFilter.Checked == true)
+            {
+                simpleFilterOutput(inputLines);
+            }
+            else
+            {
+                calculateMetalZaryad();
+                calculatePitIncome(inputLines);
+                calculateFoodCost(inputLines);
+                calculateSlotCost(inputLines);
+                calculatePitItems(inputLines);
+                calculateBuyPitCost(inputLines);
+                generatePitAnswer();
+            }
+        }
+        private void generatePitAnswer()
+        {
+            String pitAnswer = "";
+            String pitItemsAnswer = "";
+            String pitItemsBackAnswer = "";
+            foreach (pitItem item in itemsGivenToPit)
+            {
+                if (item.consider == true)
+                {
+                    pitItemsAnswer += item.name + " [" + item.id + "] " + item.count + "шт.\n";
+                }
+            }
+            foreach (pitItem item in itemsGetFromPit)
+            {
+                if (item.consider == true)
+                {
+                    pitItemsBackAnswer += item.name + " [" + item.id + "] " + item.count + "шт.\n";
+                }
+            }
+            if (pitSinSlot == true)
+            {
+                pitAnswer += "У питомца были открыты доп. слоты за синие сотки:\n\n";
+            }
+            pitAnswer += "Расходы на питомца:\n";
+            pitAnswer += "Покупка питомца: " + pitBuyCost + " соток\n";
+            pitAnswer += "Затраты на питание: " + pitFoodCost + " соток\n";
+            pitAnswer += "Покупка слотов питомцу: " + pitSlotCost + " соток\n";
+            pitAnswer += "Заряд метательного оружия: " + pitZaryad + " соток\n";
+            pitAnswer += "Итого расходы: " + Math.Round(pitBuyCost + pitFoodCost + pitSlotCost + pitZaryad, 2) + " соток\n_________________________________\n\n";
+            pitAnswer += "Чистый доход от питомца (затраты не вычтены): " + pitIncome + " соток\n";
+            pitAnswer += "Доход от питомца за вычетом расходов, указанных выше (без учёта стоимости вещей и упива): " + (pitIncome - Math.Round(pitBuyCost + pitFoodCost + pitSlotCost + pitZaryad, 2)) + " соток \n_________________________________\n\n";
+            if (pitItemsAnswer.Length > 1)
+            {
+                pitAnswer += "Вещи, переданные питомцу и не вернувшиеся хозяину:\n" + pitItemsAnswer + "\n\n";
+            }
+            else
+            {
+                pitAnswer += "Нет вещей, оставшихся у пита\n\n";
+            }
+            if (pitItemsBackAnswer.Length > 1)
+            {
+                pitAnswer += "Вещи, возвращённые, но, не учтённые выше из-за разного количества вещей при передаче: \n" + pitItemsBackAnswer;
+            }
+            boxPitOutput.Text = pitAnswer;
+        }
+        private void calculateBuyPitCost(List<String> inputLines)
+        {
+            pitBuyCost = 0;
+            foreach (String str in inputLines)
+            {
+                if (str.Contains("Покупка питомца"))
+                {
+                    pitBuyCost = getIncomeValue(str);
+                }
+            }
+        }
+
+        private void calculatePitItems(List<String> inputLines)
+        {
+            itemsGivenToPit.Clear();
+            itemsGetFromPit.Clear();
+            foreach (String str in inputLines)
+            {
+                if (str.Contains("Передал предмет") && str.Contains("Передача питомцу"))
+                {
+                    itemsGivenToPit.Add(pitItemProceed(str));
+                }
+                if (str.Contains("Получил предмет") && str.Contains("Передача от питомца"))
+                {
+                    itemsGetFromPit.Add(pitItemProceed(str));
+                }
+            }
+            foreach (pitItem itemGot in itemsGetFromPit)
+            {
+                foreach (pitItem itemGiven in itemsGivenToPit)
+                {
+                    if (itemGot.name.Equals(itemGiven.name) && itemGot.id == itemGiven.id && itemGot.count == itemGiven.count && itemGot.consider == true && itemGiven.consider == true)
+                    {
+                        itemGot.consider = false;
+                        itemGiven.consider = false;
+                    }
+                }
+            }
+        }
+
+        private pitItem pitItemProceed(String str)
+        {
+            String name = "";
+            pitItem item = new pitItem();
+            item.consider = true;
+            int startItemName = 0;
+            int startItemId = 0;
+            int i = 0;
+            String[] words = str.Split(' ');
+            foreach (String st in words)
+            {
+                if (st.Contains("предмет"))
+                {
+                    startItemName = i + 1;
+                    break;
+                }
+                if (st.Contains("[") && st.Contains("]"))
+                {
+                    startItemId = i;
+                }
+                i++;
+            }
+            i = 0;
+            foreach (String st in words)
+            {
+                if (st.Contains("[") && st.Contains("]"))
+                {
+                    startItemId = i;
+                    break;
+                }
+                i++;
+            }
+            for (int y = startItemName; y < startItemId; y++)
+            {
+                name += words[y] + " ";
+            }
+            item.name = name;
+            Char[] charsToTrimId = { '[', ']' };
+            item.id = words[startItemId].Trim(charsToTrimId);
+            Char[] charsToTrimCount = { '(', '-' };
+            item.count = Int32.Parse(words[startItemId + 1].Trim(charsToTrimCount));
+            return item;
+        }
+
+        private void calculateSlotCost(List<String> inputLines)
+        {
+            pitSlotCost = 0;
+            foreach (String str in inputLines)
+            {
+                if (str.Contains("Покупка слота питомцу"))
+                {
+                    if (!str.Contains("син. ст"))
+                    {
+                        pitSlotCost += getIncomeValue(str);
+                    }
+                    else
+                    {
+                        pitSinSlot = true;
+                    }
+                }
+            }
+        }
+
+
+        private void calculateFoodCost(List<String> inputLines)
+        {
+            pitFoodCost = 0;
+            foreach (String str in inputLines)
+            {
+                if (str.Contains("Использовал предмет Большая Упаковка Корма"))
+                {
+                    pitFoodCost += 25;
+                }
+                if (str.Contains("Использовал предмет Cредняя Упаковка Корма"))
+                {
+                    pitFoodCost += 12.5;
+                }
+                if (str.Contains("Использовал предмет Маленькая Упаковка Корма"))
+                {
+                    pitFoodCost += 5;
+                }
+            }
+        }
+
+        private void calculatePitIncome(List<String> inputLines)
+        {
+            pitIncome = 0;
+            foreach (String str in inputLines)
+            {
+                if (str.Contains("Доход от питомца"))
+                {
+                    pitIncome += getIncomeValue(str);
+                }
+            }
+
+        }
+
+        private double getIncomeValue(String str)
+        {
+            String[] words = str.Split(' ');
+            int i = 0;
+            foreach (String st in words)
+            {
+                if (st.Contains("ст"))
+                {
+                    break;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            Char[] charsToTrim = { 'с', 'т', '.', '-' };
+            return toDoubleCustom(words[i].Trim(charsToTrim));
+        }
+
+        private void simpleFilterOutput(List<String> inputLines)
+        {
+            String output = "";
+            foreach (String str in inputLines)
+            {
+                output += str + "\n";
+            }
+            boxPitOutput.Text = output;
+        }
+
+
+        private void calculateMetalZaryad()
+        {
+            DateTime currLineDate = DateTime.Now;
+            pitZaryad = 0;
+            metalki.Clear();
+            List<String> log = new List<String>();
+            String input = boxPitInput.Text;
+            String[] lines = input.Split('\n');
+            foreach (String str in lines)
+            {
+                string st = str.Trim();
+                if (st.Length == 10 && st.Contains("-20"))
+                {
+                    currLineDate = DateTime.ParseExact(st, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                }
+                if (st.Length > 12)
+                {
+                    if (!st.Contains("Вся выборка содержит") && !st.Contains(" по ") && !st.Contains("пользователи"))
+                    {
+                        if (st.Contains("Получил предмет") && st.Contains("Передача от питомца"))
+                        {
+                            if (st.Contains("Сякены") || st.Contains("Лук боевой") || st.Contains("Сюрикены") || st.Contains("Рогатка простая") || st.Contains("Метательные ежи") || st.Contains("Сюрикены Ученика") ||
+                                st.Contains("Сякены Бронзовые") || st.Contains("Лук простой") || st.Contains("Арбалет учебный") || st.Contains("Лук охотника") || st.Contains("Арбалет лёгкий")
+                                 || st.Contains("Лук боевой"))
+                            {
+                                Metalki met = new Metalki();
+                                met.Date = currLineDate;
+                                met.Finished = false;
+                                met.Summ = 0;
+                                met.Id = getIdByLine(st);
+                                metalki.Add(met);
+                            }
+                        }
+                        if (st.Contains("Передал предмет") && st.Contains("Передача питомцу"))
+                        {
+                            if (st.Contains("Сякены") || st.Contains("Лук боевой") || st.Contains("Сюрикены") || st.Contains("Рогатка простая") || st.Contains("Метательные ежи") || st.Contains("Сюрикены Ученика") ||
+                                st.Contains("Сякены Бронзовые") || st.Contains("Лук простой") || st.Contains("Арбалет учебный") || st.Contains("Лук охотника") || st.Contains("Арбалет лёгкий")
+                                 || st.Contains("Лук боевой"))
+                            {
+                                string id = getIdByLine(st);
+                                foreach (Metalki met in metalki)
+                                {
+                                    if (met.Id.Equals(id) && !met.Finished)
+                                    {
+                                        if (DateTime.Compare(currLineDate, met.Date) == 0 || DateTime.Compare(currLineDate, met.Date.AddDays(1)) == 0)
+                                        {
+                                            met.Finished = true;
+                                        }
+                                        else
+                                        {
+                                            met.Summ = 0;
+                                            met.Finished = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (st.Contains("Зарядка на"))
+                        {
+                            string id = getIdByLine(st);
+                            foreach (Metalki met in metalki)
+                            {
+                                if (met.Id.Equals(id) && !met.Finished)
+                                {
+                                    if (DateTime.Compare(currLineDate, met.Date) == 0 || DateTime.Compare(currLineDate, met.Date.AddDays(1)) == 0)
+                                    {
+                                        String[] words = st.Split(' ');
+                                        foreach (string s in words)
+                                        {
+                                            if (s.Contains("-") && s.Contains("ст."))
+                                            {
+                                                char[] charsToTrimForSumm = { '-', 'с', 'т', '.' };
+                                                met.Summ += toDoubleCustom(s.Trim(charsToTrimForSumm));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (Metalki met in metalki)
+            {
+                if (met.Finished)
+                {
+                    pitZaryad += met.Summ;
+                }
+            }
+
+        }
+
+        private string getIdByLine(string str)
+        {
+            string result = "";
+            String[] words = str.Split(' ');
+            foreach (string s in words)
+            {
+                if (s.Contains("[") && s.Contains("]"))
+                {
+                    char[] charsToTrimForId = { '[', ']' };
+                    result = s.Trim(charsToTrimForId);
+                    return result;
+                }
+            }
+            return result;
+        }
+
+        private List<String> cleanLogForPit()
+        {
+            List<String> result = new List<String>();
+            String input = boxPitInput.Text;
+            String[] lines = input.Split('\n');
+            foreach (String str in lines)
+            {
+                if (str.Trim().Length > 12)
+                {
+                    if (!str.Contains("Вся выборка содержит") && !str.Contains(" по ") && !str.Contains("пользователи"))
+                    {
+                        if (str.Trim().Contains("питомц") || (str.Trim().Contains("Использовал предмет") && str.Trim().Contains("Упаковка Корма")) || str.Trim().Contains("Зарядка на"))
+                        {
+                            result.Add(str.Trim());
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
