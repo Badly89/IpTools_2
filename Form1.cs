@@ -382,9 +382,12 @@ namespace IpTools_2
 
                 var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
 
-                IpClass ipToSave = new IpClass();
-                ipToSave.Ip = ip;
-                ipToSave.City = temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                IpClass ipToSave = new IpClass
+                {
+                    Ip = ip,
+                    City = temp1 //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                };
+
                 savedIPList.Add(ipToSave);
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
@@ -427,9 +430,12 @@ namespace IpTools_2
 
                 var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim();
 
-                IpClass ipToSave = new IpClass();
-                ipToSave.Ip = ip;
-                ipToSave.City = temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                IpClass ipToSave = new IpClass
+                {
+                    Ip = ip,
+                    City = temp1 //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                };
+
                 savedIPList.Add(ipToSave);
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
@@ -457,9 +463,11 @@ namespace IpTools_2
                 var netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value;
                 var country = jPerson.Objects.Object[0].Attributes.Attribute[4].Value;
                 var temp1 = country.Trim() + ", " + desc.Trim() + ", " + netname.Trim();
-                IpClass ipToSave = new IpClass();
-                ipToSave.Ip = ip;
-                ipToSave.City = temp1;
+                IpClass ipToSave = new IpClass
+                {
+                    Ip = ip,
+                    City = temp1
+                };
                 savedIPList.Add(ipToSave);
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
@@ -517,9 +525,11 @@ namespace IpTools_2
                 if (cityIndex != 0) city = Regex.Replace(htmlLines[cityIndex + 1], HTML_TAG_PATTERN, string.Empty);
                 if (regionIndex != 0) region = Regex.Replace(htmlLines[regionIndex + 1], HTML_TAG_PATTERN, string.Empty);
                 if (okrugIndex != 0) okrug = Regex.Replace(htmlLines[okrugIndex + 1], HTML_TAG_PATTERN, string.Empty);
-                IpClass ipToSave = new IpClass();
-                ipToSave.Ip = ip;
-                ipToSave.City = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                IpClass ipToSave = new IpClass
+                {
+                    Ip = ip,
+                    City = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim()
+                };
                 savedIPList.Add(ipToSave);
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
@@ -1029,20 +1039,24 @@ namespace IpTools_2
 
         private void itemGiven(string line)
         {
-            Transfer item = new Transfer();
-            item.Id = id_giv;
-            item.IsOk = false;
-            item.Trans = proccessItem(line);
+            Transfer item = new Transfer
+            {
+                Id = id_giv,
+                IsOk = false,
+                Trans = proccessItem(line)
+            };
             id_giv++;
             givenItems.Add(item);
         }
 
         private void itemsReceived(string line)
         {
-            Transfer item = new Transfer();
-            item.Id = id_rec;
-            item.IsOk = false;
-            item.Trans = proccessItem(line);
+            Transfer item = new Transfer
+            {
+                Id = id_rec,
+                IsOk = false,
+                Trans = proccessItem(line)
+            };
             id_rec++;
             receivedItems.Add(item);
         }
@@ -1272,8 +1286,10 @@ namespace IpTools_2
         private pitItem pitItemProceed(String str)
         {
             String name = "";
-            pitItem item = new pitItem();
-            item.consider = true;
+            pitItem item = new pitItem
+            {
+                consider = true
+            };
             int startItemName = 0;
             int startItemId = 0;
             int i = 0;
@@ -1421,11 +1437,13 @@ namespace IpTools_2
                                 st.Contains("Сякены Бронзовые") || st.Contains("Лук простой") || st.Contains("Арбалет учебный") || st.Contains("Лук охотника") || st.Contains("Арбалет лёгкий")
                                  || st.Contains("Лук боевой"))
                             {
-                                Metalki met = new Metalki();
-                                met.Date = currLineDate;
-                                met.Finished = false;
-                                met.Summ = 0;
-                                met.Id = getIdByLine(st);
+                                Metalki met = new Metalki
+                                {
+                                    Date = currLineDate,
+                                    Finished = false,
+                                    Summ = 0,
+                                    Id = getIdByLine(st)
+                                };
                                 metalki.Add(met);
                             }
                         }
