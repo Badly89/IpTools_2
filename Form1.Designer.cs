@@ -77,17 +77,17 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.boxPitOutput = new System.Windows.Forms.RichTextBox();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.btnPitProcess = new System.Windows.Forms.Button();
-            this.btnPiClear = new System.Windows.Forms.Button();
-            this.checkPitFilter = new System.Windows.Forms.CheckBox();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.boxPitInput = new System.Windows.Forms.RichTextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.boxPitOutput = new System.Windows.Forms.RichTextBox();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.btnPiClear = new System.Windows.Forms.Button();
+            this.btnPitProcess = new System.Windows.Forms.Button();
+            this.checkPitFilter = new System.Windows.Forms.CheckBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -120,13 +120,13 @@
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.groupBox17.SuspendLayout();
-            this.groupBox16.SuspendLayout();
-            this.groupBox15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
+            this.groupBox15.SuspendLayout();
+            this.groupBox17.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // boxIPInput
@@ -237,6 +237,7 @@
             this.btnClearIpForm.TabIndex = 10;
             this.btnClearIpForm.Text = "ОЧИСТИТЬ";
             this.btnClearIpForm.UseVisualStyleBackColor = false;
+            this.btnClearIpForm.Click += new System.EventHandler(this.btnClearIpForm_Click);
             // 
             // groupBox2
             // 
@@ -739,71 +740,25 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Подсчет по питомцам";
             // 
-            // groupBox17
+            // splitContainer4
             // 
-            this.groupBox17.Controls.Add(this.boxPitOutput);
-            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox17.Location = new System.Drawing.Point(0, 71);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(824, 175);
-            this.groupBox17.TabIndex = 2;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "результат";
+            this.splitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // boxPitOutput
+            // splitContainer4.Panel1
             // 
-            this.boxPitOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boxPitOutput.Enabled = false;
-            this.boxPitOutput.Location = new System.Drawing.Point(3, 19);
-            this.boxPitOutput.Name = "boxPitOutput";
-            this.boxPitOutput.Size = new System.Drawing.Size(818, 153);
-            this.boxPitOutput.TabIndex = 5;
-            this.boxPitOutput.Text = "";
+            this.splitContainer4.Panel1.Controls.Add(this.groupBox15);
             // 
-            // groupBox16
+            // splitContainer4.Panel2
             // 
-            this.groupBox16.Controls.Add(this.btnPiClear);
-            this.groupBox16.Controls.Add(this.btnPitProcess);
-            this.groupBox16.Controls.Add(this.checkPitFilter);
-            this.groupBox16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox16.Location = new System.Drawing.Point(0, 0);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(824, 71);
-            this.groupBox16.TabIndex = 1;
-            this.groupBox16.TabStop = false;
-            // 
-            // btnPitProcess
-            // 
-            this.btnPitProcess.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnPitProcess.Location = new System.Drawing.Point(3, 40);
-            this.btnPitProcess.Name = "btnPitProcess";
-            this.btnPitProcess.Size = new System.Drawing.Size(417, 28);
-            this.btnPitProcess.TabIndex = 9;
-            this.btnPitProcess.Text = "Обработать";
-            this.btnPitProcess.UseVisualStyleBackColor = true;
-            this.btnPitProcess.Click += new System.EventHandler(this.btnPitProcess_Click_1);
-            // 
-            // btnPiClear
-            // 
-            this.btnPiClear.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnPiClear.Location = new System.Drawing.Point(420, 40);
-            this.btnPiClear.Name = "btnPiClear";
-            this.btnPiClear.Size = new System.Drawing.Size(128, 28);
-            this.btnPiClear.TabIndex = 8;
-            this.btnPiClear.Text = "Очистить";
-            this.btnPiClear.UseVisualStyleBackColor = true;
-            this.btnPiClear.Click += new System.EventHandler(this.btnPiClear_Click_1);
-            // 
-            // checkPitFilter
-            // 
-            this.checkPitFilter.AutoSize = true;
-            this.checkPitFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.checkPitFilter.Location = new System.Drawing.Point(3, 19);
-            this.checkPitFilter.Name = "checkPitFilter";
-            this.checkPitFilter.Size = new System.Drawing.Size(818, 21);
-            this.checkPitFilter.TabIndex = 7;
-            this.checkPitFilter.Text = "Просто отфильтровать логи для питомца";
-            this.checkPitFilter.UseVisualStyleBackColor = true;
+            this.splitContainer4.Panel2.Controls.Add(this.groupBox17);
+            this.splitContainer4.Panel2.Controls.Add(this.groupBox16);
+            this.splitContainer4.Size = new System.Drawing.Size(828, 486);
+            this.splitContainer4.SplitterDistance = 232;
+            this.splitContainer4.TabIndex = 3;
             // 
             // groupBox15
             // 
@@ -849,25 +804,71 @@
             this.label16.Text = "1) Открываем логи с фильтрами  83, 146, 147. Запоминаем даты покупки и смерти пит" +
     "омца. ";
             // 
-            // splitContainer4
+            // groupBox17
             // 
-            this.splitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Name = "splitContainer4";
-            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.groupBox17.Controls.Add(this.boxPitOutput);
+            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox17.Location = new System.Drawing.Point(0, 71);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(824, 175);
+            this.groupBox17.TabIndex = 2;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "результат";
             // 
-            // splitContainer4.Panel1
+            // boxPitOutput
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.groupBox15);
+            this.boxPitOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.boxPitOutput.Enabled = false;
+            this.boxPitOutput.Location = new System.Drawing.Point(3, 19);
+            this.boxPitOutput.Name = "boxPitOutput";
+            this.boxPitOutput.Size = new System.Drawing.Size(818, 153);
+            this.boxPitOutput.TabIndex = 5;
+            this.boxPitOutput.Text = "";
             // 
-            // splitContainer4.Panel2
+            // groupBox16
             // 
-            this.splitContainer4.Panel2.Controls.Add(this.groupBox17);
-            this.splitContainer4.Panel2.Controls.Add(this.groupBox16);
-            this.splitContainer4.Size = new System.Drawing.Size(828, 486);
-            this.splitContainer4.SplitterDistance = 232;
-            this.splitContainer4.TabIndex = 3;
+            this.groupBox16.Controls.Add(this.btnPiClear);
+            this.groupBox16.Controls.Add(this.btnPitProcess);
+            this.groupBox16.Controls.Add(this.checkPitFilter);
+            this.groupBox16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox16.Location = new System.Drawing.Point(0, 0);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(824, 71);
+            this.groupBox16.TabIndex = 1;
+            this.groupBox16.TabStop = false;
+            // 
+            // btnPiClear
+            // 
+            this.btnPiClear.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPiClear.Location = new System.Drawing.Point(420, 40);
+            this.btnPiClear.Name = "btnPiClear";
+            this.btnPiClear.Size = new System.Drawing.Size(128, 28);
+            this.btnPiClear.TabIndex = 8;
+            this.btnPiClear.Text = "Очистить";
+            this.btnPiClear.UseVisualStyleBackColor = true;
+            this.btnPiClear.Click += new System.EventHandler(this.btnPiClear_Click_1);
+            // 
+            // btnPitProcess
+            // 
+            this.btnPitProcess.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnPitProcess.Location = new System.Drawing.Point(3, 40);
+            this.btnPitProcess.Name = "btnPitProcess";
+            this.btnPitProcess.Size = new System.Drawing.Size(417, 28);
+            this.btnPitProcess.TabIndex = 9;
+            this.btnPitProcess.Text = "Обработать";
+            this.btnPitProcess.UseVisualStyleBackColor = true;
+            this.btnPitProcess.Click += new System.EventHandler(this.btnPitProcess_Click_1);
+            // 
+            // checkPitFilter
+            // 
+            this.checkPitFilter.AutoSize = true;
+            this.checkPitFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.checkPitFilter.Location = new System.Drawing.Point(3, 19);
+            this.checkPitFilter.Name = "checkPitFilter";
+            this.checkPitFilter.Size = new System.Drawing.Size(818, 21);
+            this.checkPitFilter.TabIndex = 7;
+            this.checkPitFilter.Text = "Просто отфильтровать логи для питомца";
+            this.checkPitFilter.UseVisualStyleBackColor = true;
             // 
             // imageList1
             // 
@@ -919,14 +920,14 @@
             this.groupBox14.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.ResumeLayout(false);
 
         }
