@@ -49,7 +49,6 @@
             this.radioLinksNicRu = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioWhoer = new System.Windows.Forms.RadioButton();
-            this.rbipcom = new System.Windows.Forms.RadioButton();
             this.radioNicRu = new System.Windows.Forms.RadioButton();
             this.radioIpcalc = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -362,9 +361,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioWhoer);
-            this.groupBox3.Controls.Add(this.rbipcom);
             this.groupBox3.Controls.Add(this.radioNicRu);
+            this.groupBox3.Controls.Add(this.radioWhoer);
             this.groupBox3.Controls.Add(this.radioIpcalc);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox3.Location = new System.Drawing.Point(3, 17);
@@ -379,7 +377,7 @@
             this.radioWhoer.Dock = System.Windows.Forms.DockStyle.Top;
             this.radioWhoer.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioWhoer.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioWhoer.Location = new System.Drawing.Point(3, 126);
+            this.radioWhoer.Location = new System.Drawing.Point(3, 52);
             this.radioWhoer.Name = "radioWhoer";
             this.radioWhoer.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.radioWhoer.Size = new System.Drawing.Size(151, 39);
@@ -388,26 +386,12 @@
             this.radioWhoer.UseVisualStyleBackColor = true;
             this.radioWhoer.CheckedChanged += new System.EventHandler(this.radioWhoer_CheckedChanged);
             // 
-            // rbipcom
-            // 
-            this.rbipcom.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rbipcom.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbipcom.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.rbipcom.Location = new System.Drawing.Point(3, 87);
-            this.rbipcom.Name = "rbipcom";
-            this.rbipcom.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
-            this.rbipcom.Size = new System.Drawing.Size(151, 39);
-            this.rbipcom.TabIndex = 8;
-            this.rbipcom.Text = "IP.API.COM";
-            this.rbipcom.UseVisualStyleBackColor = true;
-            this.rbipcom.CheckedChanged += new System.EventHandler(this.rbipcom_CheckedChanged);
-            // 
             // radioNicRu
             // 
             this.radioNicRu.Dock = System.Windows.Forms.DockStyle.Top;
             this.radioNicRu.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioNicRu.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioNicRu.Location = new System.Drawing.Point(3, 52);
+            this.radioNicRu.Location = new System.Drawing.Point(3, 91);
             this.radioNicRu.Name = "radioNicRu";
             this.radioNicRu.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.radioNicRu.Size = new System.Drawing.Size(151, 35);
@@ -887,7 +871,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "ОП Tools 2.0";
+            this.Text = "ОП Tools 2.3";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -948,7 +932,6 @@
         private System.Windows.Forms.RadioButton radioLinksApehaLogs;
         private System.Windows.Forms.RadioButton radioNoLinksJustText;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton rbipcom;
         private System.Windows.Forms.RadioButton radioIpcalc;
         private System.Windows.Forms.RadioButton radioNicRu;
         private System.Windows.Forms.GroupBox groupBox1;

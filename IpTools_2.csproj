@@ -7,7 +7,7 @@
     <ProjectGuid>{F233CD05-6F7D-4E80-A3B3-267A1E18545D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>IpTools_2</RootNamespace>
-    <AssemblyName>IpTools_v2</AssemblyName>
+    <AssemblyName>IpTools_v2.3</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

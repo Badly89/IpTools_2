@@ -166,7 +166,7 @@ namespace IpTools_2
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
-                rbipcom.Enabled = false;
+                //rbipcom.Enabled = false;
                 radioNoLinksJustText.Enabled = false;
                 radioIpcalc.Enabled = false;
                 radioNicRu.Enabled = false;
@@ -238,7 +238,7 @@ namespace IpTools_2
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
                 radioIpcalc.Enabled = true;
-                rbipcom.Enabled = true;
+                //rbipcom.Enabled = true;
                 radioNicRu.Enabled = true;
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
                 btnIpCheckStat.Enabled = true;
@@ -405,52 +405,52 @@ namespace IpTools_2
             }
 
             //Checking using IP.API.COM
-            if (rbipcom.Checked == true)
-            {
-                string region = "";
-                string okrug = "";
-                string country = "";
-                string city = "";
-                string asn_organization = "";
-                // string desc = "";
-                string org = "";
+            //if (rbipcom.Checked == true)
+            //{
+            //    string region = "";
+            //    string okrug = "";
+            //    string country = "";
+            //    string city = "";
+            //    string asn_organization = "";
+            //    // string desc = "";
+            //    string org = "";
 
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                WebClient client = new WebClient();
-                string jsonadress = client.DownloadString("http://ip-api.com/json/" + ip);
-                var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-                if (jPerson.region != null) { region = jPerson.region; }
-                if (jPerson.regionName != null) { okrug = jPerson.regionName; } 
-                if (jPerson.country != null) { country = jPerson.country; }
-                if (jPerson.city != null) { city = jPerson.city; }
-                if (jPerson.isp != null) { asn_organization = jPerson.isp; }
-                //  if (jPerson.as != null) { desc = jPerson.isp.name; }
-                if (jPerson.org != null) { org = jPerson.org; }
+            //    ServicePointManager.Expect100Continue = true;
+            //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //    WebClient client = new WebClient();
+            //    string jsonadress = client.DownloadString("http://ip-api.com/json/" + ip);
+            //    var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
+            //    if (jPerson.region != null) { region = jPerson.region; }
+            //    if (jPerson.regionName != null) { okrug = jPerson.regionName; } 
+            //    if (jPerson.country != null) { country = jPerson.country; }
+            //    if (jPerson.city != null) { city = jPerson.city; }
+            //    if (jPerson.isp != null) { asn_organization = jPerson.isp; }
+            //    //  if (jPerson.as != null) { desc = jPerson.isp.name; }
+            //    if (jPerson.org != null) { org = jPerson.org; }
 
-                var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim();
+            //    var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim();
 
-                IpClass ipToSave = new IpClass
-                {
-                    Ip = ip,
-                    City = temp1 //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
-                };
+            //    IpClass ipToSave = new IpClass
+            //    {
+            //        Ip = ip,
+            //        City = temp1 //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+            //    };
 
-                savedIPList.Add(ipToSave);
-                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-                {
-                    boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
-                }
-                else
-                {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
-                }
-                previousIpCountry = country.Trim();
-                return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
+            //    savedIPList.Add(ipToSave);
+            //    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+            //    {
+            //        boxIPAnswer.SelectionColor = Color.Red;
+            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
+            //    }
+            //    else
+            //    {
+            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
+            //    }
+            //    previousIpCountry = country.Trim();
+            //    return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
 
-                //return null;
-            }
+            //    //return null;
+            //}
 
             if (radioWhoer.Checked == true)
             {
@@ -1063,8 +1063,8 @@ namespace IpTools_2
 
         private Event proccessItem(string line)
         {
-            int startWord = 0;
-            int cityWords = 0;
+            int startWord;
+            int cityWords;
             if (line.Contains("Утес дракона") || line.Contains("Остров фантазий"))
             {
                 startWord = 5;
