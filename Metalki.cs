@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IpTools_2
+namespace OpTools
 {
     public class Metalki
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace IpTools_2
+namespace OpTools
 {
     static class Program
     {

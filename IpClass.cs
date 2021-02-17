@@ -1,4 +1,4 @@
-﻿namespace IpTools_2
+﻿namespace OpTools
 {
     public class IpClass
     {

@@ -9,7 +9,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace IpTools_2
+namespace OpTools
 {
 
 
@@ -45,6 +45,7 @@ namespace IpTools_2
 
         private void radioWhoisRu_CheckedChanged(object sender, EventArgs e)
         {
+            #region radioIpcalc
             //if (radioIpcalc.Checked == true)
             //{
             //    radioNicRu.Checked = false;
@@ -58,10 +59,12 @@ namespace IpTools_2
             //    rbipcom.Checked = true;
             //    radioWhoer.Checked = true;
             //}
+            #endregion
         }
 
         private void radioNicRu_CheckedChanged(object sender, EventArgs e)
         {
+            #region radioNicRu
             //if (radioNicRu.Checked == true)
             //{
             //    radioIpcalc.Checked = false;
@@ -74,38 +77,17 @@ namespace IpTools_2
             //    rbipcom.Checked = true;
             //    radioWhoer.Checked = true;
             //}
+            #endregion
         }
 
         private void radioWhoer_CheckedChanged(object sender, EventArgs e)
         {
-        //    if (radioWhoer.Checked == true)
-        //    {
-        //        radioIpcalc.Checked = false;
-        //        radioNicRu.Checked = false;
-        //        rbipcom.Checked = false;
-        //    }
-        //    else
-        //    {
-        //        radioIpcalc.Checked = true;
-        //        radioNicRu.Checked = true;
-        //        rbipcom.Checked = true;
-        //    }
+           
         }
 
         private void rbipcom_CheckedChanged(object sender, EventArgs e)
         {
-        //    if (rbipcom.Checked == true)
-        //    {
-        //        radioIpcalc.Checked = false;
-        //        radioNicRu.Checked = false;
-        //        radioWhoer.Checked = false;
-        //    }
-        //    else
-        //    {
-        //        radioIpcalc.Checked = true;
-        //        radioNicRu.Checked = true;
-        //        radioWhoer.Checked = true;
-        //    }
+        
         }
 
         private void IpLinkRadioChangedToggle()
@@ -170,6 +152,7 @@ namespace IpTools_2
                 radioNoLinksJustText.Enabled = false;
                 radioIpcalc.Enabled = false;
                 radioNicRu.Enabled = false;
+                radioWhoer.Enabled = false;
                 btnClearIpForm.Enabled = false;
                 previousIpCountry = "";
                 bool ipFirstRun = true;
@@ -238,6 +221,7 @@ namespace IpTools_2
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
                 radioIpcalc.Enabled = true;
+                radioWhoer.Enabled = true;
                 //rbipcom.Enabled = true;
                 radioNicRu.Enabled = true;
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
@@ -284,7 +268,7 @@ namespace IpTools_2
                     return 4;
                 }
                 else
-                    if (lineToDetect.Contains("Неизвестный город #6"))
+                    if (lineToDetect.Contains("Неизвестный город #6") || lineToDetect.Contains("Неизвестный город #7"))
                 {
                     return 6;
                 }
@@ -821,7 +805,8 @@ namespace IpTools_2
             receivedItems.Clear();
             givenItems.Clear();
             string fullLog = boxInput.Text;
-            string[] lines = fullLog.Split('\n');
+            string[] lines = fullLog.TrimStart().Split('\n');
+            
             proccessLines(lines);
         }
         private void proccessLines(string[] lines)
@@ -957,7 +942,7 @@ namespace IpTools_2
             {
                 startWord = 4;
             }
-            string[] firstParse = line.Split(' ');
+            string[] firstParse = line.TrimStart().Split(' ');
             string str = firstParse[startWord];
             int n = str.IndexOf("ст.");
             str = str.Remove(n, 3);
@@ -977,7 +962,8 @@ namespace IpTools_2
                 {
                     startWord = 4;
                 }
-                string[] firstParse = line.Split(' ');
+
+                string[] firstParse = line.TrimStart().Split(' ');
                 string str = firstParse[startWord];
                 int n = str.IndexOf("ст.");
                 try
@@ -1543,6 +1529,14 @@ namespace IpTools_2
             return result;
         }
 
-       
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.Text = "OPTools " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+//            this.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
     }
 }

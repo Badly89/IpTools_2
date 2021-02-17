@@ -4,7 +4,7 @@
 // MVID: F471ACA2-82E7-452D-BC67-1F55BF48ED1E
 // Assembly location: D:\!!Личное\Apeha\OPtools\ОП tools.exe
 
-namespace IpTools_2
+namespace OpTools
 {
   public class Transfer
   {

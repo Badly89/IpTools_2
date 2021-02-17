@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace IpTools_2
+namespace OpTools
 {
     public partial class IpBox : Form
     {
