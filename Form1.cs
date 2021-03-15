@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+using System.Xml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -339,6 +340,7 @@ namespace OpTools
                     return ipFromSavedList.City;
                 }
             }
+            #region ipcalc.co
             //Checking using ipcalc.co
             if (radioIpcalc.Checked == true)
             {
@@ -387,7 +389,9 @@ namespace OpTools
 
                 //return null;
             }
+            #endregion
 
+            #region IP.API.COM not active
             //Checking using IP.API.COM
             //if (rbipcom.Checked == true)
             //{
@@ -435,7 +439,9 @@ namespace OpTools
 
             //    //return null;
             //}
+            #endregion
 
+            #region ripe.net
             if (radioWhoer.Checked == true)
             {
                 ServicePointManager.Expect100Continue = true;
@@ -466,69 +472,143 @@ namespace OpTools
                 return temp1;
             }
 
+            #endregion
 
-            //checking using nic.ru/whois
+            #region ipgeobase XMLparse
             if (radioNicRu.Checked == true)
             {
-                WebClient client = new WebClient();
-                string downloadString = client.DownloadString("http://ipgeobase.ru/?address=" + ip);
-                string[] htmlLines = downloadString.Split('\n');
-                int cityIndex = 0;
-                int regionIndex = 0;
-                int okrugIndex = 0;
-                int countryIndex = 0;
-                int counter = 0;
-                foreach (string str in htmlLines)
-                {
-                    if (str.Contains("Город"))
-                    {
-                        cityIndex = counter;
-
-                    }
-                    if (str.Contains("Регион"))
-                    {
-                        regionIndex = counter;
-                    }
-                    if (str.Contains("Округ"))
-                    {
-                        okrugIndex = counter;
-                    }
-                    if (str.Contains("Страна"))
-                    {
-                        countryIndex = counter;
-                        break;
-                    }
-                    counter++;
-                }
-                string HTML_TAG_PATTERN = "<.*?>";
                 string country = "";
                 string region = "";
-                string okrug = "";
+                string district = "";
                 string city = "";
-                if (countryIndex != 0) country = Regex.Replace(htmlLines[countryIndex + 1], HTML_TAG_PATTERN, string.Empty);
-                if (cityIndex != 0) city = Regex.Replace(htmlLines[cityIndex + 1], HTML_TAG_PATTERN, string.Empty);
-                if (regionIndex != 0) region = Regex.Replace(htmlLines[regionIndex + 1], HTML_TAG_PATTERN, string.Empty);
-                if (okrugIndex != 0) okrug = Regex.Replace(htmlLines[okrugIndex + 1], HTML_TAG_PATTERN, string.Empty);
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.Load("http://ipgeobase.ru:7020/geo?ip="+ip);
+                                
+                XmlElement xRoot = xDoc.DocumentElement;
+               
+
+
+                    foreach (XmlNode xnode in xRoot)
+                    {
+                        // получаем атрибут name
+                        if (xnode.Attributes.Count > 0)
+                        {
+                            XmlNode attr = xnode.Attributes.GetNamedItem("name");
+                            if (attr != null)
+                                Console.WriteLine(attr.Value);
+                        }
+                        // обходим все дочерние узлы элемента user
+                        foreach (XmlNode childnode in xnode.ChildNodes)
+                        {
+                            // если узел - company
+                            if (childnode.Name == "country")
+                            {
+                                country = childnode.InnerText;
+                            }
+                            // если узел age
+                            if (childnode.Name == "city")
+                            {
+                               city = childnode.InnerText;
+                        }
+                            if (childnode.Name == "region")
+                            {
+                            region = childnode.InnerText;
+                        }
+                            if (childnode.Name == "district")
+                            {
+                            district = childnode.InnerText;
+                        }
+
+                        }
+
+                        Console.WriteLine();
+                    }
+                    Console.Read();
+
                 IpClass ipToSave = new IpClass
                 {
                     Ip = ip,
-                    City = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim()
+                    City = country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim()
                 };
                 savedIPList.Add(ipToSave);
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
                     boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + "\n");
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim() + "\n");
                 }
                 else
                 {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + "\n");
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim() + "\n");
                 }
                 previousIpCountry = country.Trim();
-                return country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                return country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim();
             }
+            #endregion
 
-                 return null;
+            #region ipgeobase.ru broke
+            //checking using nic.ru/whois
+            //if (radioNicRu.Checked == true)
+            //{
+            //WebClient client = new WebClient();
+            //string downloadString = client.DownloadString("http://ipgeobase.ru/?address=" + ip);
+            //string[] htmlLines = downloadString.Split('\n');
+            //int cityIndex = 0;
+            //int regionIndex = 0;
+            //int okrugIndex = 0;
+            //int countryIndex = 0;
+            //int counter = 0;
+            //foreach (string str in htmlLines)
+            //{
+            //    if (str.Contains("Город"))
+            //    {
+            //        cityIndex = counter;
+
+            //    }
+            //    if (str.Contains("Регион"))
+            //    {
+            //        regionIndex = counter;
+            //    }
+            //    if (str.Contains("Округ"))
+            //    {
+            //        okrugIndex = counter;
+            //    }
+            //    if (str.Contains("Страна"))
+            //    {
+            //        countryIndex = counter;
+            //        break;
+            //    }
+            //    counter++;
+            //}
+            //string HTML_TAG_PATTERN = "<.*?>";
+            //string country = "";
+            //string region = "";
+            //string okrug = "";
+            //string city = "";
+            //if (countryIndex != 0) country = Regex.Replace(htmlLines[countryIndex + 1], HTML_TAG_PATTERN, string.Empty);
+            //if (cityIndex != 0) city = Regex.Replace(htmlLines[cityIndex + 1], HTML_TAG_PATTERN, string.Empty);
+            //if (regionIndex != 0) region = Regex.Replace(htmlLines[regionIndex + 1], HTML_TAG_PATTERN, string.Empty);
+            //if (okrugIndex != 0) okrug = Regex.Replace(htmlLines[okrugIndex + 1], HTML_TAG_PATTERN, string.Empty);
+            //IpClass ipToSave = new IpClass
+            //{
+            //    Ip = ip,
+            //    City = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim()
+            //};
+            //savedIPList.Add(ipToSave);
+            //if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+            //{
+            //    boxIPAnswer.SelectionColor = Color.Red;
+            //    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + "\n");
+            //}
+            //else
+            //{
+            //    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + "\n");
+            //}
+            //previousIpCountry = country.Trim();
+            //return country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+            //}
+            #endregion
+
+            return null;
 
 
         }
