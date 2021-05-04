@@ -79,6 +79,11 @@ namespace OpTools
             btnOpenIpPartly.Enabled = false;
             btnOpenIpPartly100.Enabled = false;
             btnOpenIpPartly150.Enabled = false;
+
+            srvKovcheg.Enabled = false;
+            srvSmorye.Enabled = false;
+            srvUtes.Enabled = false;
+
             int savedCount = partialOpenedCount;
             for (int i = savedCount; i < (savedCount + 50); i++)
             {
@@ -105,6 +110,10 @@ namespace OpTools
                     //btnOpenIpPartly150.Enabled = true;
                     btnOpenIpPartly.Enabled = true;
                     btnCancel.Enabled = false;
+                    //checkOf btn select serv
+                    srvKovcheg.Enabled = true;
+                    srvSmorye.Enabled = true;
+                    srvUtes.Enabled = true;
                     break;
                 }
                 if (cancelPressed)
@@ -122,13 +131,19 @@ namespace OpTools
                 btnOpenIpPartly100.Enabled = true;
                 btnOpenIpPartly150.Enabled = true;
                 btnOpenIpPartly.Enabled = true;
-                btnCancel.Enabled = false; ;
+                btnCancel.Enabled = false;
+                srvKovcheg.Enabled = true;
+                srvSmorye.Enabled = true;
+                srvUtes.Enabled = true;
             }
             btnOpenLogs.Enabled = true;
             btnOpenIpPartly100.Enabled = true;
             btnOpenIpPartly150.Enabled = true;
             btnOpenIpPartly.Enabled = true;
-            btnCancel.Enabled = false; ;
+            btnCancel.Enabled = false;
+            srvKovcheg.Enabled = true;
+            srvSmorye.Enabled = true;
+            srvUtes.Enabled = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -169,6 +184,9 @@ namespace OpTools
             btnOpenIpPartly100.Enabled = false;
             btnOpenIpPartly150.Enabled = false;
             btnOpenIpPartly.Enabled = false;
+            srvKovcheg.Enabled = false;
+            srvSmorye.Enabled = false;
+            srvUtes.Enabled = false;
             int savedCount = partialOpenedCount;
             for (int i = savedCount; i < (savedCount + 100); i++)
             {
@@ -195,6 +213,9 @@ namespace OpTools
                     //btnOpenIpPartly150.Enabled = true;
                     //btnOpenIpPartly.Enabled = true;
                     btnCancel.Enabled = false;
+                    srvKovcheg.Enabled = true;
+                    srvSmorye.Enabled = true;
+                    srvUtes.Enabled = true;
                     break;
                 }
                 if (cancelPressed)
@@ -211,13 +232,19 @@ namespace OpTools
                 btnOpenLogs.Enabled = true;
                 btnOpenIpPartly100.Enabled = true;
                 btnOpenIpPartly150.Enabled = true;
-                btnCancel.Enabled = false; ;
+                btnCancel.Enabled = false;
+                srvKovcheg.Enabled = true;
+                srvSmorye.Enabled = true;
+                srvUtes.Enabled = true;
             }
             btnOpenLogs.Enabled = true;
             btnOpenIpPartly100.Enabled = true;
             btnOpenIpPartly150.Enabled = true;
             btnOpenIpPartly.Enabled = true;
             btnCancel.Enabled = false;
+            srvKovcheg.Enabled = true;
+            srvSmorye.Enabled = true;
+            srvUtes.Enabled = true;
         }
 
         private void btnOpenIpPartly150_Click(object sender, EventArgs e)
@@ -227,6 +254,11 @@ namespace OpTools
             btnOpenIpPartly100.Enabled = false;
             btnOpenIpPartly150.Enabled = false;
             btnOpenIpPartly.Enabled = false;
+
+            srvKovcheg.Enabled = false;
+            srvSmorye.Enabled = false;
+            srvUtes.Enabled = false;
+
             int savedCount = partialOpenedCount;
             for (int i = savedCount; i < (savedCount + 150); i++)
             {
@@ -254,6 +286,9 @@ namespace OpTools
                     btnOpenIpPartly150.Enabled = true;
                     //btnOpenIpPartly.Enabled = true;
                     btnCancel.Enabled = false;
+                    srvKovcheg.Enabled = true;
+                    srvSmorye.Enabled = true;
+                    srvUtes.Enabled = true;
                     break;
                 }
                 if (cancelPressed)
@@ -271,12 +306,18 @@ namespace OpTools
                 btnOpenIpPartly150.Enabled = true;
                 btnOpenIpPartly.Enabled = true;
                 btnCancel.Enabled = false;
+                srvKovcheg.Enabled = true;
+                srvSmorye.Enabled = true;
+                srvUtes.Enabled = true;
             }
             btnOpenLogs.Enabled = true;
             btnOpenIpPartly100.Enabled = true;
             btnOpenIpPartly150.Enabled = true;
             btnOpenIpPartly.Enabled = true;
-            btnCancel.Enabled = false; ;
+            btnCancel.Enabled = false;
+            srvKovcheg.Enabled = true;
+            srvSmorye.Enabled = true;
+            srvUtes.Enabled = true;
         }
 
         private void btnOpenLogs_Click(object sender, EventArgs e)
@@ -308,6 +349,9 @@ namespace OpTools
             btnCancel.Enabled = false;
             btnOpenLogs.Enabled = true;
             btnOpenIpPartly.Enabled = false;
+            srvKovcheg.Enabled = false;
+            srvSmorye.Enabled = false;
+            srvUtes.Enabled = false;
             btnOpenLogs.Text = "Открыть логи Арены для всех айпи (Внимание. Пауза между открытиями логов - 1 секунда.)";
         }
     }

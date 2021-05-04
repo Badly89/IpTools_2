@@ -145,7 +145,7 @@ namespace OpTools
         {
             if (boxIPInput.Text != String.Empty)
             {
-                btnIpCheckStat.Text = "СТАТИСКТИКА ПРОВЕРКИ";
+                btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
@@ -1617,6 +1617,27 @@ namespace OpTools
         private void Form1_Shown(object sender, EventArgs e)
         {
 //            this.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(boxResult.Text);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(boxPitOutput.Text);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            boxIPAnswer.SelectAll();
+
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            boxIPAnswer.Copy();
         }
     }
 }
