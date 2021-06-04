@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.boxIPInput = new System.Windows.Forms.RichTextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.вставитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -48,8 +50,9 @@
             this.radioLinksApehaLogs = new System.Windows.Forms.RadioButton();
             this.radioLinksNicRu = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rdIpShois = new System.Windows.Forms.RadioButton();
             this.radioNicRu = new System.Windows.Forms.RadioButton();
-            this.radioWhoer = new System.Windows.Forms.RadioButton();
+            this.radioRipe = new System.Windows.Forms.RadioButton();
             this.radioIpcalc = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -84,14 +87,12 @@
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.boxPitOutput = new System.Windows.Forms.RichTextBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.btnPiClear = new System.Windows.Forms.Button();
             this.btnPitProcess = new System.Windows.Forms.Button();
             this.checkPitFilter = new System.Windows.Forms.CheckBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.button7 = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -130,18 +131,33 @@
             this.groupBox15.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // boxIPInput
             // 
+            this.boxIPInput.ContextMenuStrip = this.contextMenuStrip1;
             this.boxIPInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxIPInput.Location = new System.Drawing.Point(3, 17);
             this.boxIPInput.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.boxIPInput.Name = "boxIPInput";
-            this.boxIPInput.Size = new System.Drawing.Size(285, 464);
+            this.boxIPInput.Size = new System.Drawing.Size(285, 437);
             this.boxIPInput.TabIndex = 2;
             this.boxIPInput.Text = "";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.вставитьToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(123, 26);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // вставитьToolStripMenuItem
+            // 
+            this.вставитьToolStripMenuItem.Name = "вставитьToolStripMenuItem";
+            this.вставитьToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.вставитьToolStripMenuItem.Text = "Вставить";
+            this.вставитьToolStripMenuItem.Click += new System.EventHandler(this.вставитьToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -157,7 +173,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(877, 519);
+            this.tabControl1.Size = new System.Drawing.Size(854, 492);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 11;
             // 
@@ -170,7 +186,7 @@
             this.tabPage1.ImageKey = "IP.png";
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(869, 488);
+            this.tabPage1.Size = new System.Drawing.Size(846, 461);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Проверка IP";
             // 
@@ -191,7 +207,7 @@
             this.splitContainer2.Panel2.Controls.Add(this.groupBox5);
             this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Size = new System.Drawing.Size(869, 488);
+            this.splitContainer2.Size = new System.Drawing.Size(846, 461);
             this.splitContainer2.SplitterDistance = 295;
             this.splitContainer2.TabIndex = 11;
             // 
@@ -201,7 +217,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 484);
+            this.groupBox1.Size = new System.Drawing.Size(291, 457);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Сюда вставьте логи пишников:";
@@ -211,9 +227,9 @@
             this.groupBox5.Controls.Add(this.boxIPAnswer);
             this.groupBox5.Controls.Add(this.btnClearIpForm);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(0, 208);
+            this.groupBox5.Location = new System.Drawing.Point(0, 214);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(566, 276);
+            this.groupBox5.Size = new System.Drawing.Size(543, 243);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Результат проверки";
@@ -224,7 +240,7 @@
             this.boxIPAnswer.Enabled = false;
             this.boxIPAnswer.Location = new System.Drawing.Point(3, 17);
             this.boxIPAnswer.Name = "boxIPAnswer";
-            this.boxIPAnswer.Size = new System.Drawing.Size(560, 210);
+            this.boxIPAnswer.Size = new System.Drawing.Size(537, 177);
             this.boxIPAnswer.TabIndex = 4;
             this.boxIPAnswer.Text = "";
             this.boxIPAnswer.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.boxIPAnswer_LinkClicked);
@@ -235,9 +251,9 @@
             this.btnClearIpForm.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnClearIpForm.Enabled = false;
             this.btnClearIpForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnClearIpForm.Location = new System.Drawing.Point(3, 227);
+            this.btnClearIpForm.Location = new System.Drawing.Point(3, 194);
             this.btnClearIpForm.Name = "btnClearIpForm";
-            this.btnClearIpForm.Size = new System.Drawing.Size(560, 46);
+            this.btnClearIpForm.Size = new System.Drawing.Size(537, 46);
             this.btnClearIpForm.TabIndex = 10;
             this.btnClearIpForm.Text = "ОЧИСТИТЬ";
             this.btnClearIpForm.UseVisualStyleBackColor = false;
@@ -251,7 +267,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(566, 208);
+            this.groupBox2.Size = new System.Drawing.Size(543, 214);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры проверки";
@@ -264,7 +280,7 @@
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox6.Location = new System.Drawing.Point(319, 17);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(231, 188);
+            this.groupBox6.Size = new System.Drawing.Size(231, 194);
             this.groupBox6.TabIndex = 17;
             this.groupBox6.TabStop = false;
             // 
@@ -320,19 +336,21 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox4.Location = new System.Drawing.Point(160, 17);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(159, 188);
+            this.groupBox4.Size = new System.Drawing.Size(159, 194);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Делать айпишники:";
             // 
             // radioNoLinksJustText
             // 
+            this.radioNoLinksJustText.Checked = true;
             this.radioNoLinksJustText.Dock = System.Windows.Forms.DockStyle.Top;
             this.radioNoLinksJustText.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.radioNoLinksJustText.Location = new System.Drawing.Point(3, 123);
             this.radioNoLinksJustText.Name = "radioNoLinksJustText";
             this.radioNoLinksJustText.Size = new System.Drawing.Size(153, 31);
             this.radioNoLinksJustText.TabIndex = 13;
+            this.radioNoLinksJustText.TabStop = true;
             this.radioNoLinksJustText.Text = "Текстом без ссылок";
             this.radioNoLinksJustText.UseVisualStyleBackColor = true;
             this.radioNoLinksJustText.CheckedChanged += new System.EventHandler(this.radioNoLinksJustText_CheckedChanged);
@@ -352,30 +370,43 @@
             // 
             // radioLinksNicRu
             // 
-            this.radioLinksNicRu.Checked = true;
             this.radioLinksNicRu.Dock = System.Windows.Forms.DockStyle.Top;
             this.radioLinksNicRu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.radioLinksNicRu.Location = new System.Drawing.Point(3, 17);
             this.radioLinksNicRu.Name = "radioLinksNicRu";
             this.radioLinksNicRu.Size = new System.Drawing.Size(153, 47);
             this.radioLinksNicRu.TabIndex = 11;
-            this.radioLinksNicRu.TabStop = true;
-            this.radioLinksNicRu.Text = "Ссылками на 2whois.ru";
+            this.radioLinksNicRu.Text = "Ссылками на ipinfo.io";
             this.radioLinksNicRu.UseVisualStyleBackColor = true;
             this.radioLinksNicRu.CheckedChanged += new System.EventHandler(this.radioLinksNicRu_CheckedChanged);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.rdIpShois);
             this.groupBox3.Controls.Add(this.radioNicRu);
-            this.groupBox3.Controls.Add(this.radioWhoer);
+            this.groupBox3.Controls.Add(this.radioRipe);
             this.groupBox3.Controls.Add(this.radioIpcalc);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox3.Location = new System.Drawing.Point(3, 17);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(157, 188);
+            this.groupBox3.Size = new System.Drawing.Size(157, 194);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Использовать сервис:";
+            // 
+            // rdIpShois
+            // 
+            this.rdIpShois.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rdIpShois.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.rdIpShois.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rdIpShois.Location = new System.Drawing.Point(3, 126);
+            this.rdIpShois.Name = "rdIpShois";
+            this.rdIpShois.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
+            this.rdIpShois.Size = new System.Drawing.Size(151, 56);
+            this.rdIpShois.TabIndex = 10;
+            this.rdIpShois.Text = "https://ipwhois.io/";
+            this.rdIpShois.UseVisualStyleBackColor = true;
+            this.rdIpShois.CheckedChanged += new System.EventHandler(this.rdIpShois_CheckedChanged);
             // 
             // radioNicRu
             // 
@@ -391,19 +422,19 @@
             this.radioNicRu.UseVisualStyleBackColor = true;
             this.radioNicRu.CheckedChanged += new System.EventHandler(this.radioNicRu_CheckedChanged);
             // 
-            // radioWhoer
+            // radioRipe
             // 
-            this.radioWhoer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radioWhoer.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.radioWhoer.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioWhoer.Location = new System.Drawing.Point(3, 52);
-            this.radioWhoer.Name = "radioWhoer";
-            this.radioWhoer.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
-            this.radioWhoer.Size = new System.Drawing.Size(151, 39);
-            this.radioWhoer.TabIndex = 9;
-            this.radioWhoer.Text = "RIPE.NET";
-            this.radioWhoer.UseVisualStyleBackColor = true;
-            this.radioWhoer.CheckedChanged += new System.EventHandler(this.radioWhoer_CheckedChanged);
+            this.radioRipe.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radioRipe.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.radioRipe.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioRipe.Location = new System.Drawing.Point(3, 52);
+            this.radioRipe.Name = "radioRipe";
+            this.radioRipe.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
+            this.radioRipe.Size = new System.Drawing.Size(151, 39);
+            this.radioRipe.TabIndex = 9;
+            this.radioRipe.Text = "RIPE.NET";
+            this.radioRipe.UseVisualStyleBackColor = true;
+            this.radioRipe.CheckedChanged += new System.EventHandler(this.radioRipe_CheckedChanged);
             // 
             // radioIpcalc
             // 
@@ -418,7 +449,7 @@
             this.radioIpcalc.TabStop = true;
             this.radioIpcalc.Text = "IPCALC.CO";
             this.radioIpcalc.UseVisualStyleBackColor = true;
-            this.radioIpcalc.CheckedChanged += new System.EventHandler(this.radioWhoisRu_CheckedChanged);
+            this.radioIpcalc.CheckedChanged += new System.EventHandler(this.radioIpcalc_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -430,7 +461,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPage2.Size = new System.Drawing.Size(869, 488);
+            this.tabPage2.Size = new System.Drawing.Size(846, 461);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Супружеские передачи";
             // 
@@ -450,7 +481,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox9);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox7);
-            this.splitContainer1.Size = new System.Drawing.Size(855, 474);
+            this.splitContainer1.Size = new System.Drawing.Size(832, 447);
             this.splitContainer1.SplitterDistance = 431;
             this.splitContainer1.TabIndex = 12;
             // 
@@ -462,7 +493,7 @@
             this.groupBox8.Location = new System.Drawing.Point(0, 0);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(10, 40, 10, 10);
-            this.groupBox8.Size = new System.Drawing.Size(427, 470);
+            this.groupBox8.Size = new System.Drawing.Size(427, 443);
             this.groupBox8.TabIndex = 10;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Вставьте сюда лог передач между супругами, включая даты (используйте в фильтре ко" +
@@ -473,7 +504,7 @@
             this.boxInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxInput.Location = new System.Drawing.Point(10, 56);
             this.boxInput.Name = "boxInput";
-            this.boxInput.Size = new System.Drawing.Size(407, 404);
+            this.boxInput.Size = new System.Drawing.Size(407, 377);
             this.boxInput.TabIndex = 1;
             this.boxInput.Text = "";
             // 
@@ -485,7 +516,7 @@
             this.groupBox9.Location = new System.Drawing.Point(0, 189);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(5, 3, 3, 3);
-            this.groupBox9.Size = new System.Drawing.Size(416, 281);
+            this.groupBox9.Size = new System.Drawing.Size(393, 254);
             this.groupBox9.TabIndex = 11;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Результат обработки";
@@ -496,7 +527,7 @@
             this.boxResult.Enabled = false;
             this.boxResult.Location = new System.Drawing.Point(5, 17);
             this.boxResult.Name = "boxResult";
-            this.boxResult.Size = new System.Drawing.Size(408, 216);
+            this.boxResult.Size = new System.Drawing.Size(385, 189);
             this.boxResult.TabIndex = 6;
             this.boxResult.Text = "";
             // 
@@ -504,9 +535,9 @@
             // 
             this.btnCopy.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnCopy.Enabled = false;
-            this.btnCopy.Location = new System.Drawing.Point(5, 233);
+            this.btnCopy.Location = new System.Drawing.Point(5, 206);
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(408, 45);
+            this.btnCopy.Size = new System.Drawing.Size(385, 45);
             this.btnCopy.TabIndex = 10;
             this.btnCopy.Text = "Скопировать результат в буфер обмена";
             this.btnCopy.UseVisualStyleBackColor = true;
@@ -519,7 +550,7 @@
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox7.Location = new System.Drawing.Point(0, 0);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(416, 189);
+            this.groupBox7.Size = new System.Drawing.Size(393, 189);
             this.groupBox7.TabIndex = 9;
             this.groupBox7.TabStop = false;
             // 
@@ -530,14 +561,13 @@
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox11.Location = new System.Drawing.Point(179, 17);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(234, 169);
+            this.groupBox11.Size = new System.Drawing.Size(211, 169);
             this.groupBox11.TabIndex = 12;
             this.groupBox11.TabStop = false;
             // 
             // button5
             // 
             this.button5.AutoSize = true;
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button5.Location = new System.Drawing.Point(3, 67);
             this.button5.Name = "button5";
@@ -550,7 +580,6 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(3, 17);
             this.button1.Name = "button1";
@@ -609,7 +638,7 @@
     "4635.png";
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(869, 488);
+            this.tabPage3.Size = new System.Drawing.Size(846, 461);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Подсчет по боям";
             // 
@@ -628,8 +657,8 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.groupBox14);
             this.splitContainer3.Panel2.Controls.Add(this.groupBox13);
-            this.splitContainer3.Size = new System.Drawing.Size(867, 486);
-            this.splitContainer3.SplitterDistance = 309;
+            this.splitContainer3.Size = new System.Drawing.Size(844, 459);
+            this.splitContainer3.SplitterDistance = 300;
             this.splitContainer3.TabIndex = 3;
             // 
             // groupBox12
@@ -638,7 +667,7 @@
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox12.Location = new System.Drawing.Point(0, 0);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(305, 482);
+            this.groupBox12.Size = new System.Drawing.Size(296, 455);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Введите сюда логи с суммами опыта +/-";
@@ -648,7 +677,7 @@
             this.boxLogsFight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxLogsFight.Location = new System.Drawing.Point(3, 19);
             this.boxLogsFight.Name = "boxLogsFight";
-            this.boxLogsFight.Size = new System.Drawing.Size(299, 460);
+            this.boxLogsFight.Size = new System.Drawing.Size(290, 433);
             this.boxLogsFight.TabIndex = 2;
             this.boxLogsFight.Text = "";
             // 
@@ -656,9 +685,9 @@
             // 
             this.groupBox14.Controls.Add(this.boxLogsReply);
             this.groupBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox14.Location = new System.Drawing.Point(0, 132);
+            this.groupBox14.Location = new System.Drawing.Point(0, 104);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(550, 350);
+            this.groupBox14.Size = new System.Drawing.Size(536, 351);
             this.groupBox14.TabIndex = 2;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Результат";
@@ -668,7 +697,7 @@
             this.boxLogsReply.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxLogsReply.Location = new System.Drawing.Point(3, 19);
             this.boxLogsReply.Name = "boxLogsReply";
-            this.boxLogsReply.Size = new System.Drawing.Size(544, 328);
+            this.boxLogsReply.Size = new System.Drawing.Size(530, 329);
             this.boxLogsReply.TabIndex = 5;
             this.boxLogsReply.Text = "";
             // 
@@ -680,27 +709,25 @@
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox13.Location = new System.Drawing.Point(0, 0);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(550, 132);
+            this.groupBox13.Size = new System.Drawing.Size(536, 104);
             this.groupBox13.TabIndex = 1;
             this.groupBox13.TabStop = false;
             // 
             // button6
             // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.Location = new System.Drawing.Point(3, 94);
+            this.button6.Location = new System.Drawing.Point(231, 23);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(544, 36);
+            this.button6.Size = new System.Drawing.Size(124, 71);
             this.button6.TabIndex = 9;
             this.button6.Text = "Скопировать в буфер обмена";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
             // button2
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
             this.button2.Location = new System.Drawing.Point(3, 61);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(544, 33);
+            this.button2.Size = new System.Drawing.Size(222, 33);
             this.button2.TabIndex = 7;
             this.button2.Text = "Очистить форму";
             this.button2.UseVisualStyleBackColor = true;
@@ -709,11 +736,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Teal;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.Location = new System.Drawing.Point(3, 19);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(544, 42);
+            this.button3.Size = new System.Drawing.Size(222, 42);
             this.button3.TabIndex = 8;
             this.button3.Text = "Подсчитать";
             this.button3.UseVisualStyleBackColor = false;
@@ -726,7 +752,7 @@
             this.tabPage4.Controls.Add(this.splitContainer4);
             this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(869, 488);
+            this.tabPage4.Size = new System.Drawing.Size(846, 461);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Подсчет по питомцам";
             // 
@@ -746,8 +772,8 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.groupBox17);
             this.splitContainer4.Panel2.Controls.Add(this.groupBox16);
-            this.splitContainer4.Size = new System.Drawing.Size(867, 486);
-            this.splitContainer4.SplitterDistance = 232;
+            this.splitContainer4.Size = new System.Drawing.Size(844, 459);
+            this.splitContainer4.SplitterDistance = 219;
             this.splitContainer4.TabIndex = 3;
             // 
             // groupBox15
@@ -759,7 +785,7 @@
             this.groupBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox15.Location = new System.Drawing.Point(0, 0);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(863, 228);
+            this.groupBox15.Size = new System.Drawing.Size(840, 215);
             this.groupBox15.TabIndex = 0;
             this.groupBox15.TabStop = false;
             // 
@@ -768,7 +794,7 @@
             this.boxPitInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxPitInput.Location = new System.Drawing.Point(3, 57);
             this.boxPitInput.Name = "boxPitInput";
-            this.boxPitInput.Size = new System.Drawing.Size(857, 168);
+            this.boxPitInput.Size = new System.Drawing.Size(834, 155);
             this.boxPitInput.TabIndex = 10;
             this.boxPitInput.Text = "";
             // 
@@ -779,7 +805,7 @@
             this.label17.Location = new System.Drawing.Point(3, 32);
             this.label17.Name = "label17";
             this.label17.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label17.Size = new System.Drawing.Size(857, 25);
+            this.label17.Size = new System.Drawing.Size(834, 25);
             this.label17.TabIndex = 9;
             this.label17.Text = "2) В окно ниже вставляем лог ВСЕХ СООБЩЕНИЙ БЕЗ ФИЛЬТРА с даты рождения до даты к" +
     "ончины питомца";
@@ -789,7 +815,7 @@
             this.label16.Dock = System.Windows.Forms.DockStyle.Top;
             this.label16.Location = new System.Drawing.Point(3, 17);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(857, 15);
+            this.label16.Size = new System.Drawing.Size(834, 15);
             this.label16.TabIndex = 8;
             this.label16.Text = "1) Открываем логи с фильтрами  83, 146, 147. Запоминаем даты покупки и смерти пит" +
     "омца. ";
@@ -800,7 +826,7 @@
             this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox17.Location = new System.Drawing.Point(0, 71);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(863, 175);
+            this.groupBox17.Size = new System.Drawing.Size(840, 161);
             this.groupBox17.TabIndex = 2;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "результат";
@@ -811,7 +837,7 @@
             this.boxPitOutput.Enabled = false;
             this.boxPitOutput.Location = new System.Drawing.Point(3, 19);
             this.boxPitOutput.Name = "boxPitOutput";
-            this.boxPitOutput.Size = new System.Drawing.Size(857, 153);
+            this.boxPitOutput.Size = new System.Drawing.Size(834, 139);
             this.boxPitOutput.TabIndex = 5;
             this.boxPitOutput.Text = "";
             // 
@@ -824,9 +850,19 @@
             this.groupBox16.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox16.Location = new System.Drawing.Point(0, 0);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(863, 71);
+            this.groupBox16.Size = new System.Drawing.Size(840, 71);
             this.groupBox16.TabIndex = 1;
             this.groupBox16.TabStop = false;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(554, 40);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(188, 28);
+            this.button7.TabIndex = 10;
+            this.button7.Text = "Копировать в буфер";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // btnPiClear
             // 
@@ -856,7 +892,7 @@
             this.checkPitFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkPitFilter.Location = new System.Drawing.Point(3, 19);
             this.checkPitFilter.Name = "checkPitFilter";
-            this.checkPitFilter.Size = new System.Drawing.Size(857, 21);
+            this.checkPitFilter.Size = new System.Drawing.Size(834, 21);
             this.checkPitFilter.TabIndex = 7;
             this.checkPitFilter.Text = "Просто отфильтровать логи для питомца";
             this.checkPitFilter.UseVisualStyleBackColor = true;
@@ -870,49 +906,18 @@
         "4635.png");
             this.imageList1.Images.SetKeyName(2, "kisspng-computer-icons-file-transfer.png");
             // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(554, 40);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(188, 28);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Копировать в буфер";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(187, 48);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(148, 22);
-            this.toolStripMenuItem1.Text = "Выделить все";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(186, 22);
-            this.toolStripMenuItem2.Text = "Копировать в буфер";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(877, 519);
+            this.ClientSize = new System.Drawing.Size(854, 492);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "ОП Tools 2.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -953,7 +958,6 @@
             this.groupBox17.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1014,14 +1018,14 @@
         private System.Windows.Forms.Button btnClearIpForm;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.RadioButton radioWhoer;
+        private System.Windows.Forms.RadioButton radioRipe;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.RadioButton rdIpShois;
+        private System.Windows.Forms.ToolStripMenuItem вставитьToolStripMenuItem;
     }
 }
 

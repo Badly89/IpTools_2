@@ -10,6 +10,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
+
 namespace OpTools
 {
 
@@ -22,6 +23,7 @@ namespace OpTools
         public double pitBuyCost = 0;
         public List<pitItem> itemsGivenToPit = new List<pitItem>();
         public List<pitItem> itemsGetFromPit = new List<pitItem>();
+        public List<ReqIpRest> SaveIpRequest = new List<ReqIpRest>();
         public double pitFoodCost = 0;
         public double pitIncome = 0;
         public double pitSlotCost = 0;
@@ -38,72 +40,31 @@ namespace OpTools
         public List<Transfer> receivedItems = new List<Transfer>();
         public List<Transfer> givenItems = new List<Transfer>();
         public string currentDate;
+        public int reqPerMonth = 10000; //запросы в месяц для сервиса IpShois
+        public int reqComplete = 0; //выполненных запросов
+        
         public Form1()
         {
             InitializeComponent();
         
         }
-
-        private void radioWhoisRu_CheckedChanged(object sender, EventArgs e)
-        {
-            #region radioIpcalc
-            //if (radioIpcalc.Checked == true)
-            //{
-            //    radioNicRu.Checked = false;
-            //    rbipcom.Checked = false;
-            //    radioWhoer.Checked = false;
-
-            //}
-            //else
-            //{
-            //    radioNicRu.Checked = true;
-            //    rbipcom.Checked = true;
-            //    radioWhoer.Checked = true;
-            //}
-            #endregion
-        }
-
+               
         private void radioNicRu_CheckedChanged(object sender, EventArgs e)
         {
-            #region radioNicRu
-            //if (radioNicRu.Checked == true)
-            //{
-            //    radioIpcalc.Checked = false;
-            //    rbipcom.Checked = false;
-            //    radioWhoer.Checked = false;
-            //}
-            //else
-            //{
-            //    radioIpcalc.Checked = true;
-            //    rbipcom.Checked = true;
-            //    radioWhoer.Checked = true;
-            //}
-            #endregion
-        }
+            rdIpShois.Text = "https://ipwhois.io/";
+                   }
 
-        private void radioWhoer_CheckedChanged(object sender, EventArgs e)
+       private void IpLinkRadioChangedToggle()
         {
-           
-        }
-
-        private void rbipcom_CheckedChanged(object sender, EventArgs e)
-        {
-        
-        }
-
-        private void IpLinkRadioChangedToggle()
-        {
-            if (radioLinksNicRu.Checked)
+            if (radioLinksNicRu.Checked == true)
             {
                 radioLinksApehaLogs.Checked = false;
                 radioNoLinksJustText.Checked = false;
-            }
-            if (radioNoLinksJustText.Checked)
+            } else if (radioNoLinksJustText.Checked == true)
             {
                 radioLinksNicRu.Checked = false;
                 radioLinksApehaLogs.Checked = false;
-            }
-            if (radioLinksApehaLogs.Checked)
+            }else if (radioLinksApehaLogs.Checked == true)
             {
                 radioLinksNicRu.Checked = false;
                 radioNoLinksJustText.Checked = false;
@@ -112,12 +73,12 @@ namespace OpTools
 
         private void radioLinksNicRu_CheckedChanged(object sender, EventArgs e)
         {
-            IpLinkRadioChangedToggle();
+           IpLinkRadioChangedToggle();
         }
 
         private void radioLinksApehaLogs_CheckedChanged(object sender, EventArgs e)
         {
-            IpLinkRadioChangedToggle();
+          IpLinkRadioChangedToggle();
         }
 
         private void radioNoLinksJustText_CheckedChanged(object sender, EventArgs e)
@@ -130,6 +91,7 @@ namespace OpTools
             btnIpCheckStat.Text = "Статистика проверки";
             btnIpCheckStat.Enabled = false;
             btnClearIpForm.Enabled = false;
+            rdIpShois.Text = "https://ipwhois.io/";
             boxIPAnswer.Text = "";
             boxIPInput.Text = "";
             button4.Enabled = false;
@@ -149,11 +111,12 @@ namespace OpTools
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
-                //rbipcom.Enabled = false;
+                rdIpShois.Text = "https://ipwhois.io/";
                 radioNoLinksJustText.Enabled = false;
                 radioIpcalc.Enabled = false;
                 radioNicRu.Enabled = false;
-                radioWhoer.Enabled = false;
+                radioRipe.Enabled = false;
+                rdIpShois.Enabled = false;
                 btnClearIpForm.Enabled = false;
                 previousIpCountry = "";
                 bool ipFirstRun = true;
@@ -162,6 +125,7 @@ namespace OpTools
                 button4.Enabled = false;
                 boxIPAnswer.Text = "";
                 boxIPAnswer.Enabled = false;
+                
                 //string ipAnswer = "";
                 string ipList = boxIPInput.Text;
                 string[] ipLines = ipList.Split('\n');
@@ -179,6 +143,7 @@ namespace OpTools
                             {
                                 ipFirstRun = false;
                                 boxIPAnswer.AppendText(lineIP + "\n");
+
                             }
                             else
                             {
@@ -193,8 +158,10 @@ namespace OpTools
                             {
 
                                 string answerForCurrentIP = getIpInfo(lineIP);
+                                
                                 ipsAlreadyChecked++;
                                 btnCheckIPs.Text = "Результат обрабатывается. Пожалуйста, подождите... Готово: " + ipsAlreadyChecked + "/" + numberIpsToCheck;
+                                
                                 Application.DoEvents();
                             }
                             else
@@ -211,6 +178,7 @@ namespace OpTools
                         }
                     }
                 }
+                rdIpShois.Text = "https://ipwhois.io/ - Осталось запросов: " + ReqCalc(reqComplete) + " из " + reqPerMonth + "/мес";
                 btnIpCheckStat.Enabled = true;
                 boxIPAnswer.Enabled = true;
                 button4.Enabled = true;
@@ -221,8 +189,10 @@ namespace OpTools
                 radioLinksApehaLogs.Enabled = true;
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
+                
                 radioIpcalc.Enabled = true;
-                radioWhoer.Enabled = true;
+                rdIpShois.Enabled = true;
+                radioRipe.Enabled = true;
                 //rbipcom.Enabled = true;
                 radioNicRu.Enabled = true;
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
@@ -291,18 +261,19 @@ namespace OpTools
                 answerIpLine += separateWords[i] + " ";
             }
             boxIPAnswer.AppendText(answerIpLine);
-            if (radioLinksNicRu.Checked)
+            if (radioLinksNicRu.Checked ==true)
             {
-                this.boxIPAnswer.InsertLink(ip, "https://2whois.ru/?t=whois&data=" + ip);
-            }
-            if (radioNoLinksJustText.Checked)
+                
+                boxIPAnswer.InsertLink(ip, "https://ipinfo.io/" + ip);
+            } else if (radioNoLinksJustText.Checked ==true)
             {
                 boxIPAnswer.AppendText(ip);
-            }
-            if (radioLinksApehaLogs.Checked)
+            }  else if (radioLinksApehaLogs.Checked ==true)
             {
                 boxIPAnswer.InsertLink(ip, "http://kovcheg.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
             }
+        
+
             boxIPAnswer.AppendText(" ");
             foreach (IpClass ipFromSavedList in savedIPList)
             {
@@ -340,7 +311,7 @@ namespace OpTools
                     return ipFromSavedList.City;
                 }
             }
-            #region ipcalc.co
+           #region ipcalc.co
             //Checking using ipcalc.co
             if (radioIpcalc.Checked == true)
             {
@@ -351,11 +322,11 @@ namespace OpTools
                 string asn_organization = "";
                 string desc = "";
                 string org = "";
-
-
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
+                
                 string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip.TrimStart());
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
                 if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
@@ -371,7 +342,7 @@ namespace OpTools
                 IpClass ipToSave = new IpClass
                 {
                     Ip = ip,
-                    City = temp1 //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+                    City = temp1 
                 };
 
                 savedIPList.Add(ipToSave);
@@ -385,67 +356,16 @@ namespace OpTools
                     boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
                 }
                 previousIpCountry = country.Trim();
-                return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
-
-                //return null;
+                return temp1;
             }
             #endregion
-
-            #region IP.API.COM not active
-            //Checking using IP.API.COM
-            //if (rbipcom.Checked == true)
-            //{
-            //    string region = "";
-            //    string okrug = "";
-            //    string country = "";
-            //    string city = "";
-            //    string asn_organization = "";
-            //    // string desc = "";
-            //    string org = "";
-
-            //    ServicePointManager.Expect100Continue = true;
-            //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            //    WebClient client = new WebClient();
-            //    string jsonadress = client.DownloadString("http://ip-api.com/json/" + ip);
-            //    var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-            //    if (jPerson.region != null) { region = jPerson.region; }
-            //    if (jPerson.regionName != null) { okrug = jPerson.regionName; } 
-            //    if (jPerson.country != null) { country = jPerson.country; }
-            //    if (jPerson.city != null) { city = jPerson.city; }
-            //    if (jPerson.isp != null) { asn_organization = jPerson.isp; }
-            //    //  if (jPerson.as != null) { desc = jPerson.isp.name; }
-            //    if (jPerson.org != null) { org = jPerson.org; }
-
-            //    var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim();
-
-            //    IpClass ipToSave = new IpClass
-            //    {
-            //        Ip = ip,
-            //        City = temp1 //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
-            //    };
-
-            //    savedIPList.Add(ipToSave);
-            //    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-            //    {
-            //        boxIPAnswer.SelectionColor = Color.Red;
-            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
-            //    }
-            //    else
-            //    {
-            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + org.Trim() + "\n");
-            //    }
-            //    previousIpCountry = country.Trim();
-            //    return temp1; //country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
-
-            //    //return null;
-            //}
-            #endregion
-
-            #region ripe.net
-            if (radioWhoer.Checked == true)
+            
+           #region ripe.net
+            if (radioRipe.Checked == true)
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
                 string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&flags=no-referenced&flags=no-irt&source=RIPE");
                 var jPerson = JsonConvert.DeserializeObject<Welcome>(jsonadress, Converter.Settings);
@@ -472,6 +392,60 @@ namespace OpTools
                 return temp1;
             }
 
+            #endregion
+
+            #region ipwhois.io
+            //Checking using ipqualityscore
+            if (rdIpShois.Checked == true)
+            {
+                var country = "";
+                var region = "";
+                var city = "";
+                var org = "";
+                
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                WebClient client = new WebClient();
+                string jsonadress = client.DownloadString("https://ipwhois.app/json/" + ip.TrimStart() + "?lang=ru");
+                var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
+                if (jPerson.region != null) { region = jPerson.region; }
+                if (jPerson.city != null) { city = jPerson.city; }
+                if (jPerson.country != null) { country = jPerson.country; }
+                if (jPerson.org != null) { org = jPerson.org; }
+                reqComplete = jPerson.completed_requests;
+                var temp1 = country.Trim() + ", " + region.Trim() + ", " + city.Trim() + ", " + org.Trim() ;
+                int restReqIp = ReqCalc(reqComplete);
+
+                ReqIpRest restReq = new ReqIpRest
+                {
+                    ReqIp = restReqIp
+                };
+
+                SaveIpRequest.Add(restReq);
+
+                IpClass ipToSave = new IpClass
+                {
+                    Ip = ip,
+                    City = temp1
+                };
+
+
+                savedIPList.Add(ipToSave);
+                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                {
+                    boxIPAnswer.SelectionColor = Color.Red;
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + city.Trim() + ", " + org.Trim() + "\n");
+                }
+                else
+                {
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + city.Trim() + ", " + org.Trim() + "\n");
+                }
+                previousIpCountry = country.Trim();
+
+                return temp1;
+
+            }
             #endregion
 
             #region ipgeobase XMLparse
@@ -608,8 +582,7 @@ namespace OpTools
             //}
             #endregion
 
-            return null;
-
+           return null;
 
         }
         #region classJSonParse
@@ -829,6 +802,14 @@ namespace OpTools
         //}
 
         #endregion
+
+        private int ReqCalc (int req)
+        {
+            var ReqLeft = reqPerMonth - req;
+
+           
+            return ReqLeft;
+        }
         private void btnClearIpForm_Click_1(object sender, EventArgs e)
         {
             btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
@@ -1638,6 +1619,31 @@ namespace OpTools
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             boxIPAnswer.Copy();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void вставитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            boxIPInput.Paste();
+        }
+
+        private void rdIpShois_CheckedChanged(object sender, EventArgs e)
+        {
+            rdIpShois.Text = "Дается: " + reqPerMonth + "/мес запросов. В конце показывает остаток запросов";
+        }
+
+        private void radioIpcalc_CheckedChanged(object sender, EventArgs e)
+        {
+            rdIpShois.Text = "https://ipwhois.io/";
+        }
+
+        private void radioRipe_CheckedChanged(object sender, EventArgs e)
+        {
+            rdIpShois.Text = "https://ipwhois.io/";
         }
     }
 }
