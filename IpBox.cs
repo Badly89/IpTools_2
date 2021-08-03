@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace OpTools
@@ -16,42 +17,25 @@ namespace OpTools
             InitializeComponent();
             //savedIp.Clear();
             savedIp = savedIpList;
+            toolTip1.SetToolTip(this.numUD, "если количество уникальных меньше 50, то равно количеству уникальных IP. Увеличение идет по 50, максимально до 200.");
 
-            if (savedIp.Count <= 50)
-            {
-                btnOpenIpPartly.Enabled = true;
-                //  btnOpenIpPartly.BackColor = System.Drawing.Color.Black;
-                btnOpenIpPartly100.Enabled = false;
-                btnOpenIpPartly100.BackColor = System.Drawing.Color.Black;
-                btnOpenIpPartly150.Enabled = false;
-                btnOpenIpPartly150.BackColor = System.Drawing.Color.Black;
-            }
-            if (savedIp.Count <= 100)
-            {
-                btnOpenIpPartly.Enabled = true;
-                btnOpenIpPartly100.Enabled = true;
-                btnOpenIpPartly150.Enabled = false;
-                btnOpenIpPartly150.BackColor = System.Drawing.Color.Black;
-            }
-            if (savedIp.Count <= 150)
-            {
-                btnOpenIpPartly.Enabled = true;
-                btnOpenIpPartly100.Enabled = true;
-                btnOpenIpPartly150.Enabled = true;
-            }
+
             groupBox2.Text = "Уникальных айпи: " + savedIpList.Count.ToString();
-            // lblUnique.Text = "Уникальных айпи: " + savedIpList.Count.ToString();
+            if (numUD.Value > savedIpList.Count) { numUD.Value = savedIpList.Count; }
+
             foreach (IpClass obj in savedIpList)
             {
                 richTxtBoxRes.AppendText(obj.Ip + " - " + obj.City + " ");
-                richTxtBoxRes.InsertLink("Link to 2whois.ru", "https://2whois.ru/?t=whois&data=" + obj.Ip);
+                richTxtBoxRes.InsertLink("Link to ip.osnova.news", "https://ip.osnova.news/ip/" + obj.Ip + "/");
                 richTxtBoxRes.AppendText("  ");
-                richTxtBoxRes.InsertLink("Link to extreme-ip-lookup.com", "https://extreme-ip-lookup.com/" + obj.Ip);
+                richTxtBoxRes.InsertLink("Link to ipinfo.io", "https://ipinfo.io/" + obj.Ip);
                 richTxtBoxRes.AppendText("  ");
                 richTxtBoxRes.InsertLink("Link to APEHA logs", "http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
                 richTxtBoxRes.AppendText("\n");
             }
         }
+
+
 
         private string generateIpNumber(string ip)
         {
@@ -70,80 +54,6 @@ namespace OpTools
         private void IpBox_FormClosing(object sender, FormClosingEventArgs e)
         {
             //savedIp.Clear();
-        }
-
-        private void btnOpenIpPartly_Click(object sender, EventArgs e)
-        {
-            btnCancel.Enabled = true;
-            btnOpenLogs.Enabled = false;
-            btnOpenIpPartly.Enabled = false;
-            btnOpenIpPartly100.Enabled = false;
-            btnOpenIpPartly150.Enabled = false;
-
-            srvKovcheg.Enabled = false;
-            srvSmorye.Enabled = false;
-            srvUtes.Enabled = false;
-
-            int savedCount = partialOpenedCount;
-            for (int i = savedCount; i < (savedCount + 50); i++)
-            {
-                IpClass obj = savedIp[i];
-                System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
-                if (chkBoxEveryHalfSecond.Checked == true)
-                {
-                    System.Threading.Thread.Sleep(500);
-                }
-                else
-                {
-                    System.Threading.Thread.Sleep(1000);
-                }
-                partialOpenedCount++;
-                btnOpenIpPartly.Text = "Открыто " + partialOpenedCount + " из " + savedIp.Count;
-                Application.DoEvents();
-                if (partialOpenedCount == savedIp.Count)
-                {
-                    btnOpenIpPartly.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
-                    Application.DoEvents();
-                    partialOpenedCount = 0;
-                    btnOpenLogs.Enabled = true;
-                    //btnOpenIpPartly100.Enabled = true;
-                    //btnOpenIpPartly150.Enabled = true;
-                    btnOpenIpPartly.Enabled = true;
-                    btnCancel.Enabled = false;
-                    //checkOf btn select serv
-                    srvKovcheg.Enabled = true;
-                    srvSmorye.Enabled = true;
-                    srvUtes.Enabled = true;
-                    break;
-                }
-                if (cancelPressed)
-                {
-                    cancelPressed = false;
-                    break;
-                }
-            }
-            if (partialOpenedCount < savedIp.Count)
-            {
-                btnOpenIpPartly.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
-
-                Application.DoEvents();
-                btnOpenLogs.Enabled = true;
-                btnOpenIpPartly100.Enabled = true;
-                btnOpenIpPartly150.Enabled = true;
-                btnOpenIpPartly.Enabled = true;
-                btnCancel.Enabled = false;
-                srvKovcheg.Enabled = true;
-                srvSmorye.Enabled = true;
-                srvUtes.Enabled = true;
-            }
-            btnOpenLogs.Enabled = true;
-            btnOpenIpPartly100.Enabled = true;
-            btnOpenIpPartly150.Enabled = true;
-            btnOpenIpPartly.Enabled = true;
-            btnCancel.Enabled = false;
-            srvKovcheg.Enabled = true;
-            srvSmorye.Enabled = true;
-            srvUtes.Enabled = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -174,21 +84,126 @@ namespace OpTools
                 ipServer = "utes";
             }
         }
+        //private void btnOpenIpPartly150_Click(object sender, EventArgs e)
+        //{
+        //    btnCancel.Enabled = true;
+        //    btnOpenLogs.Enabled = false;
+        //    btnOpenIpPartly100.Enabled = false;
+        //    btnOpenIpPartly150.Enabled = false;
+        //    btnOpenIpPartly.Enabled = false;
 
+        //    srvKovcheg.Enabled = false;
+        //    srvSmorye.Enabled = false;
+        //    srvUtes.Enabled = false;
 
+        //    int savedCount = partialOpenedCount;
+        //    for (int i = savedCount; i < (savedCount + 150); i++)
+        //    {
+        //        IpClass obj = savedIp[i];
+        //        System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
+        //        if (chkBoxEveryHalfSecond.Checked == true)
+        //        {
+        //            System.Threading.Thread.Sleep(500);
+        //        }
+        //        else
+        //        {
+        //            System.Threading.Thread.Sleep(1000);
+        //        }
+        //        partialOpenedCount++;
+        //        btnOpenIpPartly150.Text = "Открыто " + partialOpenedCount + " из " + savedIp.Count;
+        //        Application.DoEvents();
+        //        if (partialOpenedCount == savedIp.Count)
+        //        {
+        //            btnOpenIpPartly150.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
 
-        private void btnOpenIpPartly100_Click(object sender, EventArgs e)
+        //            Application.DoEvents();
+        //            partialOpenedCount = 0;
+        //            btnOpenLogs.Enabled = true;
+        //            //btnOpenIpPartly100.Enabled = true;
+        //            btnOpenIpPartly150.Enabled = true;
+        //            //btnOpenIpPartly.Enabled = true;
+        //            btnCancel.Enabled = false;
+        //            srvKovcheg.Enabled = true;
+        //            srvSmorye.Enabled = true;
+        //            srvUtes.Enabled = true;
+        //            break;
+        //        }
+        //        if (cancelPressed)
+        //        {
+        //            cancelPressed = false;
+        //            break;
+        //        }
+        //    }
+        //    if (partialOpenedCount < savedIp.Count)
+        //    {
+        //        btnOpenIpPartly150.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+        //        Application.DoEvents();
+        //        btnOpenLogs.Enabled = true;
+        //        btnOpenIpPartly100.Enabled = true;
+        //        btnOpenIpPartly150.Enabled = true;
+        //        btnOpenIpPartly.Enabled = true;
+        //        btnCancel.Enabled = false;
+        //        srvKovcheg.Enabled = true;
+        //        srvSmorye.Enabled = true;
+        //        srvUtes.Enabled = true;
+        //    }
+        //    btnOpenLogs.Enabled = true;
+        //    btnOpenIpPartly100.Enabled = true;
+        //    btnOpenIpPartly150.Enabled = true;
+        //    btnOpenIpPartly.Enabled = true;
+        //    btnCancel.Enabled = false;
+        //    srvKovcheg.Enabled = true;
+        //    srvSmorye.Enabled = true;
+        //    srvUtes.Enabled = true;
+        //}
+
+        //private void btnOpenLogs_Click(object sender, EventArgs e)
+        //{
+        //    btnOpenLogs.Enabled = false;
+        //    btnOpenIpPartly.Enabled = false;
+        //    btnCancel.Enabled = true;
+        //    int i = 0;
+        //    foreach (IpClass obj in savedIp)
+        //    {
+        //        System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
+        //        if (chkBoxEveryHalfSecond.Checked == true)
+        //        {
+        //            System.Threading.Thread.Sleep(500);
+        //        }
+        //        else
+        //        {
+        //            System.Threading.Thread.Sleep(1000);
+        //        }
+        //        i++;
+        //        btnOpenLogs.Text = "Открыто: " + i + " из " + savedIp.Count;
+        //        Application.DoEvents();
+        //        if (cancelPressed)
+        //        {
+        //            cancelPressed = false;
+        //            break;
+        //        }
+        //    }
+        //    btnCancel.Enabled = false;
+        //    btnOpenLogs.Enabled = true;
+        //    btnOpenIpPartly.Enabled = false;
+        //    srvKovcheg.Enabled = false;
+        //    srvSmorye.Enabled = false;
+        //    srvUtes.Enabled = false;
+        //    btnOpenLogs.Text = "Открыть логи Арены для всех айпи (Внимание. Пауза между открытиями логов - 1 секунда.)";
+        //}
+
+        private void Button1_Click(object sender, EventArgs e)
         {
+            numUD.Enabled = false;
             btnCancel.Enabled = true;
-            btnOpenLogs.Enabled = false;
-            btnOpenIpPartly100.Enabled = false;
-            btnOpenIpPartly150.Enabled = false;
-            btnOpenIpPartly.Enabled = false;
+            btnCancel.Focus();
+            btnCancel.BackColor = Color.Red;
             srvKovcheg.Enabled = false;
             srvSmorye.Enabled = false;
             srvUtes.Enabled = false;
             int savedCount = partialOpenedCount;
-            for (int i = savedCount; i < (savedCount + 100); i++)
+
+            for (int i = savedCount; i < (savedCount + numUD.Value); i++)
             {
                 IpClass obj = savedIp[i];
                 System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
@@ -201,21 +216,20 @@ namespace OpTools
                     System.Threading.Thread.Sleep(1000);
                 }
                 partialOpenedCount++;
-                btnOpenIpPartly100.Text = "Открыто " + partialOpenedCount + " из " + savedIp.Count;
+                btnOpenCount.Text = "Открыто " + partialOpenedCount + " из " + savedIp.Count;
                 Application.DoEvents();
                 if (partialOpenedCount == savedIp.Count)
                 {
-                    btnOpenIpPartly100.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
+                    btnOpenCount.Text = "Продолжить открывать. Сейчас открыто" + partialOpenedCount + " из " + savedIp.Count;
                     Application.DoEvents();
                     partialOpenedCount = 0;
-                    btnOpenLogs.Enabled = true;
-                    btnOpenIpPartly100.Enabled = true;
-                    //btnOpenIpPartly150.Enabled = true;
-                    //btnOpenIpPartly.Enabled = true;
+
                     btnCancel.Enabled = false;
+                    btnCancel.BackColor = Color.Aquamarine;
                     srvKovcheg.Enabled = true;
                     srvSmorye.Enabled = true;
                     srvUtes.Enabled = true;
+                    numUD.Enabled = true;
                     break;
                 }
                 if (cancelPressed)
@@ -226,133 +240,23 @@ namespace OpTools
             }
             if (partialOpenedCount < savedIp.Count)
             {
-                btnOpenIpPartly100.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
+                btnOpenCount.Text = "Завершено. Открыто: " + partialOpenedCount + " из " + savedIp.Count;
 
                 Application.DoEvents();
-                btnOpenLogs.Enabled = true;
-                btnOpenIpPartly100.Enabled = true;
-                btnOpenIpPartly150.Enabled = true;
+                numUD.Enabled = true;
                 btnCancel.Enabled = false;
+                btnCancel.BackColor = Color.Aquamarine;
                 srvKovcheg.Enabled = true;
                 srvSmorye.Enabled = true;
                 srvUtes.Enabled = true;
             }
-            btnOpenLogs.Enabled = true;
-            btnOpenIpPartly100.Enabled = true;
-            btnOpenIpPartly150.Enabled = true;
-            btnOpenIpPartly.Enabled = true;
+            numUD.Enabled = true;
             btnCancel.Enabled = false;
             srvKovcheg.Enabled = true;
             srvSmorye.Enabled = true;
             srvUtes.Enabled = true;
         }
 
-        private void btnOpenIpPartly150_Click(object sender, EventArgs e)
-        {
-            btnCancel.Enabled = true;
-            btnOpenLogs.Enabled = false;
-            btnOpenIpPartly100.Enabled = false;
-            btnOpenIpPartly150.Enabled = false;
-            btnOpenIpPartly.Enabled = false;
 
-            srvKovcheg.Enabled = false;
-            srvSmorye.Enabled = false;
-            srvUtes.Enabled = false;
-
-            int savedCount = partialOpenedCount;
-            for (int i = savedCount; i < (savedCount + 150); i++)
-            {
-                IpClass obj = savedIp[i];
-                System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
-                if (chkBoxEveryHalfSecond.Checked == true)
-                {
-                    System.Threading.Thread.Sleep(500);
-                }
-                else
-                {
-                    System.Threading.Thread.Sleep(1000);
-                }
-                partialOpenedCount++;
-                btnOpenIpPartly150.Text = "Открыто " + partialOpenedCount + " из " + savedIp.Count;
-                Application.DoEvents();
-                if (partialOpenedCount == savedIp.Count)
-                {
-                    btnOpenIpPartly150.Text = "Продолжить открывать. Сейчас открыто " + partialOpenedCount + " из " + savedIp.Count;
-
-                    Application.DoEvents();
-                    partialOpenedCount = 0;
-                    btnOpenLogs.Enabled = true;
-                    //btnOpenIpPartly100.Enabled = true;
-                    btnOpenIpPartly150.Enabled = true;
-                    //btnOpenIpPartly.Enabled = true;
-                    btnCancel.Enabled = false;
-                    srvKovcheg.Enabled = true;
-                    srvSmorye.Enabled = true;
-                    srvUtes.Enabled = true;
-                    break;
-                }
-                if (cancelPressed)
-                {
-                    cancelPressed = false;
-                    break;
-                }
-            }
-            if (partialOpenedCount < savedIp.Count)
-            {
-                btnOpenIpPartly150.Text = "Завершено. Открыто " + partialOpenedCount + " из " + savedIp.Count;
-                Application.DoEvents();
-                btnOpenLogs.Enabled = true;
-                btnOpenIpPartly100.Enabled = true;
-                btnOpenIpPartly150.Enabled = true;
-                btnOpenIpPartly.Enabled = true;
-                btnCancel.Enabled = false;
-                srvKovcheg.Enabled = true;
-                srvSmorye.Enabled = true;
-                srvUtes.Enabled = true;
-            }
-            btnOpenLogs.Enabled = true;
-            btnOpenIpPartly100.Enabled = true;
-            btnOpenIpPartly150.Enabled = true;
-            btnOpenIpPartly.Enabled = true;
-            btnCancel.Enabled = false;
-            srvKovcheg.Enabled = true;
-            srvSmorye.Enabled = true;
-            srvUtes.Enabled = true;
-        }
-
-        private void btnOpenLogs_Click(object sender, EventArgs e)
-        {
-            btnOpenLogs.Enabled = false;
-            btnOpenIpPartly.Enabled = false;
-            btnCancel.Enabled = true;
-            int i = 0;
-            foreach (IpClass obj in savedIp)
-            {
-                System.Diagnostics.Process.Start("http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
-                if (chkBoxEveryHalfSecond.Checked == true)
-                {
-                    System.Threading.Thread.Sleep(500);
-                }
-                else
-                {
-                    System.Threading.Thread.Sleep(1000);
-                }
-                i++;
-                btnOpenLogs.Text = "Открыто: " + i + " из " + savedIp.Count;
-                Application.DoEvents();
-                if (cancelPressed)
-                {
-                    cancelPressed = false;
-                    break;
-                }
-            }
-            btnCancel.Enabled = false;
-            btnOpenLogs.Enabled = true;
-            btnOpenIpPartly.Enabled = false;
-            srvKovcheg.Enabled = false;
-            srvSmorye.Enabled = false;
-            srvUtes.Enabled = false;
-            btnOpenLogs.Text = "Открыть логи Арены для всех айпи (Внимание. Пауза между открытиями логов - 1 секунда.)";
-        }
     }
 }

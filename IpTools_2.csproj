@@ -27,8 +27,8 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>2.0.3.%2a</ApplicationVersion>
+    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationVersion>2.0.3.7</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -205,22 +205,22 @@
   <ItemGroup>
     <PublishFile Include="IpTools.exe.config">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="IpTools.exe.manifest">
       <Visible>False</Visible>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>ManifestEntryPoint</FileType>
     </PublishFile>
   </ItemGroup>

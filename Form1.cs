@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using System.Xml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -42,29 +39,31 @@ namespace OpTools
         public string currentDate;
         public int reqPerMonth = 10000; //запросы в месяц для сервиса IpShois
         public int reqComplete = 0; //выполненных запросов
-        
+
         public Form1()
         {
             InitializeComponent();
-        
+
         }
-               
+
         private void radioNicRu_CheckedChanged(object sender, EventArgs e)
         {
             rdIpShois.Text = "https://ipwhois.io/";
-                   }
+        }
 
-       private void IpLinkRadioChangedToggle()
+        private void IpLinkRadioChangedToggle()
         {
             if (radioLinksNicRu.Checked == true)
             {
                 radioLinksApehaLogs.Checked = false;
                 radioNoLinksJustText.Checked = false;
-            } else if (radioNoLinksJustText.Checked == true)
+            }
+            else if (radioNoLinksJustText.Checked == true)
             {
                 radioLinksNicRu.Checked = false;
                 radioLinksApehaLogs.Checked = false;
-            }else if (radioLinksApehaLogs.Checked == true)
+            }
+            else if (radioLinksApehaLogs.Checked == true)
             {
                 radioLinksNicRu.Checked = false;
                 radioNoLinksJustText.Checked = false;
@@ -73,12 +72,12 @@ namespace OpTools
 
         private void radioLinksNicRu_CheckedChanged(object sender, EventArgs e)
         {
-           IpLinkRadioChangedToggle();
+            IpLinkRadioChangedToggle();
         }
 
         private void radioLinksApehaLogs_CheckedChanged(object sender, EventArgs e)
         {
-          IpLinkRadioChangedToggle();
+            IpLinkRadioChangedToggle();
         }
 
         private void radioNoLinksJustText_CheckedChanged(object sender, EventArgs e)
@@ -114,7 +113,6 @@ namespace OpTools
                 rdIpShois.Text = "https://ipwhois.io/";
                 radioNoLinksJustText.Enabled = false;
                 radioIpcalc.Enabled = false;
-                radioNicRu.Enabled = false;
                 radioRipe.Enabled = false;
                 rdIpShois.Enabled = false;
                 btnClearIpForm.Enabled = false;
@@ -125,7 +123,7 @@ namespace OpTools
                 button4.Enabled = false;
                 boxIPAnswer.Text = "";
                 boxIPAnswer.Enabled = false;
-                
+
                 //string ipAnswer = "";
                 string ipList = boxIPInput.Text;
                 string[] ipLines = ipList.Split('\n');
@@ -158,10 +156,10 @@ namespace OpTools
                             {
 
                                 string answerForCurrentIP = getIpInfo(lineIP);
-                                
+
                                 ipsAlreadyChecked++;
                                 btnCheckIPs.Text = "Результат обрабатывается. Пожалуйста, подождите... Готово: " + ipsAlreadyChecked + "/" + numberIpsToCheck;
-                                
+
                                 Application.DoEvents();
                             }
                             else
@@ -189,12 +187,11 @@ namespace OpTools
                 radioLinksApehaLogs.Enabled = true;
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
-                
+
                 radioIpcalc.Enabled = true;
                 rdIpShois.Enabled = true;
                 radioRipe.Enabled = true;
-                //rbipcom.Enabled = true;
-                radioNicRu.Enabled = true;
+
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
                 btnIpCheckStat.Enabled = true;
                 btnClearIpForm.Enabled = true;
@@ -228,7 +225,7 @@ namespace OpTools
 
         private int detectCity(string lineToDetect)
         {
-            if (lineToDetect.Contains("Утес дракона") || lineToDetect.Contains("Остров фантазий") || lineToDetect.Contains("Магический Лес")) 
+            if (lineToDetect.Contains("Утес дракона") || lineToDetect.Contains("Остров фантазий") || lineToDetect.Contains("Магический Лес"))
             {
                 return 5;
             }
@@ -261,18 +258,20 @@ namespace OpTools
                 answerIpLine += separateWords[i] + " ";
             }
             boxIPAnswer.AppendText(answerIpLine);
-            if (radioLinksNicRu.Checked ==true)
+            if (radioLinksNicRu.Checked == true)
             {
-                
+
                 boxIPAnswer.InsertLink(ip, "https://ipinfo.io/" + ip);
-            } else if (radioNoLinksJustText.Checked ==true)
+            }
+            else if (radioNoLinksJustText.Checked == true)
             {
                 boxIPAnswer.AppendText(ip);
-            }  else if (radioLinksApehaLogs.Checked ==true)
+            }
+            else if (radioLinksApehaLogs.Checked == true)
             {
                 boxIPAnswer.InsertLink(ip, "http://kovcheg.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
             }
-        
+
 
             boxIPAnswer.AppendText(" ");
             foreach (IpClass ipFromSavedList in savedIPList)
@@ -298,20 +297,23 @@ namespace OpTools
                         string[] savedDescr = ipFromSavedList.City.Split(',');
                         if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
                         {
-                            boxIPAnswer.SelectionColor = Color.Red;
+                            //boxIPAnswer.SelectionColor = Color.Green;
                             boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
+
                         }
                         else
                         {
                             boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
+
                         }
                         previousIpCountry = savedDescr[0].Trim();
+
                     }
 
                     return ipFromSavedList.City;
                 }
             }
-           #region ipcalc.co
+            #region ipcalc.co
             //Checking using ipcalc.co
             if (radioIpcalc.Checked == true)
             {
@@ -326,7 +328,7 @@ namespace OpTools
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
-                
+
                 string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip.TrimStart());
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
                 if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
@@ -342,7 +344,7 @@ namespace OpTools
                 IpClass ipToSave = new IpClass
                 {
                     Ip = ip,
-                    City = temp1 
+                    City = temp1
                 };
 
                 savedIPList.Add(ipToSave);
@@ -359,230 +361,154 @@ namespace OpTools
                 return temp1;
             }
             #endregion
-            
-           #region ripe.net
+
+
+            #region ripe.net
             if (radioRipe.Checked == true)
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
-                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&flags=no-referenced&flags=no-irt&source=RIPE");
+                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&flags=no-referenced&flags=no-irt&flags=no-filtering&source=RIPE");
                 var jPerson = JsonConvert.DeserializeObject<Welcome>(jsonadress, Converter.Settings);
-                var desc = jPerson.Objects.Object[0].Attributes.Attribute[2].Value+", "+ jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
-                var netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value;
-                var country = jPerson.Objects.Object[0].Attributes.Attribute[4].Value;
-                var temp1 = country.Trim() + ", " + desc.Trim() + ", " + netname.Trim();
+                string temp1 = "";
+                //string country = "";
+                int count = jPerson.Objects.Object[0].Attributes.Attribute.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    temp1 = temp1 + " " + jPerson.Objects.Object[0].Attributes.Attribute[i].Name + ": " + jPerson.Objects.Object[0].Attributes.Attribute[i].Value + ", ";
+
+                }
+
+
                 IpClass ipToSave = new IpClass
                 {
                     Ip = ip,
                     City = temp1
                 };
                 savedIPList.Add(ipToSave);
-                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-                {
-                    boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + desc.Trim() + ", " + netname.Trim() + "\n");
-                }
-                else
-                {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + desc.Trim() + ", " + netname.Trim() + "\n");
-                }
-                previousIpCountry = country.Trim();
+                boxIPAnswer.AppendText(" - " + temp1 + "\n");
                 return temp1;
             }
 
-            #endregion
-
-            #region ipwhois.io
-            //Checking using ipqualityscore
-            if (rdIpShois.Checked == true)
-            {
-                var country = "";
-                var region = "";
-                var city = "";
-                var org = "";
-                
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-                WebClient client = new WebClient();
-                string jsonadress = client.DownloadString("https://ipwhois.app/json/" + ip.TrimStart() + "?lang=ru");
-                var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-                if (jPerson.region != null) { region = jPerson.region; }
-                if (jPerson.city != null) { city = jPerson.city; }
-                if (jPerson.country != null) { country = jPerson.country; }
-                if (jPerson.org != null) { org = jPerson.org; }
-                reqComplete = jPerson.completed_requests;
-                var temp1 = country.Trim() + ", " + region.Trim() + ", " + city.Trim() + ", " + org.Trim() ;
-                int restReqIp = ReqCalc(reqComplete);
-
-                ReqIpRest restReq = new ReqIpRest
-                {
-                    ReqIp = restReqIp
-                };
-
-                SaveIpRequest.Add(restReq);
-
-                IpClass ipToSave = new IpClass
-                {
-                    Ip = ip,
-                    City = temp1
-                };
-
-
-                savedIPList.Add(ipToSave);
-                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-                {
-                    boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + city.Trim() + ", " + org.Trim() + "\n");
-                }
-                else
-                {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + city.Trim() + ", " + org.Trim() + "\n");
-                }
-                previousIpCountry = country.Trim();
-
-                return temp1;
-
-            }
             #endregion
 
             #region ipgeobase XMLparse
-            if (radioNicRu.Checked == true)
-            {
-                string country = "";
-                string region = "";
-                string district = "";
-                string city = "";
-                XmlDocument xDoc = new XmlDocument();
-                xDoc.Load("http://ipgeobase.ru:7020/geo?ip="+ip);
-                                
-                XmlElement xRoot = xDoc.DocumentElement;
-               
-
-
-                    foreach (XmlNode xnode in xRoot)
-                    {
-                        // получаем атрибут name
-                        if (xnode.Attributes.Count > 0)
-                        {
-                            XmlNode attr = xnode.Attributes.GetNamedItem("name");
-                            if (attr != null)
-                                Console.WriteLine(attr.Value);
-                        }
-                        // обходим все дочерние узлы элемента user
-                        foreach (XmlNode childnode in xnode.ChildNodes)
-                        {
-                            // если узел - company
-                            if (childnode.Name == "country")
-                            {
-                                country = childnode.InnerText;
-                            }
-                            // если узел age
-                            if (childnode.Name == "city")
-                            {
-                               city = childnode.InnerText;
-                        }
-                            if (childnode.Name == "region")
-                            {
-                            region = childnode.InnerText;
-                        }
-                            if (childnode.Name == "district")
-                            {
-                            district = childnode.InnerText;
-                        }
-
-                        }
-
-                        Console.WriteLine();
-                    }
-                    Console.Read();
-
-                IpClass ipToSave = new IpClass
-                {
-                    Ip = ip,
-                    City = country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim()
-                };
-                savedIPList.Add(ipToSave);
-                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-                {
-                    boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim() + "\n");
-                }
-                else
-                {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim() + "\n");
-                }
-                previousIpCountry = country.Trim();
-                return country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim();
-            }
-            #endregion
-
-            #region ipgeobase.ru broke
-            //checking using nic.ru/whois
             //if (radioNicRu.Checked == true)
             //{
-            //WebClient client = new WebClient();
-            //string downloadString = client.DownloadString("http://ipgeobase.ru/?address=" + ip);
-            //string[] htmlLines = downloadString.Split('\n');
-            //int cityIndex = 0;
-            //int regionIndex = 0;
-            //int okrugIndex = 0;
-            //int countryIndex = 0;
-            //int counter = 0;
-            //foreach (string str in htmlLines)
-            //{
-            //    if (str.Contains("Город"))
-            //    {
-            //        cityIndex = counter;
+            //    string country = "";
+            //    string region = "";
+            //    string district = "";
+            //    string city = "";
+            //    XmlDocument xDoc = new XmlDocument();
+            //    xDoc.Load("http://ipgeobase.ru:7020/geo?ip="+ip);
 
-            //    }
-            //    if (str.Contains("Регион"))
+            //    XmlElement xRoot = xDoc.DocumentElement;
+
+
+
+            //        foreach (XmlNode xnode in xRoot)
+            //        {
+            //            // получаем атрибут name
+            //            if (xnode.Attributes.Count > 0)
+            //            {
+            //                XmlNode attr = xnode.Attributes.GetNamedItem("name");
+            //                if (attr != null)
+            //                    Console.WriteLine(attr.Value);
+            //            }
+            //            // обходим все дочерние узлы элемента user
+            //            foreach (XmlNode childnode in xnode.ChildNodes)
+            //            {
+            //                // если узел - company
+            //                if (childnode.Name == "country")
+            //                {
+            //                    country = childnode.InnerText;
+            //                }
+            //                // если узел age
+            //                if (childnode.Name == "city")
+            //                {
+            //                   city = childnode.InnerText;
+            //            }
+            //                if (childnode.Name == "region")
+            //                {
+            //                region = childnode.InnerText;
+            //            }
+            //                if (childnode.Name == "district")
+            //                {
+            //                district = childnode.InnerText;
+            //            }
+
+            //            }
+
+            //            Console.WriteLine();
+            //        }
+            //        Console.Read();
+
+            //    IpClass ipToSave = new IpClass
             //    {
-            //        regionIndex = counter;
-            //    }
-            //    if (str.Contains("Округ"))
+            //        Ip = ip,
+            //        City = country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim()
+            //    };
+            //    savedIPList.Add(ipToSave);
+            //    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
             //    {
-            //        okrugIndex = counter;
+            //        boxIPAnswer.SelectionColor = Color.Red;
+            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim() + "\n");
             //    }
-            //    if (str.Contains("Страна"))
+            //    else
             //    {
-            //        countryIndex = counter;
-            //        break;
+            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim() + "\n");
             //    }
-            //    counter++;
-            //}
-            //string HTML_TAG_PATTERN = "<.*?>";
-            //string country = "";
-            //string region = "";
-            //string okrug = "";
-            //string city = "";
-            //if (countryIndex != 0) country = Regex.Replace(htmlLines[countryIndex + 1], HTML_TAG_PATTERN, string.Empty);
-            //if (cityIndex != 0) city = Regex.Replace(htmlLines[cityIndex + 1], HTML_TAG_PATTERN, string.Empty);
-            //if (regionIndex != 0) region = Regex.Replace(htmlLines[regionIndex + 1], HTML_TAG_PATTERN, string.Empty);
-            //if (okrugIndex != 0) okrug = Regex.Replace(htmlLines[okrugIndex + 1], HTML_TAG_PATTERN, string.Empty);
-            //IpClass ipToSave = new IpClass
-            //{
-            //    Ip = ip,
-            //    City = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim()
-            //};
-            //savedIPList.Add(ipToSave);
-            //if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-            //{
-            //    boxIPAnswer.SelectionColor = Color.Red;
-            //    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + "\n");
-            //}
-            //else
-            //{
-            //    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + "\n");
-            //}
-            //previousIpCountry = country.Trim();
-            //return country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim();
+            //    previousIpCountry = country.Trim();
+            //    return country.Trim() + ", " + region.Trim() + ", " + district.Trim() + ", " + city.Trim();
             //}
             #endregion
 
-           return null;
+            #region apiiplocation.co
+
+            //if (rbIploc.Checked == true)
+            //{                
+            //    string country = "";
+            //    string desc = "";
+
+            //    ServicePointManager.Expect100Continue = true;
+            //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //    ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+            //    WebClient client = new WebClient();
+
+            //    string jsonadress = client.DownloadString("https://api.iplocation.net/?ip=" + ip.TrimStart());
+            //    var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
+            //    if (jPerson.country_name != null) { country = jPerson.country_name; }
+            //    if (jPerson.isp != null) { desc = jPerson.isp; }
+
+            //    // var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
+            //    var temp1 = country.Trim() + ", " + desc.Trim();
+
+            //    IpClass ipToSave = new IpClass
+            //    {
+            //        Ip = ip,
+            //        City = temp1
+            //    };
+
+            //    savedIPList.Add(ipToSave);
+            //    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+            //    {
+            //        boxIPAnswer.SelectionColor = Color.Red;
+            //        //   boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + desc.Trim() + "\n");
+            //    }
+            //    else
+            //    {
+            //        //boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+            //        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + desc.Trim() + "\n");
+            //    }
+            //    previousIpCountry = country.Trim();
+            //    return temp1;
+            //}
+            #endregion
+
+            return null;
 
         }
         #region classJSonParse
@@ -770,46 +696,14 @@ namespace OpTools
 
         #endregion
 
-        #region jsonparse
-        //class SingleOrArrayConverter<T> : JsonConverter
-        //{
-        //    public override bool CanConvert(Type objectType)
-        //    {
-        //        return (objectType == typeof(List<T>));
-        //    }
-
-        //    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        //    {
-        //        JToken token = JToken.Load(reader);
-        //        if (token.Type == JTokenType.Array)
-        //        {
-        //            return token.ToObject<List<T>>();
-        //        }
-        //        return new List<T> { token.ToObject<T>() };
-        //    }
-
-
-
-        //    public override bool CanWrite
-        //    {
-        //        get { return false; }
-        //    }
-
-        //    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
-        #endregion
-
-        private int ReqCalc (int req)
+        private int ReqCalc(int req)
         {
             var ReqLeft = reqPerMonth - req;
 
-           
+
             return ReqLeft;
         }
+
         private void btnClearIpForm_Click_1(object sender, EventArgs e)
         {
             btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
@@ -867,7 +761,7 @@ namespace OpTools
             givenItems.Clear();
             string fullLog = boxInput.Text;
             string[] lines = fullLog.TrimStart().Split('\n');
-            
+
             proccessLines(lines);
         }
         private void proccessLines(string[] lines)
@@ -1221,14 +1115,15 @@ namespace OpTools
         private void btnPiClear_Click_1(object sender, EventArgs e)
         {
             boxPitInput.Text = "";
-            boxPitOutput.Text = "";
-            boxPitOutput.Enabled = false;
+            rtbexPitOutPut.Text = "";
+            rtbexPitOutPut.Enabled = false;
             checkPitFilter.Checked = false;
         }
 
         private void btnPitProcess_Click_1(object sender, EventArgs e)
         {
-            boxPitOutput.Enabled = true;
+            rtbexPitOutPut.Text = "";
+            rtbexPitOutPut.Enabled = true;
             List<String> inputLines = cleanLogForPit();
             if (checkPitFilter.Checked == true)
             {
@@ -1248,23 +1143,11 @@ namespace OpTools
         private void generatePitAnswer()
         {
             String pitAnswer = "";
-            String pitItemsAnswer = "";
+            //String pitItemsAnswer = "";
             String pitItemsBackAnswer = "";
-            foreach (pitItem item in itemsGivenToPit)
-            {
-                if (item.consider == true)
-                {
-                    pitItemsAnswer += item.name + " [" + item.id + "] " + item.count + "шт.\n";
-                }
-            }
-            foreach (pitItem item in itemsGetFromPit)
-            {
-                if (item.consider == true)
-                {
-                    pitItemsBackAnswer += item.name + " [" + item.id + "] " + item.count + "шт.\n";
-                }
-            }
-            if (pitSinSlot == true)
+
+
+            if (pitSinSlot)
             {
                 pitAnswer += "У питомца были открыты доп. слоты за синие сотки:\n\n";
             }
@@ -1276,19 +1159,71 @@ namespace OpTools
             pitAnswer += "Итого расходы: " + Math.Round(pitBuyCost + pitFoodCost + pitSlotCost + pitZaryad, 2) + " соток\n_________________________________\n\n";
             pitAnswer += "Чистый доход от питомца (затраты не вычтены): " + pitIncome + " соток\n";
             pitAnswer += "Доход от питомца за вычетом расходов, указанных выше (без учёта стоимости вещей и упива): " + (pitIncome - Math.Round(pitBuyCost + pitFoodCost + pitSlotCost + pitZaryad, 2)) + " соток \n_________________________________\n\n";
-            if (pitItemsAnswer.Length > 1)
+
+            rtbexPitOutPut.AppendText(pitAnswer);
+           
+            var itemGivPitCount = itemsGetFromPit.Count;
+            var itemGetPitCount = itemsGetFromPit.Count;
+
+           // MessageBox.Show(itemGivPitCount.ToString());
+           // MessageBox.Show(itemGetPitCount.ToString());
+            if (itemGivPitCount ==0)
             {
-                pitAnswer += "Вещи, переданные питомцу и не вернувшиеся хозяину:\n" + pitItemsAnswer + "\n\n";
+                rtbexPitOutPut.AppendText("Нет вещей, оставшихся у пита\n");
+                
+
             }
             else
             {
-                pitAnswer += "Нет вещей, оставшихся у пита\n\n";
+                rtbexPitOutPut.AppendText("Вещи, переданные питомцу и не вернувшиеся хозяину:\n");
+                foreach (pitItem item in itemsGivenToPit)
+                {
+
+                    if (item.consider == true)
+                    {
+
+                        rtbexPitOutPut.AppendText(item.name + " ");
+                        rtbexPitOutPut.InsertLink("[" + item.id + "]", "https://kovcheg.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
+                        rtbexPitOutPut.AppendText(" -" + item.count + "шт.\n");
+
+                    }
+
+
+                }
+
             }
+           
+                foreach (pitItem item in itemsGetFromPit)
+                {
+
+                    if (item.consider == true)
+                    {
+                        pitItemsBackAnswer += item.name + " "+ " [" + item.id + "] "+ " -" + item.count + "шт.\n";
+                    }
+
+
+                }
+            
+            
+
+            //if (pitItemsAnswer.Length > 1)
+            //{
+            //    pitAnswer += "Вещи, переданные питомцу и не вернувшиеся хозяину:\n" + pitItemsAnswer + "\n";
+            //    MessageBox.Show(pitItemsAnswer);
+            //}
+            //else
+            //{
+            //    pitAnswer += "Нет вещей, оставшихся у пита\n";
+            //}
             if (pitItemsBackAnswer.Length > 1)
             {
-                pitAnswer += "Вещи, возвращённые, но, не учтённые выше из-за разного количества вещей при передаче: \n" + pitItemsBackAnswer;
+                rtbexPitOutPut.Text += "Вещи, возвращённые, но, не учтённые выше из-за разного количества вещей при передаче: \n" + pitItemsBackAnswer;
+
             }
-            boxPitOutput.Text = pitAnswer;
+
+
+
+
         }
         private void calculateBuyPitCost(List<String> inputLines)
         {
@@ -1455,7 +1390,7 @@ namespace OpTools
             {
                 output += str + "\n";
             }
-            boxPitOutput.Text = output;
+            rtbexPitOutPut.Text = output;
         }
 
 
@@ -1470,9 +1405,10 @@ namespace OpTools
             foreach (String str in lines)
             {
                 string st = str.Trim();
-                if (st.Length == 10 && st.Contains("-20"))
+                if (st.Length == 10 && st.Contains("-19"))
                 {
-                    currLineDate = DateTime.ParseExact(st, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    currLineDate = DateTime.ParseExact(st, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
                 }
                 if (st.Length > 12)
                 {
@@ -1492,6 +1428,7 @@ namespace OpTools
                                     Id = getIdByLine(st)
                                 };
                                 metalki.Add(met);
+
                             }
                         }
                         if (st.Contains("Передал предмет") && st.Contains("Передача питомцу"))
@@ -1597,7 +1534,7 @@ namespace OpTools
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-//            this.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            //            this.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
@@ -1607,7 +1544,7 @@ namespace OpTools
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(boxPitOutput.Text);
+            Clipboard.SetText(rtbexPitOutPut.Text);
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1636,14 +1573,10 @@ namespace OpTools
             rdIpShois.Text = "Дается: " + reqPerMonth + "/мес запросов. В конце показывает остаток запросов";
         }
 
-        private void radioIpcalc_CheckedChanged(object sender, EventArgs e)
+        private void RtbexPitOutPut_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            rdIpShois.Text = "https://ipwhois.io/";
-        }
-
-        private void radioRipe_CheckedChanged(object sender, EventArgs e)
-        {
-            rdIpShois.Text = "https://ipwhois.io/";
+            string[] separate = e.LinkText.Split('#');
+            System.Diagnostics.Process.Start(separate[1]);
         }
     }
 }

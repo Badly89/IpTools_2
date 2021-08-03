@@ -6,46 +6,46 @@
 
 namespace OpTools
 {
-  public class Transfer
-  {
-    private int id;
-    private Event trans;
-    private bool isOk;
-
-    public int Id
+    public class Transfer
     {
-      get
-      {
-        return this.id;
-      }
-      set
-      {
-        this.id = value;
-      }
-    }
+        private int id;
+        private Event trans;
+        private bool isOk;
 
-    public Event Trans
-    {
-      get
-      {
-        return this.trans;
-      }
-      set
-      {
-        this.trans = value;
-      }
-    }
+        public int Id
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
+            }
+        }
 
-    public bool IsOk
-    {
-      get
-      {
-        return this.isOk;
-      }
-      set
-      {
-        this.isOk = value;
-      }
+        public Event Trans
+        {
+            get
+            {
+                return this.trans;
+            }
+            set
+            {
+                this.trans = value;
+            }
+        }
+
+        public bool IsOk
+        {
+            get
+            {
+                return this.isOk;
+            }
+            set
+            {
+                this.isOk = value;
+            }
+        }
     }
-  }
 }
