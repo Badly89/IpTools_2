@@ -233,7 +233,7 @@
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Результат проверки";
-            this.groupBox5.Enter += new System.EventHandler(this.GroupBox5_Enter);
+           
             // 
             // boxIPAnswer
             // 
@@ -869,7 +869,6 @@
             this.notifyIcon1.BalloonTipTitle = "Теперь мы находимся здесь. Программа OP Tools";
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.Click += new System.EventHandler(this.NotifyIcon1_Click);
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.NotifyIcon1_DoubleClick);
             // 
             // btnClearIpForm
