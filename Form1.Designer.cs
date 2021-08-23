@@ -90,8 +90,8 @@
             this.imageListTabMenu = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnClearIpForm = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.imageListButton = new System.Windows.Forms.ImageList(this.components);
+            this.button4 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -139,7 +139,7 @@
             this.boxIPInput.Location = new System.Drawing.Point(3, 22);
             this.boxIPInput.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.boxIPInput.Name = "boxIPInput";
-            this.boxIPInput.Size = new System.Drawing.Size(285, 513);
+            this.boxIPInput.Size = new System.Drawing.Size(285, 448);
             this.boxIPInput.TabIndex = 2;
             this.boxIPInput.Text = "";
             // 
@@ -172,7 +172,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(930, 573);
+            this.tabControl1.Size = new System.Drawing.Size(930, 509);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 11;
             // 
@@ -183,9 +183,9 @@
             this.tabPage1.Controls.Add(this.splitContainer2);
             this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPage1.ImageKey = "IP.png";
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(922, 542);
+            this.tabPage1.Size = new System.Drawing.Size(922, 477);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Проверка IP";
             // 
@@ -206,7 +206,7 @@
             this.splitContainer2.Panel2.Controls.Add(this.groupBox5);
             this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer2.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.splitContainer2.Size = new System.Drawing.Size(922, 542);
+            this.splitContainer2.Size = new System.Drawing.Size(922, 477);
             this.splitContainer2.SplitterDistance = 295;
             this.splitContainer2.TabIndex = 11;
             // 
@@ -217,19 +217,19 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 538);
+            this.groupBox1.Size = new System.Drawing.Size(291, 473);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Сюда вставьте логи пишников:";
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.button4);
             this.groupBox5.Controls.Add(this.boxIPAnswer);
+            this.groupBox5.Controls.Add(this.button4);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(0, 274);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(619, 264);
+            this.groupBox5.Size = new System.Drawing.Size(619, 199);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Результат проверки";
@@ -241,7 +241,7 @@
             this.boxIPAnswer.Enabled = false;
             this.boxIPAnswer.Location = new System.Drawing.Point(3, 17);
             this.boxIPAnswer.Name = "boxIPAnswer";
-            this.boxIPAnswer.Size = new System.Drawing.Size(613, 244);
+            this.boxIPAnswer.Size = new System.Drawing.Size(613, 138);
             this.boxIPAnswer.TabIndex = 4;
             this.boxIPAnswer.Text = "";
             this.boxIPAnswer.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.boxIPAnswer_LinkClicked);
@@ -888,21 +888,6 @@
             this.btnClearIpForm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClearIpForm.UseVisualStyleBackColor = false;
             // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Beige;
-            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button4.Enabled = false;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.Color.Coral;
-            this.button4.Location = new System.Drawing.Point(3, 220);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(613, 41);
-            this.button4.TabIndex = 25;
-            this.button4.Text = "Скопировать в буфер обмена";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
             // imageListButton
             // 
             this.imageListButton.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButton.ImageStream")));
@@ -912,17 +897,35 @@
             this.imageListButton.Images.SetKeyName(2, "vector statistics icon_3762797.png");
             this.imageListButton.Images.SetKeyName(3, "raser icon isolated_5260644.png");
             // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Beige;
+            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button4.Enabled = false;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.ForeColor = System.Drawing.Color.Coral;
+            this.button4.Location = new System.Drawing.Point(3, 155);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(613, 41);
+            this.button4.TabIndex = 27;
+            this.button4.Text = "Скопировать в буфер обмена";
+            this.button4.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(930, 573);
+            this.ClientSize = new System.Drawing.Size(930, 509);
             this.Controls.Add(this.tabControl1);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "ОП Tools 2.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -1028,9 +1031,9 @@
         private System.Windows.Forms.ToolStripMenuItem вставитьToolStripMenuItem;
         private RichTextBoxLinks.RichTextBoxEx rtbexPitOutPut;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnClearIpForm;
         private System.Windows.Forms.ImageList imageListButton;
+        private System.Windows.Forms.Button button4;
     }
 }
 

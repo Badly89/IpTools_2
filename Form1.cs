@@ -43,20 +43,48 @@ namespace OpTools
         public Form1()
         {
             InitializeComponent();
-            ShowInTaskbar = false;
-            notifyIcon1.Click += NotifyIcon1_Click;
-            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-            notifyIcon1.ShowBalloonTip(10);
-            notifyIcon1.Text = Text;
+            //ShowInTaskbar = false;
+            //notifyIcon1.Click += NotifyIcon1_Click;
+            
+
+            
+                //notifyIcon1.Visible = true;
+                //notifyIcon1.ShowBalloonTip(10);
+                //notifyIcon1.Text = Text;
+          
+
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if(FormWindowState.Minimized == WindowState)
+            {
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(10);
+                notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+                Hide();
+               // ShowInTaskbar = false;
+            }
+            else if(FormWindowState.Normal == WindowState)
+            {
+                notifyIcon1.Visible = false;
+               // ShowInTaskbar = true;
+            }
         }
 
         private void NotifyIcon1_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
+            
+
         }
         private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            Show();
+            WindowState = FormWindowState.Normal;
+          
+
         }
 
 
@@ -1590,6 +1618,6 @@ namespace OpTools
 
         }
 
-
+        
     }
 }
