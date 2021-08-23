@@ -10,11 +10,11 @@
         {
             get
             {
-                return this.ip;
+                return ip;
             }
             set
             {
-                this.ip = value;
+                ip = value;
             }
         }
 
@@ -22,11 +22,11 @@
         {
             get
             {
-                return this.city;
+                return city;
             }
             set
             {
-                this.city = value;
+                city = value;
             }
         }
     }

@@ -16,11 +16,11 @@ namespace OpTools
         {
             get
             {
-                return this.id;
+                return id;
             }
             set
             {
-                this.id = value;
+                id = value;
             }
         }
 
@@ -28,11 +28,11 @@ namespace OpTools
         {
             get
             {
-                return this.trans;
+                return trans;
             }
             set
             {
-                this.trans = value;
+                trans = value;
             }
         }
 
@@ -40,11 +40,11 @@ namespace OpTools
         {
             get
             {
-                return this.isOk;
+                return isOk;
             }
             set
             {
-                this.isOk = value;
+                isOk = value;
             }
         }
     }

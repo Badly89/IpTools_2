@@ -6,8 +6,8 @@
 
         public int ReqIp
         {
-            get { return this.reqIp; }
-            set { this.reqIp = value; }
+            get { return reqIp; }
+            set { reqIp = value; }
         }
     }
 }

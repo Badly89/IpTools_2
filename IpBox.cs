@@ -17,7 +17,7 @@ namespace OpTools
             InitializeComponent();
             //savedIp.Clear();
             savedIp = savedIpList;
-            toolTip1.SetToolTip(this.numUD, "если количество уникальных меньше 50, то равно количеству уникальных IP. Увеличение идет по 50, максимально до 200.");
+            toolTip1.SetToolTip(numUD, "если количество уникальных меньше 50, то равно количеству уникальных IP. Увеличение идет по 50, максимально до 200.");
 
 
             groupBox2.Text = "Уникальных айпи: " + savedIpList.Count.ToString();

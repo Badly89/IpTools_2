@@ -37,19 +37,28 @@ namespace OpTools
         public List<Transfer> receivedItems = new List<Transfer>();
         public List<Transfer> givenItems = new List<Transfer>();
         public string currentDate;
-        public int reqPerMonth = 10000; //запросы в месяц для сервиса IpShois
-        public int reqComplete = 0; //выполненных запросов
+        //public int reqPerMonth = 10000; //запросы в месяц для сервиса IpShois
+        //public int reqComplete = 0; //выполненных запросов
 
         public Form1()
         {
             InitializeComponent();
-
+            ShowInTaskbar = false;
+            notifyIcon1.Click += NotifyIcon1_Click;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.ShowBalloonTip(10);
+            notifyIcon1.Text = Text;
         }
 
-        private void radioNicRu_CheckedChanged(object sender, EventArgs e)
+        private void NotifyIcon1_Click(object sender, EventArgs e)
         {
-            rdIpShois.Text = "https://ipwhois.io/";
+            WindowState = FormWindowState.Normal;
         }
+        private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
 
         private void IpLinkRadioChangedToggle()
         {
@@ -87,10 +96,10 @@ namespace OpTools
 
         private void btnClearIpForm_Click(object sender, EventArgs e)
         {
-            btnIpCheckStat.Text = "Статистика проверки";
+            btnIpCheckStat.Text = "Статистика";
             btnIpCheckStat.Enabled = false;
             btnClearIpForm.Enabled = false;
-            rdIpShois.Text = "https://ipwhois.io/";
+
             boxIPAnswer.Text = "";
             boxIPInput.Text = "";
             button4.Enabled = false;
@@ -110,11 +119,11 @@ namespace OpTools
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
-                rdIpShois.Text = "https://ipwhois.io/";
+                // rdIpShois.Text = "https://ipwhois.io/";
                 radioNoLinksJustText.Enabled = false;
                 radioIpcalc.Enabled = false;
                 radioRipe.Enabled = false;
-                rdIpShois.Enabled = false;
+                // rdIpShois.Enabled = false;
                 btnClearIpForm.Enabled = false;
                 previousIpCountry = "";
                 bool ipFirstRun = true;
@@ -176,7 +185,7 @@ namespace OpTools
                         }
                     }
                 }
-                rdIpShois.Text = "https://ipwhois.io/ - Осталось запросов: " + ReqCalc(reqComplete) + " из " + reqPerMonth + "/мес";
+
                 btnIpCheckStat.Enabled = true;
                 boxIPAnswer.Enabled = true;
                 button4.Enabled = true;
@@ -189,16 +198,16 @@ namespace OpTools
                 radioNoLinksJustText.Enabled = true;
 
                 radioIpcalc.Enabled = true;
-                rdIpShois.Enabled = true;
+
                 radioRipe.Enabled = true;
 
-                btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
+                btnIpCheckStat.Text = "ИТОГ ПРОВЕРКИ: " + savedIPList.Count.ToString() + " уникальных айпи.\n Нажмите для детализации";
                 btnIpCheckStat.Enabled = true;
                 btnClearIpForm.Enabled = true;
             }
             else
             {
-                MessageBox.Show("Не чего проверять!");
+                MessageBox.Show("Совсем нечего проверять!");
 
             }
         }
@@ -260,7 +269,6 @@ namespace OpTools
             boxIPAnswer.AppendText(answerIpLine);
             if (radioLinksNicRu.Checked == true)
             {
-
                 boxIPAnswer.InsertLink(ip, "https://ipinfo.io/" + ip);
             }
             else if (radioNoLinksJustText.Checked == true)
@@ -696,13 +704,13 @@ namespace OpTools
 
         #endregion
 
-        private int ReqCalc(int req)
-        {
-            var ReqLeft = reqPerMonth - req;
+        //private int ReqCalc(int req)
+        //{
+        //    var ReqLeft = reqPerMonth - req;
 
 
-            return ReqLeft;
-        }
+        //    return ReqLeft;
+        //}
 
         private void btnClearIpForm_Click_1(object sender, EventArgs e)
         {
@@ -1161,16 +1169,16 @@ namespace OpTools
             pitAnswer += "Доход от питомца за вычетом расходов, указанных выше (без учёта стоимости вещей и упива): " + (pitIncome - Math.Round(pitBuyCost + pitFoodCost + pitSlotCost + pitZaryad, 2)) + " соток \n_________________________________\n\n";
 
             rtbexPitOutPut.AppendText(pitAnswer);
-           
+
             var itemGivPitCount = itemsGetFromPit.Count;
             var itemGetPitCount = itemsGetFromPit.Count;
 
-           // MessageBox.Show(itemGivPitCount.ToString());
-           // MessageBox.Show(itemGetPitCount.ToString());
-            if (itemGivPitCount ==0)
+            // MessageBox.Show(itemGivPitCount.ToString());
+            // MessageBox.Show(itemGetPitCount.ToString());
+            if (itemGivPitCount == 0)
             {
                 rtbexPitOutPut.AppendText("Нет вещей, оставшихся у пита\n");
-                
+
 
             }
             else
@@ -1192,19 +1200,19 @@ namespace OpTools
                 }
 
             }
-           
-                foreach (pitItem item in itemsGetFromPit)
+
+            foreach (pitItem item in itemsGetFromPit)
+            {
+
+                if (item.consider == true)
                 {
-
-                    if (item.consider == true)
-                    {
-                        pitItemsBackAnswer += item.name + " "+ " [" + item.id + "] "+ " -" + item.count + "шт.\n";
-                    }
-
-
+                    pitItemsBackAnswer += item.name + " " + " [" + item.id + "] " + " -" + item.count + "шт.\n";
                 }
-            
-            
+
+
+            }
+
+
 
             //if (pitItemsAnswer.Length > 1)
             //{
@@ -1529,7 +1537,8 @@ namespace OpTools
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Text = "OPTools " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Text = "OPTools " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            //   lbFilter.Text = "Для проверки по 12 закону в фильтрах указать следующее: 143,154,155,156,165,166,197,217,218,219,220";
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -1568,15 +1577,19 @@ namespace OpTools
             boxIPInput.Paste();
         }
 
-        private void rdIpShois_CheckedChanged(object sender, EventArgs e)
-        {
-            rdIpShois.Text = "Дается: " + reqPerMonth + "/мес запросов. В конце показывает остаток запросов";
-        }
+
 
         private void RtbexPitOutPut_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             string[] separate = e.LinkText.Split('#');
             System.Diagnostics.Process.Start(separate[1]);
         }
+
+        private void GroupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

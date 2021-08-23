@@ -59,5 +59,15 @@ namespace OpTools.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vector_statistics_icon_3762797 {
+            get {
+                object obj = ResourceManager.GetObject("vector statistics icon_3762797", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
