@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Net;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 namespace OpTools
@@ -37,9 +38,7 @@ namespace OpTools
         public List<Transfer> receivedItems = new List<Transfer>();
         public List<Transfer> givenItems = new List<Transfer>();
         public string currentDate;
-        //public int reqPerMonth = 10000; //запросы в месяц для сервиса IpShois
-        //public int reqComplete = 0; //выполненных запросов
-
+      
         public Form1()
         {
             InitializeComponent();                
@@ -51,8 +50,9 @@ namespace OpTools
             if(FormWindowState.Minimized == WindowState)
             {
                 notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(10);
+                notifyIcon1.ShowBalloonTip(5);
                 notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+                notifyIcon1.Text = Text;
                 Hide();
               
             }
@@ -114,14 +114,11 @@ namespace OpTools
 
             boxIPAnswer.Text = "";
             boxIPInput.Text = "";
-            button4.Enabled = false;
+            btCopyIp.Enabled = false;
             btnClearIpForm.Enabled = false;
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Clipboard.SetText(boxIPAnswer.Text);
-        }
+   
 
         private void btnCheckIPs_Click(object sender, EventArgs e)
         {
@@ -141,7 +138,7 @@ namespace OpTools
                 bool ipFirstRun = true;
                 savedIPList.Clear();
                 btnCheckIPs.Enabled = false;
-                button4.Enabled = false;
+                btCopyIp.Enabled = false;
                 boxIPAnswer.Text = "";
                 boxIPAnswer.Enabled = false;
 
@@ -200,10 +197,10 @@ namespace OpTools
 
                 btnIpCheckStat.Enabled = true;
                 boxIPAnswer.Enabled = true;
-                button4.Enabled = true;
+                btCopyIp.Enabled = true;
                 btnCheckIPs.Text = "ПРОВЕРИТЬ IP";
                 btnCheckIPs.Enabled = true;
-                button4.Enabled = true;
+                btCopyIp.Enabled = true;
                 btnClearIpForm.Enabled = true;
                 radioLinksApehaLogs.Enabled = true;
                 radioLinksNicRu.Enabled = true;
@@ -731,7 +728,7 @@ namespace OpTools
             btnClearIpForm.Enabled = false;
             boxIPAnswer.Text = "";
             boxIPInput.Text = "";
-            button4.Enabled = false;
+            btCopyIp.Enabled = false;
             btnClearIpForm.Enabled = false;
         }
 
@@ -1597,7 +1594,19 @@ namespace OpTools
             System.Diagnostics.Process.Start(separate[1]);
         }
 
-      
-        
+        private void ToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            Process.Start("OpTools.exe");
+
+        }
+
+        private void ЗакрытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void BtCopyIp_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(boxIPAnswer.Text);
+        }
     }
 }
