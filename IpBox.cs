@@ -89,6 +89,7 @@ namespace OpTools
         private void Button1_Click(object sender, EventArgs e)
         {
             numUD.Enabled = false;
+            btnOpenCount.Enabled = false;
             btnCancel.Enabled = true;
             btnCancel.Focus();
             btnCancel.BackColor = Color.Red;
@@ -114,10 +115,10 @@ namespace OpTools
                 Application.DoEvents();
                 if (partialOpenedCount == savedIp.Count)
                 {
-                    btnOpenCount.Text = "Продолжить открывать. Сейчас открыто" + partialOpenedCount + " из " + savedIp.Count;
+                    btnOpenCount.Text = "Продолжить открывать? Сейчас открыто" + partialOpenedCount + " из " + savedIp.Count;
                     Application.DoEvents();
                     partialOpenedCount = 0;
-
+                    btnOpenCount.Enabled = true;
                     btnCancel.Enabled = false;
                     btnCancel.BackColor = Color.Aquamarine;
                     srvKovcheg.Enabled = true;
@@ -138,6 +139,7 @@ namespace OpTools
 
                 Application.DoEvents();
                 numUD.Enabled = true;
+                btnOpenCount.Enabled = true;
                 btnCancel.Enabled = false;
                 btnCancel.BackColor = Color.Aquamarine;
                 srvKovcheg.Enabled = true;
@@ -145,6 +147,7 @@ namespace OpTools
                 srvUtes.Enabled = true;
             }
             numUD.Enabled = true;
+            btnOpenCount.Enabled = true;
             btnCancel.Enabled = false;
             srvKovcheg.Enabled = true;
             srvSmorye.Enabled = true;
