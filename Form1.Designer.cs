@@ -49,7 +49,10 @@
             this.radioLinksApehaLogs = new System.Windows.Forms.RadioButton();
             this.radioLinksNicRu = new System.Windows.Forms.RadioButton();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnClearIpForm = new System.Windows.Forms.Button();
             this.imageListButton = new System.Windows.Forms.ImageList(this.components);
+            this.btnIpCheckStat = new System.Windows.Forms.Button();
+            this.btnCheckIPs = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -92,9 +95,6 @@
             this.menuStripNotofy = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.закрытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnClearIpForm = new System.Windows.Forms.Button();
-            this.btnIpCheckStat = new System.Windows.Forms.Button();
-            this.btnCheckIPs = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -388,6 +388,23 @@
             this.groupBox6.TabIndex = 17;
             this.groupBox6.TabStop = false;
             // 
+            // btnClearIpForm
+            // 
+            this.btnClearIpForm.BackColor = System.Drawing.Color.Thistle;
+            this.btnClearIpForm.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnClearIpForm.Enabled = false;
+            this.btnClearIpForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnClearIpForm.ImageIndex = 3;
+            this.btnClearIpForm.ImageList = this.imageListButton;
+            this.btnClearIpForm.Location = new System.Drawing.Point(3, 135);
+            this.btnClearIpForm.Name = "btnClearIpForm";
+            this.btnClearIpForm.Size = new System.Drawing.Size(219, 59);
+            this.btnClearIpForm.TabIndex = 24;
+            this.btnClearIpForm.Text = "&ОЧИСТИТЬ";
+            this.btnClearIpForm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClearIpForm.UseVisualStyleBackColor = false;
+            this.btnClearIpForm.Click += new System.EventHandler(this.btnClearIpForm_Click);
+            // 
             // imageListButton
             // 
             this.imageListButton.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButton.ImageStream")));
@@ -396,6 +413,44 @@
             this.imageListButton.Images.SetKeyName(1, "IP.png");
             this.imageListButton.Images.SetKeyName(2, "vector statistics icon_3762797.png");
             this.imageListButton.Images.SetKeyName(3, "raser icon isolated_5260644.png");
+            // 
+            // btnIpCheckStat
+            // 
+            this.btnIpCheckStat.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnIpCheckStat.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnIpCheckStat.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnIpCheckStat.Enabled = false;
+            this.btnIpCheckStat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIpCheckStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnIpCheckStat.ForeColor = System.Drawing.Color.Black;
+            this.btnIpCheckStat.ImageKey = "vector statistics icon_3762797.png";
+            this.btnIpCheckStat.ImageList = this.imageListButton;
+            this.btnIpCheckStat.Location = new System.Drawing.Point(3, 76);
+            this.btnIpCheckStat.Name = "btnIpCheckStat";
+            this.btnIpCheckStat.Size = new System.Drawing.Size(219, 59);
+            this.btnIpCheckStat.TabIndex = 23;
+            this.btnIpCheckStat.Text = "&СТАТИСТИКА";
+            this.btnIpCheckStat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnIpCheckStat.UseVisualStyleBackColor = false;
+            this.btnIpCheckStat.Click += new System.EventHandler(this.btnIpCheckStat_Click);
+            // 
+            // btnCheckIPs
+            // 
+            this.btnCheckIPs.BackColor = System.Drawing.Color.Teal;
+            this.btnCheckIPs.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCheckIPs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCheckIPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnCheckIPs.ForeColor = System.Drawing.Color.Cyan;
+            this.btnCheckIPs.ImageKey = "3252645.png";
+            this.btnCheckIPs.ImageList = this.imageListButton;
+            this.btnCheckIPs.Location = new System.Drawing.Point(3, 17);
+            this.btnCheckIPs.Name = "btnCheckIPs";
+            this.btnCheckIPs.Size = new System.Drawing.Size(219, 59);
+            this.btnCheckIPs.TabIndex = 22;
+            this.btnCheckIPs.Text = "&НАЧАТЬ ПРОВЕРКУ";
+            this.btnCheckIPs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCheckIPs.UseVisualStyleBackColor = false;
+            this.btnCheckIPs.Click += new System.EventHandler(this.btnCheckIPs_Click);
             // 
             // tabPage2
             // 
@@ -861,6 +916,7 @@
             this.notifyIcon1.ContextMenuStrip = this.menuStripNotofy;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.Click += new System.EventHandler(this.NotifyIcon1_Click);
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.NotifyIcon1_DoubleClick);
             // 
             // menuStripNotofy
@@ -885,61 +941,6 @@
             this.закрытьToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.закрытьToolStripMenuItem.Text = "Закрыть";
             this.закрытьToolStripMenuItem.Click += new System.EventHandler(this.ЗакрытьToolStripMenuItem_Click);
-            // 
-            // btnClearIpForm
-            // 
-            this.btnClearIpForm.BackColor = System.Drawing.Color.Thistle;
-            this.btnClearIpForm.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnClearIpForm.Enabled = false;
-            this.btnClearIpForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnClearIpForm.ImageIndex = 3;
-            this.btnClearIpForm.ImageList = this.imageListButton;
-            this.btnClearIpForm.Location = new System.Drawing.Point(3, 135);
-            this.btnClearIpForm.Name = "btnClearIpForm";
-            this.btnClearIpForm.Size = new System.Drawing.Size(219, 59);
-            this.btnClearIpForm.TabIndex = 24;
-            this.btnClearIpForm.Text = "&ОЧИСТИТЬ";
-            this.btnClearIpForm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClearIpForm.UseVisualStyleBackColor = false;
-            this.btnClearIpForm.Click += new System.EventHandler(this.btnClearIpForm_Click);
-            // 
-            // btnIpCheckStat
-            // 
-            this.btnIpCheckStat.BackColor = System.Drawing.Color.SkyBlue;
-            this.btnIpCheckStat.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnIpCheckStat.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnIpCheckStat.Enabled = false;
-            this.btnIpCheckStat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIpCheckStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnIpCheckStat.ForeColor = System.Drawing.Color.Black;
-            this.btnIpCheckStat.ImageKey = "vector statistics icon_3762797.png";
-            this.btnIpCheckStat.ImageList = this.imageListButton;
-            this.btnIpCheckStat.Location = new System.Drawing.Point(3, 76);
-            this.btnIpCheckStat.Name = "btnIpCheckStat";
-            this.btnIpCheckStat.Size = new System.Drawing.Size(219, 59);
-            this.btnIpCheckStat.TabIndex = 23;
-            this.btnIpCheckStat.Text = "&СТАТИСТИКА";
-            this.btnIpCheckStat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnIpCheckStat.UseVisualStyleBackColor = false;
-            this.btnIpCheckStat.Click += new System.EventHandler(this.btnIpCheckStat_Click);
-            // 
-            // btnCheckIPs
-            // 
-            this.btnCheckIPs.BackColor = System.Drawing.Color.Teal;
-            this.btnCheckIPs.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCheckIPs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCheckIPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnCheckIPs.ForeColor = System.Drawing.Color.Cyan;
-            this.btnCheckIPs.ImageKey = "3252645.png";
-            this.btnCheckIPs.ImageList = this.imageListButton;
-            this.btnCheckIPs.Location = new System.Drawing.Point(3, 17);
-            this.btnCheckIPs.Name = "btnCheckIPs";
-            this.btnCheckIPs.Size = new System.Drawing.Size(219, 59);
-            this.btnCheckIPs.TabIndex = 22;
-            this.btnCheckIPs.Text = "&НАЧАТЬ ПРОВЕРКУ";
-            this.btnCheckIPs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCheckIPs.UseVisualStyleBackColor = false;
-            this.btnCheckIPs.Click += new System.EventHandler(this.btnCheckIPs_Click);
             // 
             // Form1
             // 

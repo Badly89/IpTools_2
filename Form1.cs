@@ -41,8 +41,11 @@ namespace OpTools
       
         public Form1()
         {
-            InitializeComponent();                
-
+            InitializeComponent();
+            notifyIcon1.Visible = true;
+            notifyIcon1.ShowBalloonTip(5);
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.Text = Text;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -50,15 +53,12 @@ namespace OpTools
             if(FormWindowState.Minimized == WindowState)
             {
                 notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(5);
-                notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
-                notifyIcon1.Text = Text;
                 Hide();
               
             }
             else if(FormWindowState.Normal == WindowState)
             {
-                notifyIcon1.Visible = false;
+                notifyIcon1.Visible = true;
             
             }
         }
@@ -66,11 +66,15 @@ namespace OpTools
        
         private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
         {
-            Show();
-            WindowState = FormWindowState.Normal;         
+               
 
         }
 
+        private void NotifyIcon1_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
 
         private void IpLinkRadioChangedToggle()
         {
@@ -1608,5 +1612,7 @@ namespace OpTools
         {
             Clipboard.SetText(boxIPAnswer.Text);
         }
+
+       
     }
 }
