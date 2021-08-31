@@ -17,7 +17,7 @@ namespace OpTools
             InitializeComponent();
             //savedIp.Clear();
             savedIp = savedIpList;
-            toolTip1.SetToolTip(numUD, "если количество уникальных меньше 50, то равно количеству уникальных IP. Увеличение идет по 50, максимально до 200.");
+            toolTip1.SetToolTip(numUD, "если количество уникальных меньше 50, то равно количеству уникальных IP. Увеличение идет по 10, максимально до 500.");
 
 
             groupBox2.Text = "Уникальных айпи: " + savedIpList.Count.ToString();
@@ -84,7 +84,7 @@ namespace OpTools
                 ipServer = "utes";
             }
         }
-        
+
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -154,6 +154,14 @@ namespace OpTools
             srvUtes.Enabled = true;
         }
 
+        private void IpBox_Resize(object sender, EventArgs e)
+        {
 
+        }
+
+        private void GroupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

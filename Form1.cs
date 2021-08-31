@@ -2,11 +2,11 @@
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Net;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 
 namespace OpTools
@@ -38,7 +38,8 @@ namespace OpTools
         public List<Transfer> receivedItems = new List<Transfer>();
         public List<Transfer> givenItems = new List<Transfer>();
         public string currentDate;
-      
+        private FormWindowState _OldFormState;
+        private Button leftPanel;
         public Form1()
         {
             InitializeComponent();
@@ -46,28 +47,39 @@ namespace OpTools
             notifyIcon1.ShowBalloonTip(5);
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
             notifyIcon1.Text = Text;
+
+
+        }
+        private void NotifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (WindowState == FormWindowState.Normal || WindowState == FormWindowState.Maximized)
+                {
+                    _OldFormState = WindowState;
+                    WindowState = FormWindowState.Minimized;
+                }
+                else
+                {
+                    Show();
+                    WindowState = _OldFormState;
+                }
+            }
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            if(FormWindowState.Minimized == WindowState)
+            if (FormWindowState.Minimized == WindowState)
             {
-                notifyIcon1.Visible = true;
+                //     notifyIcon1.Visible = true;
                 Hide();
-              
+
             }
-            else if(FormWindowState.Normal == WindowState)
+            else if (FormWindowState.Normal == WindowState)
             {
                 notifyIcon1.Visible = true;
-            
+
             }
-        }
-
-       
-        private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
-        {
-               
-
         }
 
         private void NotifyIcon1_Click(object sender, EventArgs e)
@@ -114,21 +126,28 @@ namespace OpTools
         {
             btnIpCheckStat.Text = "Статистика";
             btnIpCheckStat.Enabled = false;
+            btLeftPanel.Visible = false;
             btnClearIpForm.Enabled = false;
-
+            GbRezultIp.Visible = false;
+            splitContainerIp.Panel1Collapsed = false;
+            boxIPAnswer.Enabled = false;
             boxIPAnswer.Text = "";
             boxIPInput.Text = "";
             btCopyIp.Enabled = false;
             btnClearIpForm.Enabled = false;
         }
 
-   
+
 
         private void btnCheckIPs_Click(object sender, EventArgs e)
         {
             if (boxIPInput.Text != String.Empty)
             {
                 btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
+                GbRezultIp.Visible = true;
+                btLeftPanel.Visible = true;
+
+                splitContainerIp.Panel1Collapsed = true;
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
@@ -145,8 +164,15 @@ namespace OpTools
                 btCopyIp.Enabled = false;
                 boxIPAnswer.Text = "";
                 boxIPAnswer.Enabled = false;
+                btLeftPanel.Text = ">>";
 
-                //string ipAnswer = "";
+                //create button open left Panel
+                this.leftPanel = new System.Windows.Forms.Button();
+                leftPanel.AutoSize = true;
+                leftPanel.Text = "Показать левую панель";
+                leftPanel.Size = new System.Drawing.Size(100,100);
+                leftPanel.Location = new System.Drawing.Point(3, 145);
+                    //string ipAnswer = "";
                 string ipList = boxIPInput.Text;
                 string[] ipLines = ipList.Split('\n');
                 int numberIpsToCheck = getIpsNumber(ipLines);
@@ -209,7 +235,7 @@ namespace OpTools
                 radioLinksApehaLogs.Enabled = true;
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
-
+                btLeftPanel.Visible = true;
                 radioIpcalc.Enabled = true;
 
                 radioRipe.Enabled = true;
@@ -748,8 +774,10 @@ namespace OpTools
             DialogResult dialogresult = dialog.ShowDialog();
             if (dialogresult == DialogResult.OK)
             {
+
                 dialog.Dispose();
             }
+
         }
 
         //супружеские передачи
@@ -769,6 +797,8 @@ namespace OpTools
             btnCopy.Enabled = false;
             boxResult.Text = "";
             boxResult.Enabled = false;
+            splitContainerSuprug.Panel1Collapsed = false;
+            gBRezultSuprug.Visible = false;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -782,7 +812,8 @@ namespace OpTools
             givenItems.Clear();
             string fullLog = boxInput.Text;
             string[] lines = fullLog.TrimStart().Split('\n');
-
+            gBRezultSuprug.Visible = true;
+            splitContainerSuprug.Panel1Collapsed = true;
             proccessLines(lines);
         }
         private void proccessLines(string[] lines)
@@ -1613,6 +1644,43 @@ namespace OpTools
             Clipboard.SetText(boxIPAnswer.Text);
         }
 
+        private void RadioRipe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioRipe.Checked)
+            {
+                radioRipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+            else
+            {
+                radioRipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+        }
+
+        private void RadioIpcalc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioIpcalc.Checked)
+            {
+                radioIpcalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+            else
+            {
+                radioIpcalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+        }
+
        
+        private void BtLeftPanel_Click(object sender, EventArgs e)
+        {
+            if(splitContainerIp.Panel1Collapsed)
+            {
+                splitContainerIp.Panel1Collapsed = false;
+                btLeftPanel.Text = "<<";
+            }
+            else
+            {
+                splitContainerIp.Panel1Collapsed = true;
+                btLeftPanel.Text = ">>";
+            }
+        }
     }
 }

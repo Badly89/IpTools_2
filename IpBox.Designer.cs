@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IpBox));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.richTxtBoxRes = new RichTextBoxLinks.RichTextBoxEx();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -43,6 +44,7 @@
             this.numUD = new System.Windows.Forms.NumericUpDown();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.notifyIcon2 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -66,6 +68,7 @@
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
             // richTxtBoxRes
             // 
@@ -84,7 +87,7 @@
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(219, 177);
+            this.groupBox1.Size = new System.Drawing.Size(219, 155);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры открытия логов";
@@ -98,7 +101,7 @@
             this.groupBox3.Location = new System.Drawing.Point(3, 16);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox3.Size = new System.Drawing.Size(213, 158);
+            this.groupBox3.Size = new System.Drawing.Size(213, 136);
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Сервер, на котором открывать логи";
@@ -190,9 +193,9 @@
             this.groupBox4.Controls.Add(this.numUD);
             this.groupBox4.Controls.Add(this.chkBoxEveryHalfSecond);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 177);
+            this.groupBox4.Location = new System.Drawing.Point(0, 155);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(219, 370);
+            this.groupBox4.Size = new System.Drawing.Size(219, 392);
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
             // 
@@ -213,13 +216,13 @@
             // 
             this.numUD.Dock = System.Windows.Forms.DockStyle.Top;
             this.numUD.Increment = new decimal(new int[] {
-            50,
+            10,
             0,
             0,
             0});
             this.numUD.Location = new System.Drawing.Point(3, 33);
             this.numUD.Maximum = new decimal(new int[] {
-            200,
+            500,
             0,
             0,
             0});
@@ -253,7 +256,11 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-           
+            // 
+            // notifyIcon2
+            // 
+            this.notifyIcon2.Text = "notifyIcon1";
+            this.notifyIcon2.Visible = true;
             // 
             // IpBox
             // 
@@ -261,8 +268,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(866, 547);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IpBox";
             this.Text = "Статистика проверки по айпи";
+            this.Resize += new System.EventHandler(this.IpBox_Resize);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -295,5 +304,6 @@
         private System.Windows.Forms.Button btnOpenCount;
         private System.Windows.Forms.NumericUpDown numUD;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.NotifyIcon notifyIcon2;
     }
 }
