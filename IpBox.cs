@@ -7,7 +7,7 @@ namespace OpTools
 {
     public partial class IpBox : Form
     {
-        public String ipServer = "kovcheg";
+        public String ipServer = "kovcheg1";
         Boolean cancelPressed = false;
         public int partialOpenedCount = 0;
         public List<IpClass> savedIp = new List<IpClass>();
@@ -65,7 +65,7 @@ namespace OpTools
         {
             if (srvKovcheg.Checked)
             {
-                ipServer = "kovcheg";
+                ipServer = "kovcheg1";
             }
         }
 

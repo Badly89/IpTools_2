@@ -751,7 +751,7 @@ namespace OpTools
         //    return ReqLeft;
         //}
 
-        private void btnClearIpForm_Click_1(object sender, EventArgs e)
+        private void BtnClearIpForm_Click_1(object sender, EventArgs e)
         {
             btnIpCheckStat.Text = "СТАТИСТИКА ПРОВЕРКИ";
             btnIpCheckStat.Enabled = false;

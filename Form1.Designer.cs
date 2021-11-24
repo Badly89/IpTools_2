@@ -282,7 +282,7 @@
             // 
             // splitContainerIp
             // 
-            this.splitContainerIp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerIp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainerIp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerIp.Location = new System.Drawing.Point(0, 0);
             this.splitContainerIp.Name = "splitContainerIp";
@@ -298,7 +298,7 @@
             this.splitContainerIp.Panel2.Controls.Add(this.groupBox2);
             this.splitContainerIp.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainerIp.Size = new System.Drawing.Size(1096, 528);
-            this.splitContainerIp.SplitterDistance = 302;
+            this.splitContainerIp.SplitterDistance = 310;
             this.splitContainerIp.TabIndex = 11;
             // 
             // groupBox1
@@ -309,7 +309,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 524);
+            this.groupBox1.Size = new System.Drawing.Size(308, 526);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Сюда вставьте логи пишников:";
@@ -321,7 +321,7 @@
             this.boxIPInput.Location = new System.Drawing.Point(3, 19);
             this.boxIPInput.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
             this.boxIPInput.Name = "boxIPInput";
-            this.boxIPInput.Size = new System.Drawing.Size(292, 502);
+            this.boxIPInput.Size = new System.Drawing.Size(302, 504);
             this.boxIPInput.TabIndex = 2;
             this.boxIPInput.Text = "";
             // 
@@ -332,7 +332,7 @@
             this.GbRezultIp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GbRezultIp.Location = new System.Drawing.Point(243, 0);
             this.GbRezultIp.Name = "GbRezultIp";
-            this.GbRezultIp.Size = new System.Drawing.Size(543, 524);
+            this.GbRezultIp.Size = new System.Drawing.Size(537, 526);
             this.GbRezultIp.TabIndex = 10;
             this.GbRezultIp.TabStop = false;
             this.GbRezultIp.Text = "Результат проверки";
@@ -344,7 +344,7 @@
             this.boxIPAnswer.Enabled = false;
             this.boxIPAnswer.Location = new System.Drawing.Point(3, 17);
             this.boxIPAnswer.Name = "boxIPAnswer";
-            this.boxIPAnswer.Size = new System.Drawing.Size(537, 463);
+            this.boxIPAnswer.Size = new System.Drawing.Size(531, 465);
             this.boxIPAnswer.TabIndex = 4;
             this.boxIPAnswer.Text = "";
             this.boxIPAnswer.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.boxIPAnswer_LinkClicked);
@@ -357,9 +357,9 @@
             this.btCopyIp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCopyIp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btCopyIp.ForeColor = System.Drawing.Color.Coral;
-            this.btCopyIp.Location = new System.Drawing.Point(3, 480);
+            this.btCopyIp.Location = new System.Drawing.Point(3, 482);
             this.btCopyIp.Name = "btCopyIp";
-            this.btCopyIp.Size = new System.Drawing.Size(537, 41);
+            this.btCopyIp.Size = new System.Drawing.Size(531, 41);
             this.btCopyIp.TabIndex = 27;
             this.btCopyIp.Text = "Скопировать в буфер обмена";
             this.btCopyIp.UseVisualStyleBackColor = false;
@@ -374,7 +374,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(243, 524);
+            this.groupBox2.Size = new System.Drawing.Size(243, 526);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры проверки";
@@ -384,7 +384,7 @@
             this.btLeftPanel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btLeftPanel.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.btLeftPanel.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.btLeftPanel.Location = new System.Drawing.Point(3, 498);
+            this.btLeftPanel.Location = new System.Drawing.Point(3, 500);
             this.btLeftPanel.Name = "btLeftPanel";
             this.btLeftPanel.Size = new System.Drawing.Size(32, 23);
             this.btLeftPanel.TabIndex = 18;
