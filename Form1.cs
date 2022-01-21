@@ -799,22 +799,34 @@ namespace OpTools
             boxResult.Enabled = false;
             splitContainerSuprug.Panel1Collapsed = false;
             gBRezultSuprug.Visible = false;
+            btnLeftPanelSuprug.Visible = false;
+            
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            answer = "";
-            id_giv = 0;
-            id_rec = 0;
-            moneyGiven = 0;
-            moneyReceived = 0;
-            receivedItems.Clear();
-            givenItems.Clear();
-            string fullLog = boxInput.Text;
-            string[] lines = fullLog.TrimStart().Split('\n');
-            gBRezultSuprug.Visible = true;
-            splitContainerSuprug.Panel1Collapsed = true;
-            proccessLines(lines);
+            if(boxInput.Text != String.Empty)
+            {
+                answer = "";
+                id_giv = 0;
+                id_rec = 0;
+                moneyGiven = 0;
+                moneyReceived = 0;
+                receivedItems.Clear();
+                givenItems.Clear();
+                string fullLog = boxInput.Text;
+                string[] lines = fullLog.TrimStart().Split('\n');
+                gBRezultSuprug.Visible = true;
+                splitContainerSuprug.Panel1Collapsed = true;
+                proccessLines(lines);
+                btnLeftPanelSuprug.Visible = true;
+                btnLeftPanelSuprug.Text = ">>";
+            }
+            else
+            {
+                MessageBox.Show("Необходимо указать логи для проверки!");
+
+            }
         }
         private void proccessLines(string[] lines)
         {
@@ -1680,6 +1692,25 @@ namespace OpTools
             {
                 splitContainerIp.Panel1Collapsed = true;
                 btLeftPanel.Text = ">>";
+            }
+        }
+
+        private void SplitContainerSuprug_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void BtnLeftPanelSuprug_Click(object sender, EventArgs e)
+        {
+            if (splitContainerSuprug.Panel1Collapsed)
+            {
+                splitContainerSuprug.Panel1Collapsed = false;
+                btnLeftPanelSuprug.Text = "<<";
+            }
+            else
+            {
+                splitContainerSuprug.Panel1Collapsed = true;
+                btnLeftPanelSuprug.Text = ">>";
             }
         }
     }
