@@ -7,7 +7,7 @@ namespace OpTools
 {
     public partial class IpBox : Form
     {
-        public String ipServer = "kovcheg1";
+        public String ipServer = "kovcheg2";
         Boolean cancelPressed = false;
         public int partialOpenedCount = 0;
         public List<IpClass> savedIp = new List<IpClass>();
@@ -30,7 +30,7 @@ namespace OpTools
                 richTxtBoxRes.AppendText("  ");
                 richTxtBoxRes.InsertLink("Link to ipinfo.io", "https://ipinfo.io/" + obj.Ip);
                 richTxtBoxRes.AppendText("  ");
-                richTxtBoxRes.InsertLink("Link to APEHA logs", "http://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
+                richTxtBoxRes.InsertLink("Link to APEHA logs", "https://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
                 richTxtBoxRes.AppendText("\n");
             }
         }
@@ -49,6 +49,7 @@ namespace OpTools
         {
             string[] separate = e.LinkText.Split('#');
             System.Diagnostics.Process.Start(separate[1]);
+                
         }
 
         private void IpBox_FormClosing(object sender, FormClosingEventArgs e)
