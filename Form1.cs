@@ -1246,8 +1246,8 @@ namespace OpTools
                     if (item.consider == true)
                     {
                         rtbexPitOutPut.AppendText(item.name + " ");
-                        rtbexPitOutPut.InsertLink("[" + item.id + "]","https://kovcheg1.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
                         rtbexPitOutPut.AppendText("  ");
+                        rtbexPitOutPut.InsertLink("[" + item.id + "]", "https://kovcheg2.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
                         rtbexPitOutPut.AppendText(" -" + item.count + "шт.\n");
 
                     }
