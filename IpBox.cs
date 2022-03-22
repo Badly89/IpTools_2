@@ -65,7 +65,7 @@ namespace OpTools
         {
             if (srvKovcheg.Checked)
             {
-                ipServer = "kovcheg1";
+                ipServer = "kovcheg2";
             }
         }
 

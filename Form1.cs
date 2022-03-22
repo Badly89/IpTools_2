@@ -316,7 +316,7 @@ namespace OpTools
             }
             else if (radioLinksApehaLogs.Checked == true)
             {
-                boxIPAnswer.InsertLink(ip, "http://kovcheg.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
+                boxIPAnswer.InsertLink(ip, "http://kovcheg2.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
             }
 
 
@@ -1235,7 +1235,7 @@ namespace OpTools
                     {
 
                         rtbexPitOutPut.AppendText(item.name + " ");
-                        rtbexPitOutPut.InsertLink("[" + item.id + "]", "https://kovcheg.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
+                        rtbexPitOutPut.InsertLink("[" + item.id + "]", "https://kovcheg2.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
                         rtbexPitOutPut.AppendText(" -" + item.count + "шт.\n");
 
                     }
