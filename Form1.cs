@@ -316,7 +316,7 @@ namespace OpTools
             }
             else if (radioLinksApehaLogs.Checked == true)
             {
-                boxIPAnswer.InsertLink(ip, "http://kovcheg.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
+                boxIPAnswer.InsertLink(ip, "http://kovcheg2.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
             }
 
 
@@ -765,7 +765,7 @@ namespace OpTools
         private void boxIPAnswer_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             string[] separate = e.LinkText.Split('#');
-            System.Diagnostics.Process.Start(separate[1]);
+            Process.Start(separate[1]);
         }
 
         private void btnIpCheckStat_Click(object sender, EventArgs e)
@@ -1245,9 +1245,9 @@ namespace OpTools
 
                     if (item.consider == true)
                     {
-
                         rtbexPitOutPut.AppendText(item.name + " ");
-                        rtbexPitOutPut.InsertLink("[" + item.id + "]", "https://kovcheg1.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
+                        rtbexPitOutPut.InsertLink("[" + item.id + "]","https://kovcheg1.apeha.ru/ulog_showall_1_item_" + item.id + ".lhtml");
+                        rtbexPitOutPut.AppendText("  ");
                         rtbexPitOutPut.AppendText(" -" + item.count + "шт.\n");
 
                     }
@@ -1581,7 +1581,7 @@ namespace OpTools
                 {
                     if (!str.Contains("Вся выборка содержит") && !str.Contains(" по ") && !str.Contains("пользователи"))
                     {
-                        if (str.Trim().Contains("питомц") || (str.Trim().Contains("Использовал предмет") && str.Trim().Contains("Упаковка Корма")) || str.Trim().Contains("Зарядка на"))
+                        if (str.Trim().Contains("питомец") || (str.Trim().Contains("Использовал предмет") && str.Trim().Contains("Упаковка Корма")) || str.Trim().Contains("Зарядка на"))
                         {
                             result.Add(str.Trim());
                         }
@@ -1637,8 +1637,9 @@ namespace OpTools
 
         private void RtbexPitOutPut_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            string[] separate = e.LinkText.Split('#');
-            System.Diagnostics.Process.Start(separate[1]);
+            string[] separate2 = e.LinkText.Split('#');
+            Process.Start(separate2[1]);
+            
         }
 
         private void ToolStripMenuItem1_Click_1(object sender, EventArgs e)
@@ -1660,11 +1661,11 @@ namespace OpTools
         {
             if (radioRipe.Checked)
             {
-                radioRipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                radioRipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
             else
             {
-                radioRipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                radioRipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
         }
 
