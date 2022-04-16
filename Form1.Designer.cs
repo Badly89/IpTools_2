@@ -102,6 +102,7 @@
             this.btnPitProcess = new System.Windows.Forms.Button();
             this.checkPitFilter = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.rbIpData = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStripNotify.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -148,14 +149,14 @@
             this.вставитьToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(123, 26);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip1_Opening);
             // 
             // вставитьToolStripMenuItem
             // 
             this.вставитьToolStripMenuItem.Name = "вставитьToolStripMenuItem";
             this.вставитьToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.вставитьToolStripMenuItem.Text = "Вставить";
-            this.вставитьToolStripMenuItem.Click += new System.EventHandler(this.вставитьToolStripMenuItem_Click);
+            this.вставитьToolStripMenuItem.Click += new System.EventHandler(this.ВставитьToolStripMenuItem_Click);
             // 
             // imageListButton
             // 
@@ -346,7 +347,7 @@
             this.boxIPAnswer.Size = new System.Drawing.Size(488, 465);
             this.boxIPAnswer.TabIndex = 4;
             this.boxIPAnswer.Text = "";
-            this.boxIPAnswer.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.boxIPAnswer_LinkClicked);
+            this.boxIPAnswer.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.BoxIPAnswer_LinkClicked);
             // 
             // btCopyIp
             // 
@@ -399,7 +400,7 @@
             this.groupBox6.Controls.Add(this.btnIpCheckStat);
             this.groupBox6.Controls.Add(this.btnCheckIPs);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox6.Location = new System.Drawing.Point(3, 235);
+            this.groupBox6.Location = new System.Drawing.Point(3, 265);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(237, 209);
             this.groupBox6.TabIndex = 17;
@@ -440,7 +441,7 @@
             this.btnIpCheckStat.Text = "&СТАТИСТИКА";
             this.btnIpCheckStat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnIpCheckStat.UseVisualStyleBackColor = false;
-            this.btnIpCheckStat.Click += new System.EventHandler(this.btnIpCheckStat_Click);
+            this.btnIpCheckStat.Click += new System.EventHandler(this.BtnIpCheckStat_Click);
             // 
             // btnCheckIPs
             // 
@@ -458,7 +459,7 @@
             this.btnCheckIPs.Text = "&НАЧАТЬ ПРОВЕРКУ";
             this.btnCheckIPs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCheckIPs.UseVisualStyleBackColor = false;
-            this.btnCheckIPs.Click += new System.EventHandler(this.btnCheckIPs_Click);
+            this.btnCheckIPs.Click += new System.EventHandler(this.BtnCheckIPs_Click);
             // 
             // groupBox4
             // 
@@ -467,7 +468,7 @@
             this.groupBox4.Controls.Add(this.radioLinksNicRu);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox4.Location = new System.Drawing.Point(3, 120);
+            this.groupBox4.Location = new System.Drawing.Point(3, 150);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(237, 115);
             this.groupBox4.TabIndex = 16;
@@ -516,10 +517,11 @@
             this.radioLinksNicRu.TabIndex = 11;
             this.radioLinksNicRu.Text = "ссылками на ipinfo.io";
             this.radioLinksNicRu.UseVisualStyleBackColor = true;
-            this.radioLinksNicRu.CheckedChanged += new System.EventHandler(this.radioLinksNicRu_CheckedChanged);
+            this.radioLinksNicRu.CheckedChanged += new System.EventHandler(this.RadioLinksNicRu_CheckedChanged);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.rbIpData);
             this.groupBox3.Controls.Add(this.radioRipe);
             this.groupBox3.Controls.Add(this.radioIpcalc);
             this.groupBox3.Cursor = System.Windows.Forms.Cursors.Default;
@@ -527,7 +529,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox3.Location = new System.Drawing.Point(3, 17);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(237, 103);
+            this.groupBox3.Size = new System.Drawing.Size(237, 133);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Использовать сервис:";
@@ -705,7 +707,7 @@
             this.button5.TabIndex = 7;
             this.button5.Text = "Очистить форму";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click_2);
+            this.button5.Click += new System.EventHandler(this.Button5_Click_2);
             // 
             // button1
             // 
@@ -717,7 +719,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Обработать";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // chkIgnoreUsils
             // 
@@ -838,7 +840,7 @@
             this.button6.TabIndex = 9;
             this.button6.Text = "Скопировать в буфер обмена";
             this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click_1);
+            this.button6.Click += new System.EventHandler(this.Button6_Click_1);
             // 
             // button2
             // 
@@ -848,7 +850,7 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "Очистить форму";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.Button2_Click_1);
             // 
             // button3
             // 
@@ -860,7 +862,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "Подсчитать";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.button3.Click += new System.EventHandler(this.Button3_Click_1);
             // 
             // tabPage4
             // 
@@ -978,7 +980,7 @@
             this.button7.TabIndex = 10;
             this.button7.Text = "Копировать в буфер";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
             // 
             // btnPiClear
             // 
@@ -989,7 +991,7 @@
             this.btnPiClear.TabIndex = 8;
             this.btnPiClear.Text = "Очистить";
             this.btnPiClear.UseVisualStyleBackColor = true;
-            this.btnPiClear.Click += new System.EventHandler(this.btnPiClear_Click_1);
+            this.btnPiClear.Click += new System.EventHandler(this.BtnPiClear_Click_1);
             // 
             // btnPitProcess
             // 
@@ -1000,7 +1002,7 @@
             this.btnPitProcess.TabIndex = 9;
             this.btnPitProcess.Text = "Обработать";
             this.btnPitProcess.UseVisualStyleBackColor = true;
-            this.btnPitProcess.Click += new System.EventHandler(this.btnPitProcess_Click_1);
+            this.btnPitProcess.Click += new System.EventHandler(this.BtnPitProcess_Click_1);
             // 
             // checkPitFilter
             // 
@@ -1017,6 +1019,20 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "к сведению";
+            // 
+            // rbIpData
+            // 
+            this.rbIpData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rbIpData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbIpData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rbIpData.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rbIpData.Location = new System.Drawing.Point(3, 88);
+            this.rbIpData.Name = "rbIpData";
+            this.rbIpData.Size = new System.Drawing.Size(231, 30);
+            this.rbIpData.TabIndex = 10;
+            this.rbIpData.Text = "IPDATA.CO";
+            this.rbIpData.UseVisualStyleBackColor = true;
+            this.rbIpData.CheckedChanged += new System.EventHandler(this.RbIpData_CheckedChanged);
             // 
             // Form1
             // 
@@ -1147,6 +1163,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox chkIgnoreUsils;
         private System.Windows.Forms.CheckBox chkIgnoreMod;
+        private System.Windows.Forms.RadioButton rbIpData;
     }
 }
 

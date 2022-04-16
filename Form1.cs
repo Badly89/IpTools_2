@@ -107,7 +107,7 @@ namespace OpTools
             }
         }
 
-        private void radioLinksNicRu_CheckedChanged(object sender, EventArgs e)
+        private void RadioLinksNicRu_CheckedChanged(object sender, EventArgs e)
         {
             IpLinkRadioChangedToggle();
         }
@@ -139,7 +139,7 @@ namespace OpTools
 
 
 
-        private void btnCheckIPs_Click(object sender, EventArgs e)
+        private void BtnCheckIPs_Click(object sender, EventArgs e)
         {
             if (boxIPInput.Text != String.Empty)
             {
@@ -151,11 +151,10 @@ namespace OpTools
                 btnIpCheckStat.Enabled = false;
                 radioLinksApehaLogs.Enabled = false;
                 radioLinksNicRu.Enabled = false;
-                // rdIpShois.Text = "https://ipwhois.io/";
                 radioNoLinksJustText.Enabled = false;
                 radioIpcalc.Enabled = false;
                 radioRipe.Enabled = false;
-                // rdIpShois.Enabled = false;
+                rbIpData.Enabled = false;
                 btnClearIpForm.Enabled = false;
                 previousIpCountry = "";
                 bool ipFirstRun = true;
@@ -175,7 +174,7 @@ namespace OpTools
                     //string ipAnswer = "";
                 string ipList = boxIPInput.Text;
                 string[] ipLines = ipList.Split('\n');
-                int numberIpsToCheck = getIpsNumber(ipLines);
+                int numberIpsToCheck = GetIpsNumber(ipLines);
                 int ipsAlreadyChecked = 0;
                 btnCheckIPs.Text = "Результат обрабатывается. Пожалуйста, подождите... Готово: 0/" + numberIpsToCheck;
                 foreach (string lineIP in ipLines)
@@ -203,7 +202,7 @@ namespace OpTools
                             if (lineIP.Contains("Логин") || lineIP.Contains("Регистрация"))
                             {
 
-                                string answerForCurrentIP = getIpInfo(lineIP);
+                                string answerForCurrentIP = GetIpInfo(lineIP);
 
                                 ipsAlreadyChecked++;
                                 btnCheckIPs.Text = "Результат обрабатывается. Пожалуйста, подождите... Готово: " + ipsAlreadyChecked + "/" + numberIpsToCheck;
@@ -235,6 +234,7 @@ namespace OpTools
                 radioLinksApehaLogs.Enabled = true;
                 radioLinksNicRu.Enabled = true;
                 radioNoLinksJustText.Enabled = true;
+                rbIpData.Enabled = true;
                 btLeftPanel.Visible = true;
                 radioIpcalc.Enabled = true;
 
@@ -251,7 +251,7 @@ namespace OpTools
             }
         }
 
-        private int getIpsNumber(string[] ipLines)
+        private int GetIpsNumber(string[] ipLines)
         {
             int counter = 0;
             foreach (string str in ipLines)
@@ -264,14 +264,14 @@ namespace OpTools
             return counter;
         }
 
-        private string generateIpNumber(string ip)
+        private string GenerateIpNumber(string ip)
         {
             string[] ipSeparate = ip.Trim().Split('.');
             long result = Convert.ToInt64(ipSeparate[0]) * 256 * 256 * 256 + Convert.ToInt64(ipSeparate[1]) * 256 * 256 + Convert.ToInt64(ipSeparate[2]) * 256 + Convert.ToInt64(ipSeparate[3]);
             return result + "";
         }
 
-        private int detectCity(string lineToDetect)
+        private int DetectCity(string lineToDetect)
         {
             if (lineToDetect.Contains("Утес дракона") || lineToDetect.Contains("Остров фантазий") || lineToDetect.Contains("Магический Лес"))
             {
@@ -295,9 +295,9 @@ namespace OpTools
             }
         }
 
-        private string getIpInfo(string line)
+        private string GetIpInfo(string line)
         {
-            int startIndex = detectCity(line);
+            int startIndex = DetectCity(line);
             string[] separateWords = line.TrimStart(' ').Split(' ');
             string ip = separateWords[startIndex];
             string answerIpLine = "";
@@ -316,7 +316,7 @@ namespace OpTools
             }
             else if (radioLinksApehaLogs.Checked == true)
             {
-                boxIPAnswer.InsertLink(ip, "http://kovcheg2.apeha.ru/ulog_ip" + "_" + generateIpNumber(ip) + "_" + "showall_1.lhtml");
+                boxIPAnswer.InsertLink(ip, "http://kovcheg2.apeha.ru/ulog_ip" + "_" + GenerateIpNumber(ip) + "_" + "showall_1.lhtml");
             }
 
 
@@ -364,6 +364,7 @@ namespace OpTools
             //Checking using ipcalc.co
             if (radioIpcalc.Checked == true)
             {
+                string continent = "";
                 string region = "";
                 string okrug = "";
                 string country = "";
@@ -378,14 +379,40 @@ namespace OpTools
 
                 string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip.TrimStart());
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-                if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
-                if (jPerson.continent.region_name_1 != null) { okrug = jPerson.continent.region_name_1; }
-                if (jPerson.country.name != null) { country = jPerson.country.name; }
-                if (jPerson.city.name != null) { city = jPerson.city.name; }
-                if (jPerson.isp.asn_organization != null) { asn_organization = jPerson.isp.asn_organization; }
-                if (jPerson.isp.name != null) { desc = jPerson.isp.name; }
-                if (jPerson.isp.organization != null) { org = jPerson.isp.organization; }
+                if (jPerson.continent.name != null)
+                {
+                    if (jPerson.continent.name == jPerson.continent.region_name_1 && jPerson.continent.name == jPerson.continent.region_name_2)
+                    {
+                        if (jPerson.continent.name_translations != null) { continent = jPerson.continent.name_translations.ru; }
+                    }
+                    else
+                    {
+                        if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
+                        if (jPerson.continent.region_name_1 != null) { okrug = jPerson.continent.region_name_1; }
+                    }
+                    if (jPerson.country.name != null)
+                    {
+                        country = jPerson.country.name;
+                        if (jPerson.country.name_translations != null)
+                        {
+                            country = jPerson.country.name_translations.ru;
 
+                        }
+                        else { country = ""; }
+                    }
+                    if (jPerson.city.name != null)
+                    {
+                        city = jPerson.city.name;
+                        if (jPerson.city.name_translations != null)
+                        {
+                            city = jPerson.city.name_translations.ru;
+                        }
+
+                    }
+                    if (jPerson.isp.asn_organization != null) { asn_organization = jPerson.isp.asn_organization; }
+                    if (jPerson.isp.name != null) { desc = jPerson.isp.name; }
+                    if (jPerson.isp.organization != null) { org = jPerson.isp.organization; }
+                }
                 var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
 
                 IpClass ipToSave = new IpClass
@@ -405,7 +432,9 @@ namespace OpTools
                     boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
                 }
                 previousIpCountry = country.Trim();
-                return temp1;
+                    return temp1;
+                
+               
             }
             #endregion
 
@@ -413,20 +442,40 @@ namespace OpTools
             #region ripe.net
             if (radioRipe.Checked == true)
             {
+                string netname = "";
+                string country = "";
+                string city = "";
+                string descr = "";
+
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
-                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&flags=no-referenced&flags=no-irt&flags=no-filtering&source=RIPE");
+                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&type-filter=inetnum&type-filter=person&type-filter=organisation&type-filter=route-set&type-filter=domain&flags=no-referenced&flags=no-irt&flags=no-filtering&source=RIPE");
                 var jPerson = JsonConvert.DeserializeObject<Welcome>(jsonadress, Converter.Settings);
-                string temp1 = "";
-                //string country = "";
-                int count = jPerson.Objects.Object[0].Attributes.Attribute.Count;
-                for (int i = 0; i < count; i++)
+               
+                if(jPerson.Objects.Object[0].Attributes.Attribute[1].Value != null) { netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value; }
+                if (jPerson.Objects.Object[0].Attributes.Attribute[2].Value != null) { descr = jPerson.Objects.Object[0].Attributes.Attribute[2].Value; }
+                if(jPerson.Objects.Object[0].Attributes.Attribute[3].Name == "descr")
                 {
-                    temp1 = temp1 + " " + jPerson.Objects.Object[0].Attributes.Attribute[i].Name + ": " + jPerson.Objects.Object[0].Attributes.Attribute[i].Value + ", ";
-
+                    city = jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
+                    if(jPerson.Objects.Object[0].Attributes.Attribute[4].Value != null) 
+                    { 
+                        country = jPerson.Objects.Object[0].Attributes.Attribute[4].Value;
+                    }
+                } else
+                {
+                    country = jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
                 }
+                
+                var temp1 = country.Trim() + ", " + city.Trim() + ", " + descr.Trim() + ", " + netname.Trim();
+                //string country = "";
+                //int count = jPerson.Objects.Object[0].Attributes.Attribute.Count;
+                //for (int i = 0; i < count; i++)
+                //{
+                //    temp1 = temp1 + " " + jPerson.Objects.Object[0].Attributes.Attribute[i].Name + ": " + jPerson.Objects.Object[0].Attributes.Attribute[i].Value + ", ";
+
+                //}
 
 
                 IpClass ipToSave = new IpClass
@@ -435,10 +484,68 @@ namespace OpTools
                     City = temp1
                 };
                 savedIPList.Add(ipToSave);
-                boxIPAnswer.AppendText(" - " + temp1 + "\n");
+                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                {
+                    boxIPAnswer.SelectionColor = Color.Red;
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + city.Trim() + ", " + descr.Trim() + ", " + netname.Trim() + "\n");
+                }
+                else
+                {
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + city.Trim() + ", " + descr.Trim() + ", " + netname.Trim() + "\n");
+                }
+                previousIpCountry = country.Trim();
                 return temp1;
             }
 
+            #endregion
+
+            #region ipinfo
+            if (rbIpData.Checked == true)
+            {
+                var token = "/json?token=d293e3f7d7b8fa";
+
+                string region = "";
+                string okrug = "";
+                string country = "";
+                string city = "";
+                string loc = "";
+                string hostname = "";
+                string org = "";
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                WebClient client = new WebClient();
+                string jsonadress = client.DownloadString(" https://ipinfo.io/" + ip.TrimStart()+ token);
+                var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
+                if (jPerson.region != null) { region = jPerson.region; }
+                if (jPerson.country != null) { country = jPerson.country; }
+                if (jPerson.city != null) { city = jPerson.city; }
+                if (jPerson.org != null) { org = jPerson.org; }
+                if (jPerson.hostname != null) { hostname = jPerson.hostname; }
+                if (jPerson.loc != null) { loc = jPerson.loc; }
+
+                var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim();
+
+                IpClass ipToSave = new IpClass
+               
+                {
+                    Ip = ip,
+                    City = temp1
+                };
+
+                savedIPList.Add(ipToSave);
+                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                {
+                    boxIPAnswer.SelectionColor = Color.Red;
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim() + "\n");
+                }
+                else
+                {
+                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim() + "\n");
+                }
+                previousIpCountry = country.Trim();
+                return temp1;
+            }
             #endregion
 
             #region ipgeobase XMLparse
@@ -762,13 +869,13 @@ namespace OpTools
             btnClearIpForm.Enabled = false;
         }
 
-        private void boxIPAnswer_LinkClicked(object sender, LinkClickedEventArgs e)
+        private void BoxIPAnswer_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             string[] separate = e.LinkText.Split('#');
             Process.Start(separate[1]);
         }
 
-        private void btnIpCheckStat_Click(object sender, EventArgs e)
+        private void BtnIpCheckStat_Click(object sender, EventArgs e)
         {
             IpBox dialog = new IpBox(savedIPList);
             DialogResult dialogresult = dialog.ShowDialog();
@@ -781,17 +888,17 @@ namespace OpTools
         }
 
         //супружеские передачи
-        private void chkIgnoreMod_CheckStateChanged(object sender, EventArgs e)
+        private void ChkIgnoreMod_CheckStateChanged(object sender, EventArgs e)
         {
             ignoreMods = chkIgnoreMod.Checked;
         }
 
-        private void chkIgnoreUsils_CheckStateChanged_1(object sender, EventArgs e)
+        private void ChkIgnoreUsils_CheckStateChanged_1(object sender, EventArgs e)
         {
             ignoreUsils = chkIgnoreUsils.Checked;
         }
 
-        private void button5_Click_2(object sender, EventArgs e)
+        private void Button5_Click_2(object sender, EventArgs e)
         {
             boxInput.Clear();
             btnCopy.Enabled = false;
@@ -803,7 +910,7 @@ namespace OpTools
             
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
             if(boxInput.Text != String.Empty)
             {
@@ -818,7 +925,7 @@ namespace OpTools
                 string[] lines = fullLog.TrimStart().Split('\n');
                 gBRezultSuprug.Visible = true;
                 splitContainerSuprug.Panel1Collapsed = true;
-                proccessLines(lines);
+                ProccessLines(lines);
                 btnLeftPanelSuprug.Visible = true;
                 btnLeftPanelSuprug.Text = ">>";
             }
@@ -828,7 +935,7 @@ namespace OpTools
 
             }
         }
-        private void proccessLines(string[] lines)
+        private void ProccessLines(string[] lines)
         {
             foreach (string singleLine in lines)
             {
@@ -838,27 +945,27 @@ namespace OpTools
                 {
                     if (singleLine.Contains("Передал"))
                     {
-                        itemGiven(singleLine);
+                        ItemGiven(singleLine);
                     }
                     if (singleLine.Contains("Получил"))
                     {
-                        itemsReceived(singleLine);
+                        ItemsReceived(singleLine);
                     }
                     if (singleLine.Contains("Доход :"))
                     {
-                        moneyReceivedProccess(singleLine);
+                        MoneyReceivedProccess(singleLine);
 
                     }
                     if (singleLine.Contains("Расход :"))
                     {
-                        moneyGivenProccess(singleLine);
+                        MoneyGivenProccess(singleLine);
                     }
                 }
             }
             moneyBalance = Math.Round(moneyReceived, 2) + Math.Round(moneyGiven, 2);
             if (givenItems.Count > 0 || receivedItems.Count > 0 || moneyBalance != 0)
             {
-                processItemsCalculation();
+                ProcessItemsCalculation();
             }
             else
             {
@@ -866,7 +973,7 @@ namespace OpTools
             }
         }
 
-        private void processItemsCalculation()
+        private void ProcessItemsCalculation()
         {
             foreach (Transfer itemG in givenItems)
             {
@@ -950,7 +1057,7 @@ namespace OpTools
         }
 
 
-        private void moneyGivenProccess(string line)
+        private void MoneyGivenProccess(string line)
         {
             int startWord = 0;
             if (line.Contains("Утес дракона") || line.Contains("Остров фантазий"))
@@ -968,7 +1075,7 @@ namespace OpTools
             moneyGiven += Math.Round(Convert.ToSingle(str, System.Globalization.CultureInfo.InvariantCulture), 2);
         }
 
-        private void moneyReceivedProccess(string line)
+        private void MoneyReceivedProccess(string line)
         {
             if (!line.Trim().Contains("син."))
             {
@@ -996,16 +1103,16 @@ namespace OpTools
                 }
                 try
                 {
-                    moneyReceived += Math.Round(toDoubleCustom(str), 2);
+                    moneyReceived += Math.Round(ToDoubleCustom(str), 2);
                 }
                 catch (Exception)
                 {
-                    moneyReceived += Math.Round(toDoubleCustom(str), 2);
+                    moneyReceived += Math.Round(ToDoubleCustom(str), 2);
                 }
             }
         }
 
-        private double toDoubleCustom(String str)
+        private double ToDoubleCustom(String str)
         {
             double res = 0;
             try
@@ -1042,31 +1149,31 @@ namespace OpTools
             return res;
         }
 
-        private void itemGiven(string line)
+        private void ItemGiven(string line)
         {
             Transfer item = new Transfer
             {
                 Id = id_giv,
                 IsOk = false,
-                Trans = proccessItem(line)
+                Trans = ProccessItem(line)
             };
             id_giv++;
             givenItems.Add(item);
         }
 
-        private void itemsReceived(string line)
+        private void ItemsReceived(string line)
         {
             Transfer item = new Transfer
             {
                 Id = id_rec,
                 IsOk = false,
-                Trans = proccessItem(line)
+                Trans = ProccessItem(line)
             };
             id_rec++;
             receivedItems.Add(item);
         }
 
-        private Event proccessItem(string line)
+        private Event ProccessItem(string line)
         {
             int startWord;
             int cityWords;
@@ -1123,17 +1230,17 @@ namespace OpTools
         }
 
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void Button2_Click_1(object sender, EventArgs e)
         {
             boxLogsFight.Text = "";
             boxLogsReply.Text = "";
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void Button3_Click_1(object sender, EventArgs e)
         {
-            calculateExp();
+            CalculateExp();
         }
-        private void calculateExp()
+        private void CalculateExp()
         {
             string logs = boxLogsFight.Text;
             string[] logsLines = logs.Split('\n');
@@ -1171,12 +1278,12 @@ namespace OpTools
             boxLogsReply.Text = reply;
         }
 
-        private void button6_Click_1(object sender, EventArgs e)
+        private void Button6_Click_1(object sender, EventArgs e)
         {
             Clipboard.SetText(boxLogsReply.Text);
         }
 
-        private void btnPiClear_Click_1(object sender, EventArgs e)
+        private void BtnPiClear_Click_1(object sender, EventArgs e)
         {
             boxPitInput.Text = "";
             rtbexPitOutPut.Text = "";
@@ -1184,27 +1291,27 @@ namespace OpTools
             checkPitFilter.Checked = false;
         }
 
-        private void btnPitProcess_Click_1(object sender, EventArgs e)
+        private void BtnPitProcess_Click_1(object sender, EventArgs e)
         {
             rtbexPitOutPut.Text = "";
             rtbexPitOutPut.Enabled = true;
-            List<String> inputLines = cleanLogForPit();
+            List<String> inputLines = CleanLogForPit();
             if (checkPitFilter.Checked == true)
             {
-                simpleFilterOutput(inputLines);
+                SimpleFilterOutput(inputLines);
             }
             else
             {
-                calculateMetalZaryad();
-                calculatePitIncome(inputLines);
-                calculateFoodCost(inputLines);
-                calculateSlotCost(inputLines);
-                calculatePitItems(inputLines);
-                calculateBuyPitCost(inputLines);
-                generatePitAnswer();
+                CalculateMetalZaryad();
+                CalculatePitIncome(inputLines);
+                CalculateFoodCost(inputLines);
+                CalculateSlotCost(inputLines);
+                CalculatePitItems(inputLines);
+                CalculateBuyPitCost(inputLines);
+                GeneratePitAnswer();
             }
         }
-        private void generatePitAnswer()
+        private void GeneratePitAnswer()
         {
             String pitAnswer = "";
             //String pitItemsAnswer = "";
@@ -1289,19 +1396,19 @@ namespace OpTools
 
 
         }
-        private void calculateBuyPitCost(List<String> inputLines)
+        private void CalculateBuyPitCost(List<String> inputLines)
         {
             pitBuyCost = 0;
             foreach (String str in inputLines)
             {
                 if (str.Contains("Покупка питомца"))
                 {
-                    pitBuyCost = getIncomeValue(str);
+                    pitBuyCost = GetIncomeValue(str);
                 }
             }
         }
 
-        private void calculatePitItems(List<String> inputLines)
+        private void CalculatePitItems(List<String> inputLines)
         {
             itemsGivenToPit.Clear();
             itemsGetFromPit.Clear();
@@ -1309,11 +1416,11 @@ namespace OpTools
             {
                 if (str.Contains("Передал предмет") && str.Contains("Передача питомцу"))
                 {
-                    itemsGivenToPit.Add(pitItemProceed(str));
+                    itemsGivenToPit.Add(PitItemProceed(str));
                 }
                 if (str.Contains("Получил предмет") && str.Contains("Передача от питомца"))
                 {
-                    itemsGetFromPit.Add(pitItemProceed(str));
+                    itemsGetFromPit.Add(PitItemProceed(str));
                 }
             }
             foreach (pitItem itemGot in itemsGetFromPit)
@@ -1329,7 +1436,7 @@ namespace OpTools
             }
         }
 
-        private pitItem pitItemProceed(String str)
+        private pitItem PitItemProceed(String str)
         {
             String name = "";
             pitItem item = new pitItem
@@ -1375,7 +1482,7 @@ namespace OpTools
             return item;
         }
 
-        private void calculateSlotCost(List<String> inputLines)
+        private void CalculateSlotCost(List<String> inputLines)
         {
             pitSlotCost = 0;
             foreach (String str in inputLines)
@@ -1384,7 +1491,7 @@ namespace OpTools
                 {
                     if (!str.Contains("син. ст"))
                     {
-                        pitSlotCost += getIncomeValue(str);
+                        pitSlotCost += GetIncomeValue(str);
                     }
                     else
                     {
@@ -1395,7 +1502,7 @@ namespace OpTools
         }
 
 
-        private void calculateFoodCost(List<String> inputLines)
+        private void CalculateFoodCost(List<String> inputLines)
         {
             pitFoodCost = 0;
             foreach (String str in inputLines)
@@ -1415,20 +1522,20 @@ namespace OpTools
             }
         }
 
-        private void calculatePitIncome(List<String> inputLines)
+        private void CalculatePitIncome(List<String> inputLines)
         {
             pitIncome = 0;
             foreach (String str in inputLines)
             {
                 if (str.Contains("Доход от питомца"))
                 {
-                    pitIncome += getIncomeValue(str);
+                    pitIncome += GetIncomeValue(str);
                 }
             }
 
         }
 
-        private double getIncomeValue(String str)
+        private double GetIncomeValue(String str)
         {
             String[] words = str.Split(' ');
             int i = 0;
@@ -1444,10 +1551,10 @@ namespace OpTools
                 }
             }
             Char[] charsToTrim = { 'с', 'т', '.', '-' };
-            return toDoubleCustom(words[i].Trim(charsToTrim));
+            return ToDoubleCustom(words[i].Trim(charsToTrim));
         }
 
-        private void simpleFilterOutput(List<String> inputLines)
+        private void SimpleFilterOutput(List<String> inputLines)
         {
             String output = "";
             foreach (String str in inputLines)
@@ -1458,7 +1565,7 @@ namespace OpTools
         }
 
 
-        private void calculateMetalZaryad()
+        private void CalculateMetalZaryad()
         {
             DateTime currLineDate = DateTime.Now;
             pitZaryad = 0;
@@ -1489,7 +1596,7 @@ namespace OpTools
                                     Date = currLineDate,
                                     Finished = false,
                                     Summ = 0,
-                                    Id = getIdByLine(st)
+                                    Id = GetIdByLine(st)
                                 };
                                 metalki.Add(met);
 
@@ -1501,7 +1608,7 @@ namespace OpTools
                                 st.Contains("Сякены Бронзовые") || st.Contains("Лук простой") || st.Contains("Арбалет учебный") || st.Contains("Лук охотника") || st.Contains("Арбалет лёгкий")
                                  || st.Contains("Лук боевой"))
                             {
-                                string id = getIdByLine(st);
+                                string id = GetIdByLine(st);
                                 foreach (Metalki met in metalki)
                                 {
                                     if (met.Id.Equals(id) && !met.Finished)
@@ -1521,7 +1628,7 @@ namespace OpTools
                         }
                         if (st.Contains("Зарядка на"))
                         {
-                            string id = getIdByLine(st);
+                            string id = GetIdByLine(st);
                             foreach (Metalki met in metalki)
                             {
                                 if (met.Id.Equals(id) && !met.Finished)
@@ -1534,7 +1641,7 @@ namespace OpTools
                                             if (s.Contains("-") && s.Contains("ст."))
                                             {
                                                 char[] charsToTrimForSumm = { '-', 'с', 'т', '.' };
-                                                met.Summ += toDoubleCustom(s.Trim(charsToTrimForSumm));
+                                                met.Summ += ToDoubleCustom(s.Trim(charsToTrimForSumm));
                                             }
                                         }
                                     }
@@ -1554,7 +1661,7 @@ namespace OpTools
 
         }
 
-        private string getIdByLine(string str)
+        private string GetIdByLine(string str)
         {
             string result = "";
             String[] words = str.Split(' ');
@@ -1570,7 +1677,7 @@ namespace OpTools
             return result;
         }
 
-        private List<String> cleanLogForPit()
+        private List<String> CleanLogForPit()
         {
             List<String> result = new List<String>();
             String input = boxPitInput.Text;
@@ -1602,33 +1709,33 @@ namespace OpTools
             //            this.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
-        private void btnCopy_Click(object sender, EventArgs e)
+        private void BtnCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(boxResult.Text);
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void Button7_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(rtbexPitOutPut.Text);
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             boxIPAnswer.SelectAll();
 
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             boxIPAnswer.Copy();
         }
 
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ContextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
         }
 
-        private void вставитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ВставитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             boxIPInput.Paste();
         }
@@ -1712,6 +1819,18 @@ namespace OpTools
             {
                 splitContainerSuprug.Panel1Collapsed = true;
                 btnLeftPanelSuprug.Text = ">>";
+            }
+        }
+
+        private void RbIpData_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbIpData.Checked)
+            {
+                rbIpData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+            else
+            {
+                rbIpData.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             }
         }
     }
