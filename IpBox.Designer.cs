@@ -106,6 +106,7 @@
             this.groupBox3.TabIndex = 29;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Сервер, на котором открывать логи";
+            this.groupBox3.Visible = false;
             // 
             // srvUtes
             // 

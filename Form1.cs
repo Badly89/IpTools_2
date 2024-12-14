@@ -273,7 +273,7 @@ namespace OpTools
 
         private int DetectCity(string lineToDetect)
         {
-            if (lineToDetect.Contains("Утес дракона") || lineToDetect.Contains("Остров фантазий") || lineToDetect.Contains("Магический Лес"))
+            if (lineToDetect.Contains("Утес Дракона") || lineToDetect.Contains("Остров Фантазий") || lineToDetect.Contains("Магический лес"))
             {
                 return 5;
             }
@@ -325,37 +325,37 @@ namespace OpTools
             {
                 if (ip == ipFromSavedList.Ip)
                 {
-                    if (radioIpcalc.Checked)
+                    //if (radioIpcalc.Checked)
+                    //{
+                    //    string[] savedDescr = ipFromSavedList.City.Split(',');
+                    //    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
+                    //    {
+                    //        boxIPAnswer.SelectionColor = Color.Red;
+                    //        boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
+                    //    }
+                    //    else
+                    //    {
+                    //        boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
+                    //    }
+                    //    previousIpCountry = savedDescr[0].Trim();
+                    //}
+                    //else
+                    //{
+                    string[] savedDescr = ipFromSavedList.City.Split(',');
+                    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
                     {
-                        string[] savedDescr = ipFromSavedList.City.Split(',');
-                        if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
-                        {
-                            boxIPAnswer.SelectionColor = Color.Red;
-                            boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
-                        }
-                        else
-                        {
-                            boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
-                        }
-                        previousIpCountry = savedDescr[0].Trim();
+                        //boxIPAnswer.SelectionColor = Color.Green;
+                        boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
+
                     }
                     else
                     {
-                        string[] savedDescr = ipFromSavedList.City.Split(',');
-                        if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(savedDescr[0].Trim()))
-                        {
-                            //boxIPAnswer.SelectionColor = Color.Green;
-                            boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
-
-                        }
-                        else
-                        {
-                            boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
-
-                        }
-                        previousIpCountry = savedDescr[0].Trim();
+                        boxIPAnswer.AppendText(" - " + ipFromSavedList.City + "\n");
 
                     }
+                    previousIpCountry = savedDescr[0].Trim();
+
+                    //}
 
                     return ipFromSavedList.City;
                 }
@@ -379,18 +379,20 @@ namespace OpTools
 
                 string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip.TrimStart());
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-                if(jPerson.continent != null){
+                if (jPerson.continent != null)
+                {
                     continent = jPerson.continent.name;
                     if (jPerson.region_name_2 != null) { region = jPerson.continent.region_name_2; } else { region = ""; }
                     if (jPerson.region_name_1 != null) { okrug = jPerson.continent.region_name_1; } else { okrug = ""; }
-                } else { continent = ""; }
-               if(jPerson.country !=null) { country = jPerson.country.name; } else { country = ""; }
-                asn_organization =  (jPerson.isp != null) ? jPerson.isp.asn_organization : "" ;
-                city = jPerson.city != null ? jPerson.city.name : ""; 
-                 
-                
+                }
+                else { continent = ""; }
+                if (jPerson.country != null) { country = jPerson.country.name; } else { country = ""; }
+                asn_organization = (jPerson.isp != null) ? jPerson.isp.asn_organization : "";
+                city = jPerson.city != null ? jPerson.city.name : "";
+
+
                 desc = (jPerson.isp != null) ? jPerson.isp.name : "";
-                org = (jPerson.isp != null) ? jPerson.isp.organization : ""; 
+                org = (jPerson.isp != null) ? jPerson.isp.organization : "";
 
                 var temp1 = country + ", " + region + ", " + okrug + ", " + city + ", " + asn_organization + ", " + desc + ", " + org;
                 IpClass ipToSave = new IpClass
@@ -423,12 +425,14 @@ namespace OpTools
                 string country = "";
                 string city = "";
                 string descr = "";
-
+                var temp1 = "";
+                int ip240;
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
-                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&type-filter=inetnum&type-filter=person&type-filter=organisation&type-filter=route-set&type-filter=domain&flags=no-referenced&flags=no-irt&flags=no-filtering&source=RIPE");
+                string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip);
+                //+ "&type-filter=inetnum&type-filter=person&type-filter=organisation&type-filter=route-set&type-filter=domain&flags=no-referenced&flags=no-irt&flags=no-filtering&source=RIPE");
                 var jPerson = JsonConvert.DeserializeObject<Welcome>(jsonadress, Converter.Settings);
 
                 if (jPerson.Objects.Object[0].Attributes.Attribute[1].Value != null) { netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value; }
@@ -446,7 +450,7 @@ namespace OpTools
                     country = jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
                 }
 
-                var temp1 = country.Trim() + ", " + city.Trim() + ", " + descr.Trim() + ", " + netname.Trim();
+                temp1 = country.Trim() + ", " + city.Trim() + ", " + descr.Trim() + ", " + netname.Trim();
                 //string country = "";
                 //int count = jPerson.Objects.Object[0].Attributes.Attribute.Count;
                 //for (int i = 0; i < count; i++)
@@ -473,6 +477,7 @@ namespace OpTools
                 }
                 previousIpCountry = country.Trim();
                 return temp1;
+
             }
 
             #endregion
@@ -480,7 +485,7 @@ namespace OpTools
             #region ipinfo
             if (rbIpData.Checked == true)
             {
-                var token = "/json?token=d293e3f7d7b8fa";
+                var token = "?token=e3275192748c36";
 
                 string region = "";
                 string okrug = "";
@@ -493,36 +498,45 @@ namespace OpTools
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
-                string jsonadress = client.DownloadString(" https://ipinfo.io/" + ip.TrimStart() + token);
+                //string jsonadress = client.DownloadString(" https://ipinfo.io/" + ip.TrimStart() + token+ "/json");
+                string jsonadress = client.DownloadString(" https://ipinfo.io/" + ip.TrimStart() + "/json");
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-                if (jPerson.region != null) { region = jPerson.region; }
-                if (jPerson.country != null) { country = jPerson.country; }
-                if (jPerson.city != null) { city = jPerson.city; }
-                if (jPerson.org != null) { org = jPerson.org; }
-                if (jPerson.hostname != null) { hostname = jPerson.hostname; }
-                if (jPerson.loc != null) { loc = jPerson.loc; }
-
-                var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim();
-
-                IpClass ipToSave = new IpClass
-
+                if (jsonadress != "")
                 {
-                    Ip = ip,
-                    City = temp1
-                };
+                    if (jPerson.region != null) { region = jPerson.region; }
+                    if (jPerson.country != null) { country = jPerson.country; }
+                    if (jPerson.city != null) { city = jPerson.city; }
+                    if (jPerson.org != null) { org = jPerson.org; }
+                    if (jPerson.hostname != null) { hostname = jPerson.hostname; }
+                    if (jPerson.loc != null) { loc = jPerson.loc; }
 
-                savedIPList.Add(ipToSave);
-                if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
-                {
-                    boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim() + "\n");
+                    var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim();
+
+                    IpClass ipToSave = new IpClass
+
+                    {
+                        Ip = ip,
+                        City = temp1
+                    };
+
+                    savedIPList.Add(ipToSave);
+                    if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
+                    {
+                        boxIPAnswer.SelectionColor = Color.Red;
+                        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim() + "\n");
+                    }
+                    else
+                    {
+                        boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim() + "\n");
+                    }
+                    previousIpCountry = country.Trim();
+                    return temp1;
                 }
                 else
                 {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim() + "\n");
+                    return "";
                 }
-                previousIpCountry = country.Trim();
-                return temp1;
+
             }
             #endregion
 

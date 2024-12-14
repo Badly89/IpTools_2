@@ -25,12 +25,12 @@ namespace OpTools
 
             foreach (IpClass obj in savedIpList)
             {
-                richTxtBoxRes.AppendText(obj.Ip + " - " + obj.City + " ");
-                //richTxtBoxRes.InsertLink("Link to ip.osnova.news", "https://ip.osnova.news/ip/" + obj.Ip + "/");
+                richTxtBoxRes.AppendText(obj.Ip + " - " + obj.City);
+                //richTxtBoxRes.InsertLink("Link to ip.osnova.news", "https://ip.osnova.news/ip/" + obj.Ip + "/", 1);
                 //richTxtBoxRes.AppendText("  ");
-                //richTxtBoxRes.InsertLink("Link to ipinfo.io", "https://ipinfo.io/" + obj.Ip);
+                //richTxtBoxRes.InsertLink("Link to ipinfo.io", "https://ipinfo.io/" + obj.Ip,1);
                 //richTxtBoxRes.AppendText("  ");
-                //richTxtBoxRes.InsertLink("Link to APEHA logs", "https://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
+                //richTxtBoxRes.InsertLink("Link to APEHA logs", "https://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml",1);
                 richTxtBoxRes.AppendText("\n");
             }
         }
