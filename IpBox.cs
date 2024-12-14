@@ -26,11 +26,11 @@ namespace OpTools
             foreach (IpClass obj in savedIpList)
             {
                 richTxtBoxRes.AppendText(obj.Ip + " - " + obj.City + " ");
-                richTxtBoxRes.InsertLink("Link to ip.osnova.news", "https://ip.osnova.news/ip/" + obj.Ip + "/");
-                richTxtBoxRes.AppendText("  ");
-                richTxtBoxRes.InsertLink("Link to ipinfo.io", "https://ipinfo.io/" + obj.Ip);
-                richTxtBoxRes.AppendText("  ");
-                richTxtBoxRes.InsertLink("Link to APEHA logs", "https://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
+                //richTxtBoxRes.InsertLink("Link to ip.osnova.news", "https://ip.osnova.news/ip/" + obj.Ip + "/");
+                //richTxtBoxRes.AppendText("  ");
+                //richTxtBoxRes.InsertLink("Link to ipinfo.io", "https://ipinfo.io/" + obj.Ip);
+                //richTxtBoxRes.AppendText("  ");
+                //richTxtBoxRes.InsertLink("Link to APEHA logs", "https://" + ipServer + ".apeha.ru/ulog_ip" + "_" + generateIpNumber(obj.Ip) + "_" + "showall_1.lhtml");
                 richTxtBoxRes.AppendText("\n");
             }
         }
@@ -49,7 +49,7 @@ namespace OpTools
         {
             string[] separate = e.LinkText.Split('#');
             System.Diagnostics.Process.Start(separate[1]);
-                
+
         }
 
         private void IpBox_FormClosing(object sender, FormClosingEventArgs e)
@@ -89,6 +89,7 @@ namespace OpTools
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            ipServer = "kovcheg2";
             numUD.Enabled = false;
             btnOpenCount.Enabled = false;
             btnCancel.Enabled = true;

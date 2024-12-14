@@ -62,6 +62,7 @@
             this.radioLinksApehaLogs = new System.Windows.Forms.RadioButton();
             this.radioLinksNicRu = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rbIpData = new System.Windows.Forms.RadioButton();
             this.radioRipe = new System.Windows.Forms.RadioButton();
             this.radioIpcalc = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -102,7 +103,6 @@
             this.btnPitProcess = new System.Windows.Forms.Button();
             this.checkPitFilter = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.rbIpData = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStripNotify.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -474,6 +474,7 @@
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "IP в результате:";
+            this.groupBox4.Visible = false;
             // 
             // radioNoLinksJustText
             // 
@@ -533,6 +534,20 @@
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Использовать сервис:";
+            // 
+            // rbIpData
+            // 
+            this.rbIpData.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rbIpData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbIpData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rbIpData.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rbIpData.Location = new System.Drawing.Point(3, 88);
+            this.rbIpData.Name = "rbIpData";
+            this.rbIpData.Size = new System.Drawing.Size(231, 30);
+            this.rbIpData.TabIndex = 10;
+            this.rbIpData.Text = "IPDATA.CO";
+            this.rbIpData.UseVisualStyleBackColor = true;
+            this.rbIpData.CheckedChanged += new System.EventHandler(this.RbIpData_CheckedChanged);
             // 
             // radioRipe
             // 
@@ -1019,20 +1034,6 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "к сведению";
-            // 
-            // rbIpData
-            // 
-            this.rbIpData.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rbIpData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbIpData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbIpData.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.rbIpData.Location = new System.Drawing.Point(3, 88);
-            this.rbIpData.Name = "rbIpData";
-            this.rbIpData.Size = new System.Drawing.Size(231, 30);
-            this.rbIpData.TabIndex = 10;
-            this.rbIpData.Text = "IPDATA.CO";
-            this.rbIpData.UseVisualStyleBackColor = true;
-            this.rbIpData.CheckedChanged += new System.EventHandler(this.RbIpData_CheckedChanged);
             // 
             // Form1
             // 

@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Net;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 
 namespace OpTools
@@ -169,9 +169,9 @@ namespace OpTools
                 this.leftPanel = new System.Windows.Forms.Button();
                 leftPanel.AutoSize = true;
                 leftPanel.Text = "Показать левую панель";
-                leftPanel.Size = new System.Drawing.Size(100,100);
+                leftPanel.Size = new System.Drawing.Size(100, 100);
                 leftPanel.Location = new System.Drawing.Point(3, 145);
-                    //string ipAnswer = "";
+                //string ipAnswer = "";
                 string ipList = boxIPInput.Text;
                 string[] ipLines = ipList.Split('\n');
                 int numberIpsToCheck = GetIpsNumber(ipLines);
@@ -305,19 +305,19 @@ namespace OpTools
             {
                 answerIpLine += separateWords[i] + " ";
             }
-            boxIPAnswer.AppendText(answerIpLine);
-            if (radioLinksNicRu.Checked == true)
-            {
-                boxIPAnswer.InsertLink(ip, "https://ipinfo.io/" + ip);
-            }
-            else if (radioNoLinksJustText.Checked == true)
-            {
-                boxIPAnswer.AppendText(ip);
-            }
-            else if (radioLinksApehaLogs.Checked == true)
-            {
-                boxIPAnswer.InsertLink(ip, "http://kovcheg2.apeha.ru/ulog_ip" + "_" + GenerateIpNumber(ip) + "_" + "showall_1.lhtml");
-            }
+            //boxIPAnswer.AppendText(answerIpLine);
+            //if (radioLinksNicRu.Checked == true)
+            //{
+            //    boxIPAnswer.InsertLink(ip, "https://ipinfo.io/" + ip);
+            //}
+            //else if (radioNoLinksJustText.Checked == true)
+            //{
+            boxIPAnswer.AppendText(ip);
+            //}
+            //else if (radioLinksApehaLogs.Checked == true)
+            //{
+            //    boxIPAnswer.InsertLink(ip, "http://kovcheg2.apeha.ru/ulog_ip" + "_" + GenerateIpNumber(ip) + "_" + "showall_1.lhtml");
+            //}
 
 
             boxIPAnswer.AppendText(" ");
@@ -379,42 +379,20 @@ namespace OpTools
 
                 string jsonadress = client.DownloadString("https://ipcalc.co/ipdata/" + ip.TrimStart());
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
-                if (jPerson.continent.name != null)
-                {
-                    if (jPerson.continent.name == jPerson.continent.region_name_1 && jPerson.continent.name == jPerson.continent.region_name_2)
-                    {
-                        if (jPerson.continent.name_translations != null) { continent = jPerson.continent.name_translations.ru; }
-                    }
-                    else
-                    {
-                        if (jPerson.continent.region_name_2 != null) { region = jPerson.continent.region_name_2; }
-                        if (jPerson.continent.region_name_1 != null) { okrug = jPerson.continent.region_name_1; }
-                    }
-                    if (jPerson.country.name != null)
-                    {
-                        country = jPerson.country.name;
-                        if (jPerson.country.name_translations != null)
-                        {
-                            country = jPerson.country.name_translations.ru;
+                if(jPerson.continent != null){
+                    continent = jPerson.continent.name;
+                    if (jPerson.region_name_2 != null) { region = jPerson.continent.region_name_2; } else { region = ""; }
+                    if (jPerson.region_name_1 != null) { okrug = jPerson.continent.region_name_1; } else { okrug = ""; }
+                } else { continent = ""; }
+               if(jPerson.country !=null) { country = jPerson.country.name; } else { country = ""; }
+                asn_organization =  (jPerson.isp != null) ? jPerson.isp.asn_organization : "" ;
+                city = jPerson.city != null ? jPerson.city.name : ""; 
+                 
+                
+                desc = (jPerson.isp != null) ? jPerson.isp.name : "";
+                org = (jPerson.isp != null) ? jPerson.isp.organization : ""; 
 
-                        }
-                        else { country = ""; }
-                    }
-                    if (jPerson.city.name != null)
-                    {
-                        city = jPerson.city.name;
-                        if (jPerson.city.name_translations != null)
-                        {
-                            city = jPerson.city.name_translations.ru;
-                        }
-
-                    }
-                    if (jPerson.isp.asn_organization != null) { asn_organization = jPerson.isp.asn_organization; }
-                    if (jPerson.isp.name != null) { desc = jPerson.isp.name; }
-                    if (jPerson.isp.organization != null) { org = jPerson.isp.organization; }
-                }
-                var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim();
-
+                var temp1 = country + ", " + region + ", " + okrug + ", " + city + ", " + asn_organization + ", " + desc + ", " + org;
                 IpClass ipToSave = new IpClass
                 {
                     Ip = ip,
@@ -425,16 +403,15 @@ namespace OpTools
                 if (!previousIpCountry.Equals("") && !previousIpCountry.Equals(country.Trim()))
                 {
                     boxIPAnswer.SelectionColor = Color.Red;
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+                    boxIPAnswer.AppendText(" - " + country + ", " + region + ", " + okrug + ", " + city + ", " + asn_organization + ", " + desc + ", " + org + "\n");
                 }
                 else
                 {
-                    boxIPAnswer.AppendText(" - " + country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + asn_organization.Trim() + ", " + desc.Trim() + ", " + org.Trim() + "\n");
+                    boxIPAnswer.AppendText(" - " + country + ", " + region + ", " + okrug + ", " + city + ", " + asn_organization + ", " + desc + ", " + org + "\n");
                 }
                 previousIpCountry = country.Trim();
-                    return temp1;
-                
-               
+                return temp1;
+
             }
             #endregion
 
@@ -453,21 +430,22 @@ namespace OpTools
                 WebClient client = new WebClient();
                 string jsonadress = client.DownloadString("https://rest.db.ripe.net/search.json?query-string=" + ip + "&type-filter=inetnum&type-filter=person&type-filter=organisation&type-filter=route-set&type-filter=domain&flags=no-referenced&flags=no-irt&flags=no-filtering&source=RIPE");
                 var jPerson = JsonConvert.DeserializeObject<Welcome>(jsonadress, Converter.Settings);
-               
-                if(jPerson.Objects.Object[0].Attributes.Attribute[1].Value != null) { netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value; }
+
+                if (jPerson.Objects.Object[0].Attributes.Attribute[1].Value != null) { netname = jPerson.Objects.Object[0].Attributes.Attribute[1].Value; }
                 if (jPerson.Objects.Object[0].Attributes.Attribute[2].Value != null) { descr = jPerson.Objects.Object[0].Attributes.Attribute[2].Value; }
-                if(jPerson.Objects.Object[0].Attributes.Attribute[3].Name == "descr")
+                if (jPerson.Objects.Object[0].Attributes.Attribute[3].Name == "descr")
                 {
                     city = jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
-                    if(jPerson.Objects.Object[0].Attributes.Attribute[4].Value != null) 
-                    { 
+                    if (jPerson.Objects.Object[0].Attributes.Attribute[4].Value != null)
+                    {
                         country = jPerson.Objects.Object[0].Attributes.Attribute[4].Value;
                     }
-                } else
+                }
+                else
                 {
                     country = jPerson.Objects.Object[0].Attributes.Attribute[3].Value;
                 }
-                
+
                 var temp1 = country.Trim() + ", " + city.Trim() + ", " + descr.Trim() + ", " + netname.Trim();
                 //string country = "";
                 //int count = jPerson.Objects.Object[0].Attributes.Attribute.Count;
@@ -515,7 +493,7 @@ namespace OpTools
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 WebClient client = new WebClient();
-                string jsonadress = client.DownloadString(" https://ipinfo.io/" + ip.TrimStart()+ token);
+                string jsonadress = client.DownloadString(" https://ipinfo.io/" + ip.TrimStart() + token);
                 var jPerson = JsonConvert.DeserializeObject<dynamic>(jsonadress);
                 if (jPerson.region != null) { region = jPerson.region; }
                 if (jPerson.country != null) { country = jPerson.country; }
@@ -527,7 +505,7 @@ namespace OpTools
                 var temp1 = country.Trim() + ", " + region.Trim() + ", " + okrug.Trim() + ", " + city.Trim() + ", " + loc.Trim() + ", " + org.Trim() + ", " + loc.Trim() + hostname.Trim();
 
                 IpClass ipToSave = new IpClass
-               
+
                 {
                     Ip = ip,
                     City = temp1
@@ -907,12 +885,12 @@ namespace OpTools
             splitContainerSuprug.Panel1Collapsed = false;
             gBRezultSuprug.Visible = false;
             btnLeftPanelSuprug.Visible = false;
-            
+
         }
 
         private void Button1_Click_1(object sender, EventArgs e)
         {
-            if(boxInput.Text != String.Empty)
+            if (boxInput.Text != String.Empty)
             {
                 answer = "";
                 id_giv = 0;
@@ -1746,7 +1724,7 @@ namespace OpTools
         {
             string[] separate2 = e.LinkText.Split('#');
             Process.Start(separate2[1]);
-            
+
         }
 
         private void ToolStripMenuItem1_Click_1(object sender, EventArgs e)
@@ -1788,10 +1766,10 @@ namespace OpTools
             }
         }
 
-       
+
         private void BtLeftPanel_Click(object sender, EventArgs e)
         {
-            if(splitContainerIp.Panel1Collapsed)
+            if (splitContainerIp.Panel1Collapsed)
             {
                 splitContainerIp.Panel1Collapsed = false;
                 btLeftPanel.Text = "<<";

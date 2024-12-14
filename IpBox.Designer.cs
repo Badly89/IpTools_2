@@ -91,6 +91,7 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры открытия логов";
+            this.groupBox1.Visible = false;
             // 
             // groupBox3
             // 
